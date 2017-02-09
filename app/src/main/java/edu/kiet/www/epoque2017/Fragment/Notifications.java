@@ -1,4 +1,4 @@
-package edu.kiet.www.epoque2017;
+package edu.kiet.www.epoque2017.Fragment;
 
 import android.content.Context;
 import android.net.Uri;
@@ -8,9 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import edu.kiet.www.epoque2017.R;
 
 
-public class Newsfeed extends Fragment {
+public class Notifications extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -22,7 +23,7 @@ public class Newsfeed extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public Newsfeed() {
+    public Notifications() {
         // Required empty public constructor
     }
 

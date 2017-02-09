@@ -1,4 +1,4 @@
-package layout;
+package edu.kiet.www.epoque2017.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import edu.kiet.www.epoque2017.Home;
+import edu.kiet.www.epoque2017.Activity.Home;
 import edu.kiet.www.epoque2017.R;
 
 

@@ -1,4 +1,4 @@
-package edu.kiet.www.epoque2017;
+package edu.kiet.www.epoque2017.Splash;
 
         import android.content.Context;
         import android.content.res.TypedArray;

@@ -1,4 +1,4 @@
-package edu.kiet.www.epoque2017;
+package edu.kiet.www.epoque2017.Splash;
 
 /*
 * Copyright 2014 Flavio Faria
@@ -23,7 +23,7 @@ package edu.kiet.www.epoque2017;
 
         import java.util.Random;
 
-public class RandomTransitionGenerator implements edu.kiet.www.epoque2017.TransitionGenerator {
+public class RandomTransitionGenerator implements TransitionGenerator {
 
     /** Default value for the transition duration in milliseconds. */
     public static final int DEFAULT_TRANSITION_DURATION = 10000;

@@ -1,4 +1,4 @@
-package layout;
+package edu.kiet.www.epoque2017.Fragment;
 
 import android.app.Activity;
 

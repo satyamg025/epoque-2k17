@@ -1,32 +1,23 @@
-package layout;
+package edu.kiet.www.epoque2017.Fragment;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
-import android.content.Context;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import edu.kiet.www.epoque2017.KenBurnsView;
+import edu.kiet.www.epoque2017.Splash.KenBurnsView;
 import edu.kiet.www.epoque2017.R;
 
 
 
 public class SplashFragment extends Fragment {
-    // Splash screen timer
+    // edu.kiet.www.epoque2017.Splash screen timer
     private static int SPLASH_TIME_OUT = 10000;
     private KenBurnsView mKenBurns;
     Button fab_events;

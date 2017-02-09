@@ -1,4 +1,4 @@
-package edu.kiet.www.epoque2017;
+package edu.kiet.www.epoque2017.Activity;
 
 import android.graphics.Color;
 import android.net.Uri;
@@ -11,11 +11,14 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
-import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
+import edu.kiet.www.epoque2017.Fragment.Events;
+import edu.kiet.www.epoque2017.Fragment.Notifications;
+import edu.kiet.www.epoque2017.Fragment.Schedule;
+import edu.kiet.www.epoque2017.Fragment.Profile;
+import edu.kiet.www.epoque2017.R;
+import edu.kiet.www.epoque2017.Fragment.Requests;
 
-public class Home extends AppCompatActivity implements Requests.OnFragmentInteractionListener, Newsfeed.OnFragmentInteractionListener, Profile.OnFragmentInteractionListener, Events.OnFragmentInteractionListener, Participations.OnFragmentInteractionListener {
+public class Home extends AppCompatActivity implements Requests.OnFragmentInteractionListener, Notifications.OnFragmentInteractionListener, Profile.OnFragmentInteractionListener, Events.OnFragmentInteractionListener, Schedule.OnFragmentInteractionListener {
 
     private Fragment fragment;
     private FragmentManager fragmentManager;
@@ -48,19 +51,19 @@ public class Home extends AppCompatActivity implements Requests.OnFragmentIntera
                     public boolean onNavigationItemSelected(MenuItem item) {
 
                         switch (item.getItemId()) {
-                            case R.id.action_search:
-                                fragment = new Newsfeed();
+                            case R.id.action_notification:
+                                fragment = new Notifications();
                                 break;
-                            case R.id.action_favorites:
+                            case R.id.action_requests:
                                 fragment = new Requests();
                                 break;
-                            case R.id.action_messages:
-                                fragment = new Participations();
+                            case R.id.action_schedule_result:
+                                fragment = new Schedule();
                                 break;
                             case R.id.action_profile:
                                 fragment = new Profile();
                                 break;
-                            case R.id.action_requests:
+                            case R.id.action_events:
                                 fragment = new Events();
                         }
 

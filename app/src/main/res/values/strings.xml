@@ -1,8 +1,9 @@
 <resources>
     <string name="app_name">EPOQUE 2017</string>
-    <string name="text_favorites">Requests</string>
-    <string name="text_messages">Participations</string>
+    <string name="text_events">Events</string>
+    <string name="text_request">Requests</string>
+    <string name="text_notifications">Notifications</string>
     <string name="text_profile">Profile</string>
-    <string name="text_search">Newsfeed</string>
-    <string name="text_request">Events</string>
+    <string name="text_schedule">Schedule</string>
+
 </resources>

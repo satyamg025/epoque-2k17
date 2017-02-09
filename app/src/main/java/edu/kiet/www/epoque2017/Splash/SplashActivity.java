@@ -1,4 +1,4 @@
-package edu.kiet.www.epoque2017;
+package edu.kiet.www.epoque2017.Splash;
 
 
 
@@ -7,15 +7,14 @@ package edu.kiet.www.epoque2017;
         import android.support.v4.app.FragmentManager;
         import android.support.v4.app.FragmentTransaction;
         import android.support.v7.app.AppCompatActivity;
-        import android.util.Log;
         import android.view.View;
         import android.widget.Button;
         import android.widget.LinearLayout;
 
-        import jp.wasabeef.blurry.Blurry;
-        import layout.LoginFragment;
-        import layout.RegisterFragment;
-        import layout.SplashFragment;
+        import edu.kiet.www.epoque2017.R;
+        import edu.kiet.www.epoque2017.Fragment.LoginFragment;
+        import edu.kiet.www.epoque2017.Fragment.RegisterFragment;
+        import edu.kiet.www.epoque2017.Fragment.SplashFragment;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -32,8 +31,9 @@ FragmentManager fragmentManager;
         fragmentManager= getSupportFragmentManager();
         ft = fragmentManager.beginTransaction();
         ft.add(new SplashFragment(), "fm");
-        ft.commit();
+
         ft.addToBackStack(null);
+        ft.commit();
         layout=(LinearLayout)findViewById(R.id.layout_buttons);
         login=(Button)findViewById(R.id.login);
         register=(Button)findViewById(R.id.register);

@@ -1,4 +1,4 @@
-package edu.kiet.www.epoque2017;
+package edu.kiet.www.epoque2017.Splash;
 
 /*
 * Copyright 2014 Flavio Faria
@@ -51,7 +51,7 @@ public class Transition {
 
     public Transition(RectF srcRect, RectF dstRect, long duration, Interpolator interpolator) {
         if (!MathUtils.haveSameAspectRatio(srcRect, dstRect)) {
-            throw new edu.kiet.www.epoque2017.IncompatibleRatioException();
+            throw new IncompatibleRatioException();
         }
         mSrcRect = srcRect;
         mDstRect = dstRect;

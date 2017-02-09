@@ -3,38 +3,39 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/action_search"
+        android:id="@+id/action_events"
         android:enabled="true"
         android:icon="@drawable/ic_search_white_24dp"
-        android:title="@string/text_search"
-        app:showAsAction="ifRoom" />
-
-    <item
-        android:id="@+id/action_favorites"
-        android:enabled="true"
-        android:icon="@drawable/ic_favorite_black_24dp"
-        android:title="@string/text_favorites"
-        app:showAsAction="ifRoom" />
-
-    <item
-        android:id="@+id/action_messages"
-        android:enabled="true"
-        android:icon="@drawable/ic_message_black_24dp"
-        android:title="@string/text_messages"
+        android:title="@string/text_events"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/action_requests"
         android:enabled="true"
-        android:icon="@drawable/ic_call_received_black_24dp"
+        android:icon="@drawable/ic_favorite_black_24dp"
         android:title="@string/text_request"
         app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_schedule_result"
+        android:enabled="true"
+        android:icon="@drawable/ic_message_black_24dp"
+        android:title="@string/text_schedule"
+        app:showAsAction="ifRoom" />
+
 
     <item
         android:id="@+id/action_profile"
         android:enabled="true"
         android:icon="@drawable/ic_face_black_24dp"
         android:title="@string/text_profile"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_notification"
+        android:enabled="true"
+        android:icon="@drawable/ic_face_black_24dp"
+        android:title="@string/text_notifications"
         app:showAsAction="ifRoom" />
 
 </menu>

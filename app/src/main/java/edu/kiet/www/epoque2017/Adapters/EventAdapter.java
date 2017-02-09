@@ -1,53 +1,44 @@
-package edu.kiet.www.epoque2017;
+package edu.kiet.www.epoque2017.Adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+
+import edu.kiet.www.epoque2017.CardObjects.EventCardData;
+import edu.kiet.www.epoque2017.R;
 
 /**
  * Created by Shrey on 02-02-2017.
  */
 
-public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.MyViewHolder> {
+public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder> {
 
     private final LayoutInflater inflater;
-    List<RequestCardData> data= Collections.emptyList();
+    List<EventCardData> data= Collections.emptyList();
 
-    public RequestAdapter(Context context,  List<RequestCardData> data){
+    public EventAdapter(Context context,  List<EventCardData> data){
         inflater=LayoutInflater.from(context);
         this.data=data;
     }
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view=inflater.inflate(R.layout.event_request_card,parent,false);
+        View view=inflater.inflate(R.layout.event_card,parent,false);
         MyViewHolder myViewHolder=new MyViewHolder(view);
         return myViewHolder;
     }
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        RequestCardData current=data.get(position);
+        EventCardData current=data.get(position);
         holder.EventName.setText(current.eventName);
-        holder.InvitedBy.setText("Invited By-"+current.invitedBy);
         holder.EventPhoto.setImageResource(current.eventPhoto);
-        //holder.Accept.setText(current.accept);
-        //holder.Reject.setText(current.reject);
-        /*holder.Accept.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(context,"Accepted",Toast.LENGTH_SHORT).show();
-            }
-        });*/
 
     }
 
@@ -57,18 +48,14 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.MyViewHo
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder{
-        TextView EventName,InvitedBy;
+        TextView EventName;
         ImageView EventPhoto;
-        Button Accept,Reject;
 
 
         public MyViewHolder(View itemView) {
             super(itemView);
             EventName=(TextView) itemView.findViewById(R.id.event_name);
-            InvitedBy=(TextView)itemView.findViewById(R.id.invited_by);
             EventPhoto=(ImageView)itemView.findViewById(R.id.event_photo);
-            Accept=(Button)itemView.findViewById(R.id.accept);
-            Reject=(Button)itemView.findViewById(R.id.reject);
 
         }
     }

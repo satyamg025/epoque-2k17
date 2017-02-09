@@ -1,4 +1,4 @@
-package edu.kiet.www.epoque2017;
+package edu.kiet.www.epoque2017.Fragment;
 import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,6 +13,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
+import edu.kiet.www.epoque2017.Adapters.EventAdapter;
+import edu.kiet.www.epoque2017.CardObjects.EventCardData;
+import edu.kiet.www.epoque2017.R;
 
 
 public class Events extends Fragment {

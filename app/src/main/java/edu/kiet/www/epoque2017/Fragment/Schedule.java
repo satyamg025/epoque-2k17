@@ -1,4 +1,4 @@
-package edu.kiet.www.epoque2017;
+package edu.kiet.www.epoque2017.Fragment;
 
 import android.net.Uri;
 import android.os.Bundle;
@@ -7,28 +7,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import edu.kiet.www.epoque2017.R;
 
-public class Profile extends Fragment {
+public class Schedule extends Fragment {
 
 
-    private OnFragmentInteractionListener mListener;
-
-    public Profile(){}
-
+    public Schedule() {
+        // Required empty public constructor
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        final View view5= inflater.inflate(R.layout.fragment_profile, container, false);
+        View view = inflater.inflate(R.layout.fragment_participations, container, false);
 
-        return view5;
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
+        return view;
     }
 
 
@@ -36,5 +29,4 @@ public class Profile extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
-
 }

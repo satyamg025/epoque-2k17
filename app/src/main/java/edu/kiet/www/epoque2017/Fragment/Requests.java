@@ -1,20 +1,20 @@
-package edu.kiet.www.epoque2017;
+package edu.kiet.www.epoque2017.Fragment;
 
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static android.R.attr.button;
+import edu.kiet.www.epoque2017.Adapters.RequestAdapter;
+import edu.kiet.www.epoque2017.R;
+import edu.kiet.www.epoque2017.CardObjects.RequestCardData;
 
 
 public class Requests extends Fragment {
