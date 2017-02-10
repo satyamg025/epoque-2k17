@@ -20,7 +20,7 @@ public class SplashActivity extends AppCompatActivity {
 
     FragmentTransaction ft;
     LinearLayout layout;
-FragmentManager fragmentManager;
+    FragmentManager fragmentManager;
     Button login,register;
 
     @Override
