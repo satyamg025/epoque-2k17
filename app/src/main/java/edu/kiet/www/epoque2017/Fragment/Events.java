@@ -20,7 +20,7 @@ import edu.kiet.www.epoque2017.R;
 
 public class Events extends Fragment {
 
-    private FragmentActivity myContext;
+
     FragmentManager fragManager;
     private RecyclerView recyclerView;
     private EventAdapter adapter;
@@ -32,7 +32,6 @@ public class Events extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_events, container, false);
 
-        fragManager= myContext.getSupportFragmentManager();
         recyclerView=(RecyclerView)view.findViewById(R.id.EventRecyclerView);
         adapter=new EventAdapter(getContext(),getData());
         recyclerView.setAdapter(adapter);
@@ -42,24 +41,6 @@ public class Events extends Fragment {
 
     }
 
-    @Override
-    public void onAttach(Activity activity) {
-        myContext=(FragmentActivity) activity;
-        super.onAttach(activity);
-    }
-
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
-    }
     public static List<EventCardData> getData(){
         List<EventCardData> data= new ArrayList<>();
         int eventImage=R.drawable.splash_background;

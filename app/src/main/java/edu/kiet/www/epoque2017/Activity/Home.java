@@ -19,7 +19,7 @@ import edu.kiet.www.epoque2017.Fragment.fragment_sched_result;
 import edu.kiet.www.epoque2017.R;
 import edu.kiet.www.epoque2017.Fragment.Requests;
 
-public class Home extends AppCompatActivity implements Requests.OnFragmentInteractionListener, Notifications.OnFragmentInteractionListener, Profile.OnFragmentInteractionListener, Events.OnFragmentInteractionListener, Schedule.OnFragmentInteractionListener {
+public class Home extends AppCompatActivity {
 
     private Fragment fragment;
     private FragmentManager fragmentManager;
@@ -77,19 +77,5 @@ public class Home extends AppCompatActivity implements Requests.OnFragmentIntera
                 });
     }
 
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-
-    }
-
-     /*class MyTimer extends TimerTask {
-
-
-         @Override
-         public void run() {
-             Random random=new Random();
-             frameLayout.setBackgroundColor(Color.argb(255, random.nextInt(256), random.nextInt(256), random.nextInt(256) ));
-         }
-     }*/
 
 }

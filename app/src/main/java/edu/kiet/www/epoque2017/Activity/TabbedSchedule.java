@@ -33,7 +33,6 @@ import edu.kiet.www.epoque2017.Adapters.ScheduleAdapter;
 import edu.kiet.www.epoque2017.Models.ScheduleDatumPOJO;
 import edu.kiet.www.epoque2017.Models.SchedulePOJO;
 import edu.kiet.www.epoque2017.R;
-import edu.kiet.www.epoque2017.Requests.ScheduleRequest;
 import edu.kiet.www.epoque2017.networking.ServiceGenerator;
 import retrofit2.Call;
 import retrofit2.Callback;

@@ -13,7 +13,7 @@ import edu.kiet.www.epoque2017.R;
 public class Profile extends Fragment {
 
 
-    private OnFragmentInteractionListener mListener;
+    //  private OnFragmentInteractionListener mListener;
 
     public Profile(){}
 
@@ -25,18 +25,6 @@ public class Profile extends Fragment {
         final View view5= inflater.inflate(R.layout.fragment_profile, container, false);
 
         return view5;
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
-
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
     }
 
 }
