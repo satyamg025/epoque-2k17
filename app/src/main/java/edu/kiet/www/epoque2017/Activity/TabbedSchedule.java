@@ -2,7 +2,6 @@ package edu.kiet.www.epoque2017.Activity;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.ColorStateList;
@@ -24,6 +23,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -33,7 +33,10 @@ import edu.kiet.www.epoque2017.Adapters.ScheduleAdapter;
 import edu.kiet.www.epoque2017.Models.ScheduleDatumPOJO;
 import edu.kiet.www.epoque2017.Models.SchedulePOJO;
 import edu.kiet.www.epoque2017.R;
+import edu.kiet.www.epoque2017.Requests.ScheduleBearer;
+import edu.kiet.www.epoque2017.Requests.ScheduleRequest;
 import edu.kiet.www.epoque2017.networking.ServiceGenerator;
+import edu.kiet.www.epoque2017.util.DbHandler;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -74,40 +77,110 @@ public class TabbedSchedule extends AppCompatActivity {
         progressDialog.setMessage("Loading...");
         progressDialog.show();
 
-        ScheduleRequest scheduleRequest= ServiceGenerator.createService(ScheduleRequest.class);
-        Call<SchedulePOJO> call=scheduleRequest.requestResponse();
-        call.enqueue(new Callback<SchedulePOJO>() {
-            @Override
-            public void onResponse(Call<SchedulePOJO> call, Response<SchedulePOJO> response) {
-                SchedulePOJO responseBody=response.body();
-                Log.e("schedule_data",String.valueOf(responseBody));
-                if(!responseBody.getError()) {
-                    progressDialog.dismiss();
-                    schedulelist=responseBody.getData();
-                    for(int i=0;i<schedulelist.size();i++){
-                        titleList.add("Day "+String.valueOf(i+1));
-                    }
-                    tabLayout.setupWithViewPager(mViewPager);
-                    setupViewPager(mViewPager);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<SchedulePOJO> call, Throwable t) {
-                progressDialog.dismiss();
-                new AlertDialog.Builder(TabbedSchedule.this)
-                        .setTitle("Failed")
-                        .setMessage("Failed to Connect")
-                        .setNegativeButton("OK", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                Intent intent=new Intent(getApplicationContext(),Home.class);
-                                startActivity(intent);
+        if(DbHandler.getString(getApplicationContext(),"bearer","").equals("")) {
+            ScheduleRequest scheduleRequest = ServiceGenerator.createService(ScheduleRequest.class);
+            Call<SchedulePOJO> call = scheduleRequest.requestResponse();
+            call.enqueue(new Callback<SchedulePOJO>() {
+                @Override
+                public void onResponse(Call<SchedulePOJO> call, Response<SchedulePOJO> response) {
+                    SchedulePOJO responseBody = response.body();
+                    Log.e("schedule_data", String.valueOf(responseBody));
+                    if (response.code() == 200) {
+                        if (!responseBody.getError()) {
+                            progressDialog.dismiss();
+                            schedulelist = responseBody.getData();
+                            for (int i = 0; i < schedulelist.size(); i++) {
+                                titleList.add("Day " + String.valueOf(i + 1));
                             }
-                        })
-                        .show();
+                            tabLayout.setupWithViewPager(mViewPager);
+                            setupViewPager(mViewPager);
+                        } else {
+                            DbHandler.unsetSession(TabbedSchedule.this, "isForcedLoggedOut");
+                        }
+                    } else {
+                        progressDialog.dismiss();
+                        new AlertDialog.Builder(TabbedSchedule.this)
+                                .setTitle("Failed")
+                                .setMessage("Failed to connect")
+                                .setNegativeButton("Ok", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        Intent intent = new Intent(getApplicationContext(), Home.class);
+                                        startActivity(intent);
+                                    }
+                                })
+                                .show();
+                    }
+                }
 
-            }
-        });
+                @Override
+                public void onFailure(Call<SchedulePOJO> call, Throwable t) {
+                    progressDialog.dismiss();
+                    new AlertDialog.Builder(TabbedSchedule.this)
+                            .setMessage("Connection Failed")
+                            .setNegativeButton("Ok", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Intent intent = new Intent(getApplicationContext(), Home.class);
+                                    startActivity(intent);
+                                }
+                            })
+                            .show();
+
+                }
+            });
+        }
+
+        else{
+
+            ScheduleBearer scheduleBearer = ServiceGenerator.createService(ScheduleBearer.class,DbHandler.getString(getApplicationContext(),"bearer",""));
+            Call<SchedulePOJO> call = scheduleBearer.requestResponse();
+            call.enqueue(new Callback<SchedulePOJO>() {
+                @Override
+                public void onResponse(Call<SchedulePOJO> call, Response<SchedulePOJO> response) {
+                    SchedulePOJO responseBody = response.body();
+                    Log.e("schedule_data", String.valueOf(responseBody));
+                    if (response.code() == 200) {
+                        if (!responseBody.getError()) {
+                            progressDialog.dismiss();
+                            schedulelist = responseBody.getData();
+                            for (int i = 0; i < schedulelist.size(); i++) {
+                                titleList.add("Day " + String.valueOf(i + 1));
+                            }
+                            tabLayout.setupWithViewPager(mViewPager);
+                            setupViewPager(mViewPager);
+                        } else {
+                            DbHandler.unsetSession(TabbedSchedule.this, "isForcedLoggedOut");
+                        }
+                    } else {
+                        progressDialog.dismiss();
+                        new AlertDialog.Builder(TabbedSchedule.this)
+                                .setTitle("Failed")
+                                .setMessage("Failed to connect")
+                                .setNegativeButton("Ok", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        Intent intent = new Intent(getApplicationContext(), Home.class);
+                                        startActivity(intent);
+                                    }
+                                })
+                                .show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<SchedulePOJO> call, Throwable t) {
+                    progressDialog.dismiss();
+                    new AlertDialog.Builder(TabbedSchedule.this)
+                            .setMessage("Connection Failed")
+                            .setNegativeButton("Ok", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Intent intent = new Intent(getApplicationContext(), Home.class);
+                                    startActivity(intent);
+                                }
+                            })
+                            .show();
+
+                }
+            });
+        }
 
     }
 
