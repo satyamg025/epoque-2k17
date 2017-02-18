@@ -1,6 +1,7 @@
 package edu.kiet.www.epoque2017.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import java.util.Collections;
 import java.util.List;
 
+import edu.kiet.www.epoque2017.Activity.EventActivity;
 import edu.kiet.www.epoque2017.CardObjects.EventCardData;
 import edu.kiet.www.epoque2017.R;
 
@@ -21,11 +23,13 @@ import edu.kiet.www.epoque2017.R;
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder> {
 
     private final LayoutInflater inflater;
+    Context context;
     List<EventCardData> data= Collections.emptyList();
 
-    public EventAdapter(Context context,  List<EventCardData> data){
+    public EventAdapter(Context context, List<EventCardData> data){
         inflater=LayoutInflater.from(context);
         this.data=data;
+        this.context=context;
     }
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -56,6 +60,13 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
             super(itemView);
             EventName=(TextView) itemView.findViewById(R.id.event_name);
             EventPhoto=(ImageView)itemView.findViewById(R.id.event_photo);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent=new Intent(context,EventActivity.class);
+                    context.startActivity(intent);
+                }
+            });
 
         }
     }
