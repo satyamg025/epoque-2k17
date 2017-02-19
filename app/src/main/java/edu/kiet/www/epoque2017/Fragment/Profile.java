@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,12 +17,15 @@ import edu.kiet.www.epoque2017.util.DbHandler;
 public class Profile extends Fragment {
 
     public Profile(){}
-    Button logout;
+    CardView registeredEvents,ourSponsors,logout,contactUs;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         final View view5= inflater.inflate(R.layout.fragment_profile, container, false);
-        logout=(Button)view5.findViewById(R.id.logout);
+        logout=(CardView)view5.findViewById(R.id.logout);
+        registeredEvents=(CardView)view5.findViewById(R.id.regEvents);
+        ourSponsors=(CardView)view5.findViewById(R.id.sponsors);
+        contactUs=(CardView)view5.findViewById(R.id.contact);
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
