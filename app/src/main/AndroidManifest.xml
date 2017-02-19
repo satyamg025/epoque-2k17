@@ -39,6 +39,16 @@
             android:label="@string/title_activity_tabbed_schedule"
             android:theme="@style/AppTheme.Base">
         </activity>
+        <activity
+            android:name=".Activity.RequestSent"
+            android:label="@string/title_request_sent"
+            android:theme="@style/AppTheme.Base"
+            />
+        <activity android:name=".Activity.RequestReceived"
+            android:label="@string/title_request_received"
+            android:theme="@style/AppTheme.Base"/>
+        <activity android:name=".Activity.EventActivity"
+            android:theme="@style/AppTheme.Base"/>
     </application>
 
 </manifest>

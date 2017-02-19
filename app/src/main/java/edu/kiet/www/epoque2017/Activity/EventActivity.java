@@ -2,6 +2,8 @@ package edu.kiet.www.epoque2017.Activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import edu.kiet.www.epoque2017.R;
@@ -16,7 +18,12 @@ public class EventActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event);
-        eventName=(TextView)findViewById(R.id.event_name);
+        Toolbar toolbar=(Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        setTitle("Event Name");
+        setTitleColor(getResources().getColor(R.color.white));
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         tagline=(TextView)findViewById(R.id.tagline);
         category=(TextView)findViewById(R.id.category);
         type=(TextView)findViewById(R.id.type);
@@ -30,5 +37,12 @@ public class EventActivity extends AppCompatActivity {
         facultyApexPhone=(TextView)findViewById(R.id.facuty_apex_phone);
         facultyApexDept=(TextView)findViewById(R.id.facuty_apex_dept);
 
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id= item.getItemId();
+        if(id==android.R.id.home)
+            onBackPressed();
+        return super.onOptionsItemSelected(item);
     }
 }

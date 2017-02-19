@@ -10,5 +10,6 @@
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="title_activity_tabbed_schedule">TabbedSchedule</string>
     <string name="register">REGISTER</string>
-
+    <string name="title_request_sent">Requests Sent</string>
+    <string name="title_request_received">Requests Received</string>
 </resources>

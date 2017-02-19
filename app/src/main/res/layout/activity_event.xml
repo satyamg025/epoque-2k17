@@ -2,28 +2,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="20dp"
+    android:padding="10dp"
     android:orientation="vertical"
     android:background="@drawable/image">
-    <TextView
-        android:layout_height="wrap_content"
+    <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
-        android:text="Event Name"
-        android:gravity="center"
-        android:textSize="30sp"
-        android:id="@+id/eventName"
-        android:textStyle="italic"
-        android:textColor="@color/white"
-        style="@style/TextAppearance.AppCompat.Title.Inverse"
-        />
-    <View
-        android:id="@+id/divider"
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:background="@color/white"
-        />
+        android:layout_height="?attr/actionBarSize"
+        android:id="@+id/toolbar">
+
+    </android.support.v7.widget.Toolbar>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

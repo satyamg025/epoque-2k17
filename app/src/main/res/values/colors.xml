@@ -13,5 +13,8 @@
     <color name="black">#000000</color>
     <color name="brown">#F47718</color>
 
+    <color name="accepted">#2e7d32</color>
+    <color name="rejected">#d50000</color>
+    <color name="pending">#ff6600</color>
 
 </resources>
