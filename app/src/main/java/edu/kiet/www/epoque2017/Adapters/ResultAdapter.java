@@ -20,31 +20,29 @@ import java.util.List;
 
 import edu.kiet.www.epoque2017.R;
 
-public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapter.ViewHolder> {
-    public List<String> title=new ArrayList<String>();
-    public List<String> body=new ArrayList<String>();
+public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder> {
 
-    public NotificationAdapter(List<String> title,List<String> body){
-        this.title=title;
-        this.body=body;
+    Context context;
+    public ResultAdapter(Context context) {
+        this.context=context;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.notification_card, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.result_card, parent, false);
         return new ViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
 
-        // holder.img.setImageURI(Uri.parse("www.hotel-r.net/im/hotel/be/welcome-2.png"));
+       // holder.img.setImageURI(Uri.parse("www.hotel-r.net/im/hotel/be/welcome-2.png"));
     }
 
 
     @Override
     public int getItemCount() {
-        return title.size();
+        return 5;
     }
 
 
@@ -57,4 +55,3 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         }
     }
 }
-

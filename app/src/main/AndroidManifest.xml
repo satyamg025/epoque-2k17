@@ -33,7 +33,9 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activity.ResultActivity" />
+
+        <activity android:name=".Activity.ResultActivity"
+            android:theme="@style/AppTheme.Base"/>
         <activity
             android:name=".Activity.TabbedSchedule"
             android:label="@string/title_activity_tabbed_schedule"

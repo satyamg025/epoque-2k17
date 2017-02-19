@@ -35,9 +35,9 @@ public class SplashActivity extends AppCompatActivity {
         ft.add(new SplashFragment(), "fm");
 
         ft.commit();
-        layout=(LinearLayout)findViewById(R.id.layout_buttons);
-        login=(Button)findViewById(R.id.login);
-        layout.setVisibility(View.GONE);
+        //layout=(LinearLayout)findViewById(R.id.layout_buttons);
+        //login=(Button)findViewById(R.id.login);
+        //layout.setVisibility(View.GONE);
 
         Thread splashTread = new Thread() {
             @Override
