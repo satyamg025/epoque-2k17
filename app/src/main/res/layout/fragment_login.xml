@@ -120,6 +120,16 @@
              android:background="#FFFFFF"
              />
 
+         <View
+             android:id="@+id/divider0"
+             android:layout_width="match_parent"
+             android:layout_margin="15dp"
+             android:layout_height="2dp"
+             android:layout_above="@+id/layout"
+             android:background="#FFFFFF"
+             />
+
+
 
          <Button
              android:layout_height="wrap_content"
