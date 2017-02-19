@@ -23,7 +23,7 @@ public class SplashActivity extends AppCompatActivity {
     FragmentManager fragmentManager;
     Button login;
     protected boolean _active = true;
-    protected int _splashTime = 7000;
+    protected int _splashTime = 5000;
  int count=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
