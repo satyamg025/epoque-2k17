@@ -9,6 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Kawwali"
+        android:id="@+id/event_name"
         android:layout_marginTop="16dp"
         android:layout_marginLeft="16dp"
         android:textSize="20dp"
@@ -32,6 +33,7 @@
            <TextView
                android:layout_width="wrap_content"
                android:layout_height="50dp"
+               android:id="@+id/winner2"
                android:text="YAGYA DATT SHARMA PATHAK"
                android:textStyle="italic|bold"/>
            <View
@@ -63,6 +65,7 @@
                android:layout_width="wrap_content"
                android:layout_height="50dp"
                android:text="Pranjal Gupta"
+               android:id="@+id/winner1"
                android:textStyle="italic|bold"/>
            <View
                android:layout_width="match_parent"
@@ -93,6 +96,7 @@
                android:layout_width="wrap_content"
                android:layout_height="50dp"
                android:text="Sooraj Shingari"
+               android:id="@+id/winner3"
                android:textStyle="italic|bold"
                android:layout_marginLeft="10dp"/>
 
