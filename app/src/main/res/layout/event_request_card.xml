@@ -4,8 +4,8 @@
     app:cardUseCompatPadding="true"
     android:minHeight="200dp"
     android:id="@+id/event_card"
-    android:onClick="cardClicked"
     app:cardElevation="10dp"
+    app:cardBackgroundColor="@color/white"
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
     >
@@ -25,6 +25,7 @@
         android:layout_height="wrap_content" 
         android:layout_marginTop="10dp"
         android:text="Event Name"
+        android:textColor="@color/black"
         android:id="@+id/event_name"
         android:textStyle="bold|italic"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
@@ -47,22 +48,27 @@
         android:layout_marginTop="10dp"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
         android:textColor="@color/black"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="15dp"
-        android:layout_weight="1">
-        <Button
+
+        <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:id="@+id/reject"
-            android:text="Reject"
-            android:textColor="#f44336"
-            android:textStyle="bold"
-            android:layout_gravity="right"
-            android:layout_weight="0.5"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:id="@+id/ll1"
+                android:layout_marginTop="15dp"
+                android:layout_weight="1">
+              <Button
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:background="@null"
+                  android:text="Reject"
+                  android:layout_weight="0.5"
+                  android:id="@+id/reject"
+                  android:layout_gravity="right"
+                  android:textStyle="bold"
+                  android:textColor="@color/rejected"
             />
         <Button
         android:layout_width="wrap_content"
@@ -75,7 +81,23 @@
             android:textStyle="bold"
             android:textColor="#4caf50"
         />
-    </LinearLayout>
+            </LinearLayout>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:text="Accepted"
+                android:visibility="gone"
+                android:layout_weight="1"
+                android:layout_marginTop="15dp"
+                android:id="@+id/accept_reject"
+                android:layout_gravity="right"
+                android:textStyle="bold"
+                android:textColor="#4caf50"
+                />
+
+        </RelativeLayout>
+
     
 </LinearLayout>
 

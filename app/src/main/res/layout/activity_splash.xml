@@ -1,63 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:orientation="vertical">
     <fragment
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:name="layout.SplashFragment"
-    android:id="@+id/fragment"
-    />
-    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:id="@+id/layout_buttons"
-        android:layout_alignParentBottom="true">
-    <View
-        android:id="@+id/divider"
-        android:layout_width="match_parent"
-        android:layout_margin="15dp"
-        android:layout_height="2dp"
-        android:layout_above="@+id/layout"
-        android:background="#FFFFFF"
+        android:layout_height="match_parent"
+        android:name="edu.kiet.www.epoque2017.Fragment.SplashFragment"
+        android:id="@+id/fragment"
         />
 
-    <LinearLayout
-        android:layout_height="50dp"
-        android:layout_width="match_parent"
-        android:orientation="horizontal"
-        android:id="@+id/layout"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-
-        android:weightSum="1">
-
-        <Button
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:text="REGISTER"
-            android:id="@+id/register"
-            android:textColor="#ffff"
-            android:background="@null"
-            android:onClick="onRegister"
-            android:layout_weight="0.5"
-            android:textSize="15dp"/>
-
-        <Button
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:background="#00000000"
-            android:text="LOGIN"
-            android:onClick="onLogin"
-            android:id="@+id/login"
-            android:textColor="#ffff"
-            android:textSize="15dp"
-            android:layout_weight="0.5"
-
-            />
-    </LinearLayout>
-    </LinearLayout>
 </RelativeLayout>

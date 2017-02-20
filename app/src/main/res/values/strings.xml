@@ -1,8 +1,15 @@
 <resources>
     <string name="app_name">EPOQUE 2017</string>
-    <string name="text_favorites">Requests</string>
-    <string name="text_messages">Participations</string>
+    <string name="text_events">Events</string>
+    <string name="text_request">Requests</string>
+    <string name="text_notifications">Notifications</string>
     <string name="text_profile">Profile</string>
-    <string name="text_search">Newsfeed</string>
-    <string name="text_request">Events</string>
+    <string name="text_schedule">Schedule</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="title_activity_tabbed_schedule">TabbedSchedule</string>
+    <string name="register">REGISTER</string>
+    <string name="title_request_sent">Requests Sent</string>
+    <string name="title_request_received">Requests Received</string>
 </resources>
