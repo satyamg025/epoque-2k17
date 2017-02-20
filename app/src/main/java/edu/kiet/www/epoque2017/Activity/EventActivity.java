@@ -14,13 +14,15 @@ import edu.kiet.www.epoque2017.R;
 
 public class EventActivity extends AppCompatActivity {
     TextView  eventName,tagline,category,type,minParticipants,maxParticipants,description,time,studentApexName,studentApexPhone,facultyApexName,facultyApexPhone,facultyApexDept;
-
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event);
         Toolbar toolbar=(Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        setTitle("Event Name");
+        Bundle bundle=new Bundle();
+        bundle=getIntent().getBundleExtra("bundle");
+        setTitle(bundle.getString("name"));
         setTitleColor(getResources().getColor(R.color.white));
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -36,6 +38,19 @@ public class EventActivity extends AppCompatActivity {
         facultyApexName=(TextView)findViewById(R.id.faculty_apex_name);
         facultyApexPhone=(TextView)findViewById(R.id.facuty_apex_phone);
         facultyApexDept=(TextView)findViewById(R.id.facuty_apex_dept);
+        tagline.setText(bundle.getString("tagline"));
+        if(bundle.getString("category").equalsIgnoreCase("S"))
+            category.setText("Solo");
+        if(bundle.getString("category").equalsIgnoreCase("G"))
+            category.setText("Group");
+        if(bundle.getString("type").equalsIgnoreCase("I"))
+            type.setText("Institute");
+        if(bundle.getString("type").equalsIgnoreCase("D"))
+            type.setText("Department");
+        description.setText(bundle.getString("description"));
+        minParticipants.setText(bundle.getString("minPart"));
+        maxParticipants.setText(bundle.getString("maxPart"));
+        time.setText(bundle.getString("time"));
 
     }
     @Override
