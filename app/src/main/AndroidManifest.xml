@@ -44,9 +44,11 @@
         <activity
             android:name=".Activity.RequestSent"
             android:label="@string/title_request_sent"
+            android:noHistory="true"
             android:theme="@style/AppTheme.Base"
             />
         <activity android:name=".Activity.RequestReceived"
+            android:noHistory="true"
             android:label="@string/title_request_received"
             android:theme="@style/AppTheme.Base"/>
         <activity android:name=".Activity.EventActivity"

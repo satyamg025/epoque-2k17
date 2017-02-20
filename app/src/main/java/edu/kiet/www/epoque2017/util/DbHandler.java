@@ -5,9 +5,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 
 import edu.kiet.www.epoque2017.Splash.SplashActivity;
 import edu.kiet.www.epoque2017.app.Config;
+import edu.kiet.www.epoque2017.ui.coloredSnackBar;
 
 /**
  * Created by satyam on 2/10/17.

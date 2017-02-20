@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -36,6 +37,7 @@ import edu.kiet.www.epoque2017.R;
 import edu.kiet.www.epoque2017.Requests.ScheduleBearer;
 import edu.kiet.www.epoque2017.Requests.ScheduleRequest;
 import edu.kiet.www.epoque2017.networking.ServiceGenerator;
+import edu.kiet.www.epoque2017.ui.coloredSnackBar;
 import edu.kiet.www.epoque2017.util.DbHandler;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -95,6 +97,8 @@ public class TabbedSchedule extends AppCompatActivity {
                             tabLayout.setupWithViewPager(mViewPager);
                             setupViewPager(mViewPager);
                         } else {
+                            Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "Session Expired", Snackbar.LENGTH_INDEFINITE);
+                            coloredSnackBar.alert(snackbar).show();
                             DbHandler.unsetSession(TabbedSchedule.this, "isForcedLoggedOut");
                         }
                     } else {
@@ -148,6 +152,8 @@ public class TabbedSchedule extends AppCompatActivity {
                             tabLayout.setupWithViewPager(mViewPager);
                             setupViewPager(mViewPager);
                         } else {
+                            Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "Session Expired", Snackbar.LENGTH_INDEFINITE);
+                            coloredSnackBar.alert(snackbar).show();
                             DbHandler.unsetSession(TabbedSchedule.this, "isForcedLoggedOut");
                         }
                     } else {

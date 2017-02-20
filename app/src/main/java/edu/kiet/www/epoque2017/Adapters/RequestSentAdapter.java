@@ -13,11 +13,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import edu.kiet.www.epoque2017.CardObjects.RequestSentCardData;
 import edu.kiet.www.epoque2017.Fragment.RequestSentDialogFragment;
+import edu.kiet.www.epoque2017.Models.RequestSentDataumPOJO;
+import edu.kiet.www.epoque2017.Models.RequestSentPOJO;
 import edu.kiet.www.epoque2017.R;
 
 /**
@@ -25,7 +28,7 @@ import edu.kiet.www.epoque2017.R;
  */
 
 public class RequestSentAdapter extends RecyclerView.Adapter<RequestSentAdapter.view_holder>{
-    public List<RequestSentCardData> data= Collections.emptyList();
+    public List<RequestSentDataumPOJO> data=new ArrayList<RequestSentDataumPOJO>();
     public Context context;
     public CardView cardView;
     public LinearLayout layout;
@@ -34,7 +37,7 @@ public class RequestSentAdapter extends RecyclerView.Adapter<RequestSentAdapter.
     public TextView textView2;
     public ImageView status;
     FragmentManager fragmentManager;
-    public RequestSentAdapter(Context context,List<RequestSentCardData> data,FragmentManager fragmentManager){
+    public RequestSentAdapter(Context context, List<RequestSentDataumPOJO> data, FragmentManager fragmentManager){
         this.data=data;
         this.context=context;
         this.fragmentManager=fragmentManager;
@@ -61,11 +64,11 @@ public class RequestSentAdapter extends RecyclerView.Adapter<RequestSentAdapter.
 
     @Override
     public void onBindViewHolder(view_holder holder, final int position) {
-        final RequestSentCardData current = data.get(position);
+       // final RequestSentCardData current = data.get(position);
         holder.setIsRecyclable(false);
-        holder.eventName.setText(current.event);
-        holder.eventImage.setImageResource(current.image);
-        for (int i = 0; i < current.partId.size(); i++)
+        holder.eventName.setText(data.get(position).getEventName());
+        //holder.eventImage.setImageResource(current.image);
+        for (int i = 0; i < data.get(position).getInvitationTo().size(); i++)
         {
             linearLayout=new LinearLayout(context);
             status=new ImageView(context);
@@ -80,16 +83,16 @@ public class RequestSentAdapter extends RecyclerView.Adapter<RequestSentAdapter.
             textView.setLayoutParams(new LinearLayoutCompat.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
             textView2.setLayoutParams(new LinearLayoutCompat.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
             linearLayout.setHorizontalGravity(View.TEXT_ALIGNMENT_CENTER);
-            if(i%2==0) {
-                textView.setText(current.partId.get(i));
+            if(data.get(position).getStatus().get(i).equals("ACCEPTED")) {
+                textView.setText(data.get(position).getInvitationTo().get(i));
                 textView2.setText("Accepted");
                 status.setImageResource(R.drawable.accepted);
                 textView.setTextColor(context.getResources().getColor(R.color.accepted));
                 textView2.setTextColor(context.getResources().getColor(R.color.accepted));
                 status.setColorFilter(context.getResources().getColor(R.color.accepted));
             }
-            else if(i==3) {
-                textView.setText(current.partId.get(i));
+            else if(data.get(position).getStatus().get(i).equals("REJECTED")) {
+                textView.setText(data.get(position).getInvitationTo().get(i));
                 textView2.setText("Rejected");
                 status.setImageResource(R.drawable.rejected);
                 textView.setTextColor(context.getResources().getColor(R.color.rejected));
@@ -97,8 +100,8 @@ public class RequestSentAdapter extends RecyclerView.Adapter<RequestSentAdapter.
                 status.setColorFilter(context.getResources().getColor(R.color.rejected));
             }
 
-            else {
-                textView.setText(current.partId.get(i));
+            else if(data.get(position).getStatus().get(i).equals("PENDING")){
+                textView.setText(data.get(position).getInvitationTo().get(i));
                 textView2.setText("Pending");
                 status.setImageResource(R.drawable.pending);
                 textView.setTextColor(context.getResources().getColor(R.color.pending));
@@ -114,14 +117,14 @@ public class RequestSentAdapter extends RecyclerView.Adapter<RequestSentAdapter.
             linearLayout.addView(textView2);
             linearLayout.setClickable(true);
             layout.addView(linearLayout);
-            if(i%2!=0) {
+            if((data.get(position).getStatus().get(i).equals("PENDING") || data.get(position).getStatus().get(i).equals("REJECTED"))&& data.get(position).getTeamLeaderBool()) {
                 linearLayout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         int id = view.getId() % 100;
-                        RequestSentDialogFragment dialog = RequestSentDialogFragment.newInstance(current.partId.get(id).trim());
+                        RequestSentDialogFragment dialog = RequestSentDialogFragment.newInstance(context,data.get(position).getInvitationTo().get(id).trim(),data.get(position).getEventId());
                         dialog.show(fragmentManager, "fm");
-                        Log.e(current.partId.get(id).trim(), Integer.toString(id));
+                        Log.e(data.get(position).getInvitationTo().get(id).trim(), Integer.toString(id));
                     }
                 });
             }

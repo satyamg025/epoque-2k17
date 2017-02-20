@@ -17,10 +17,11 @@
         android:id="@+id/body"
         style="@style/Base.TextAppearance.AppCompat.Body1"
         android:text="dnldlksdklnsdksdkklll"/>
-        <view
+        <View
             android:layout_width="match_parent"
+            android:layout_height="1dp"
             android:background="#767676"
             android:paddingStart="4dp"
             android:paddingEnd="4dp"
-            android:layout_height="1dp"/>
+            />
 </LinearLayout>

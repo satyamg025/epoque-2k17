@@ -47,9 +47,7 @@ public class LoginFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         parentView=inflater.inflate(R.layout.fragment_login, container, false);
-        login=(Button)getActivity().findViewById(R.id.login);
-        ll=(LinearLayout)getActivity().findViewById(R.id.layout_buttons);
-        ll.setVisibility(View.VISIBLE);
+        login=(Button)parentView.findViewById(R.id.login);
 
         username=(EditText)parentView.findViewById(R.id.input_roll);
         password=(EditText)parentView.findViewById(R.id.input_password);
