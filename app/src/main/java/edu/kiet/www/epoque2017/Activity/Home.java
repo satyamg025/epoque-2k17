@@ -43,6 +43,7 @@ public class Home extends AppCompatActivity {
     int count = 0,flag=0;
     Boolean doubleBackToExitPressedOnce=false;
     FrameLayout frameLayout;
+    BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,7 +126,7 @@ public class Home extends AppCompatActivity {
             });
         }
 
-        BottomNavigationView bottomNavigationView = (BottomNavigationView)
+       bottomNavigationView = (BottomNavigationView)
                 findViewById(R.id.bottom_navigation);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(
@@ -164,7 +165,7 @@ public class Home extends AppCompatActivity {
         if(flag==1){
             flag=0;
             fragment=new Events();
-            final FragmentTransaction transaction = fragmentManager.beginTransaction();
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
             transaction.replace(R.id.main_container, fragment).commit();
         }
         else if(flag==0){
@@ -172,6 +173,7 @@ public class Home extends AppCompatActivity {
                 this.finishAffinity();
                 return;
             }
+
             this.doubleBackToExitPressedOnce = true;
 
             Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content),"Press again to exit", Snackbar.LENGTH_SHORT);
