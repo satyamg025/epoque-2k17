@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">EPOQUE 2017</string>
+    <string name="app_name">Epoque 2017</string>
     <string name="text_events">Events</string>
     <string name="text_request">Requests</string>
     <string name="text_notifications">Notifications</string>

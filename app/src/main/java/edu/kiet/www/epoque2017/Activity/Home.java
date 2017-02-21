@@ -125,10 +125,6 @@ public class Home extends AppCompatActivity {
                     public boolean onNavigationItemSelected(MenuItem item) {
 
                         switch (item.getItemId()) {
-                            case R.id.action_notification:
-                                flag=1;
-                                fragment = new Notifications();
-                                break;
                             case R.id.action_requests:
                                 flag=1;
                                 fragment = new Requests();

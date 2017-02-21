@@ -31,7 +31,7 @@ import edu.kiet.www.epoque2017.util.DbHandler;
 public class Profile extends Fragment {
     private RecyclerView recyclerView;
     private RegisteredEventsAdapter adapter;
-    CardView  logout_card,contactUs;
+    CardView  logout_card;
     public Profile(){}
     TextView name;
     String name_displayed;
@@ -54,13 +54,6 @@ public class Profile extends Fragment {
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
         logout_card=(CardView)view5.findViewById(R.id.logout);
-        contactUs=(CardView)view5.findViewById(R.id.contact) ;
-        /*contactUs.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showDialog();
-            }
-        });*/
         logout_card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -83,6 +76,7 @@ public class Profile extends Fragment {
 
         return view5;
     }
+
 
 
 }

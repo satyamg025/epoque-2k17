@@ -90,7 +90,7 @@
                             android:gravity="left|center"
                             android:text="Registered Events"
                             android:textColor="@color/white"
-                            android:textSize="25sp"
+                            android:textSize="20sp"
                             />
                     </LinearLayout>
                     <LinearLayout
@@ -128,7 +128,7 @@
                     <ImageView
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/alarm"
+                        android:src="@drawable/alarm_small"
                         android:layout_gravity="center"
                         android:layout_margin="5dp"
                         />
@@ -139,7 +139,7 @@
                         android:gravity="left"
                         android:text="Notifications"
                         android:textColor="@color/white"
-                        android:textSize="25sp"
+                        android:textSize="20sp"
                         />
                 </LinearLayout>
 
@@ -162,7 +162,7 @@
                     <ImageView
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/phone"
+                        android:src="@drawable/mail"
                         android:layout_gravity="center"
                         android:layout_margin="5dp"
                         />
@@ -171,9 +171,9 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:gravity="left"
-                        android:text="Contact Us"
+                        android:text="Contact Us : erp@kiet.edu"
                         android:textColor="@color/white"
-                        android:textSize="25sp"
+                        android:textSize="20sp"
                         />
                 </LinearLayout>
 
@@ -193,8 +193,8 @@
                     >
                     <ImageView
                         android:layout_width="50dp"
-                        android:layout_height="40dp"
-                        android:src="@drawable/sponsors"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/currency_small"
                         android:layout_gravity="center"
                         android:layout_margin="5dp"
                         />
@@ -205,7 +205,7 @@
                         android:gravity="left"
                         android:text="Sponsors"
                         android:textColor="@color/white"
-                        android:textSize="25sp"
+                        android:textSize="20sp"
                         />
                 </LinearLayout>
 
@@ -229,7 +229,7 @@
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:src="@drawable/logout"
+                        android:src="@drawable/logout_small"
                         android:layout_margin="5dp"
                         />
                     <TextView
@@ -239,7 +239,7 @@
                         android:gravity="left"
                         android:text="Logout"
                         android:textColor="@color/white"
-                        android:textSize="25sp"
+                        android:textSize="20sp"
                         />
                 </LinearLayout>
 

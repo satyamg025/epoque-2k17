@@ -49,6 +49,12 @@
     <style name="CustomActionBarTextColor" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">
         <item name="android:textColor">@color/white</item>
     </style>
-
+    <style name="MyAlertDialogStyle" parent="Theme.AppCompat.DayNight.Dialog">
+        <!-- Used for the buttons -->
+        <item name="colorAccent">@color/colorAccent</item>
+        <!-- Used for the title and text -->
+        <item name="android:textColorPrimary">@color/colorPrimaryDark</item>
+        <!-- Used for the background -->
+    </style>
     <style name="CustomActionTitle" parent="Theme.AppCompat.NoActionBar" />
 </resources>

@@ -18,14 +18,14 @@ import edu.kiet.www.epoque2017.ui.coloredSnackBar;
 
 
 public class Requests extends Fragment {
-Button sent,received;
+View sent,received;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_requests, container, false);
-        sent=(Button)view.findViewById(R.id.sent);
-        received=(Button)view.findViewById(R.id.received);
+        sent=(View)view.findViewById(R.id.sent);
+        received=(View)view.findViewById(R.id.received);
         final ProgressDialog progressDialog = new ProgressDialog(getContext());
 
         sent.setOnClickListener(new View.OnClickListener() {

@@ -47,7 +47,7 @@ public class RequestReceived extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        final ProgressDialog progressDialog=new ProgressDialog(this);
+        final ProgressDialog progressDialog=new ProgressDialog(this,R.style.MyAlertDialogStyle);
 
         progressDialog.setIndeterminate(true);
         progressDialog.setCancelable(false);

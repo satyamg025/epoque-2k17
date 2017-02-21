@@ -111,6 +111,7 @@ public class RequestReceivedAdapter extends RecyclerView.Adapter<RequestReceived
                                             if (response.code() == 200) {
                                                 if (!responseBody.getError()) {
                                                    // progressDialog.dismiss();
+                                                    Toast.makeText(context,responseBody.getMsg(),Toast.LENGTH_SHORT);
                                                     Intent intent=new Intent(context, RequestReceived.class);
                                                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                                     context.startActivity(intent);
@@ -170,6 +171,7 @@ public class RequestReceivedAdapter extends RecyclerView.Adapter<RequestReceived
                                     if (response.code() == 200) {
                                         if (!responseBody.getError()) {
                                             //progressDialog.dismiss();
+                                            Toast.makeText(context,responseBody.getMsg(),Toast.LENGTH_SHORT);
                                             Intent intent=new Intent(context, RequestReceived.class);
                                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                             context.startActivity(intent);

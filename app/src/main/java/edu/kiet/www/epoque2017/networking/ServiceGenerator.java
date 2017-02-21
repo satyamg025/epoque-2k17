@@ -14,7 +14,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ServiceGenerator {
 
-    public static String API_BASE_URL = "http://192.168.137.232/epok2k17/index.php/";
+    public static String API_BASE_URL = "https://www.epoque-kiet.com/index.php/";
    // public static String API_BASE_URL = "http://192.168.43.21/epok2k17/index.php/";
     private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder().readTimeout(60, TimeUnit.SECONDS)
             .connectTimeout(60, TimeUnit.SECONDS);

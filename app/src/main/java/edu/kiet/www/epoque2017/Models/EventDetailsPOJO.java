@@ -11,16 +11,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EventDetailsPOJO {
-
-    @SerializedName("error")
+    @SerializedName("img")
     @Expose
-    private Boolean error;
-    @SerializedName("message")
-    @Expose
-    private String message;
+    private List<String> img = new ArrayList<>();
     @SerializedName("event_name")
     @Expose
     private List<String> eventName = new ArrayList<>();
+    @SerializedName("event_id")
+    @Expose
+    private List<String> eventId = new ArrayList<>();
     @SerializedName("short_name")
     @Expose
     private List<String> shortName = new ArrayList<>();
@@ -51,39 +50,13 @@ public class EventDetailsPOJO {
     @SerializedName("result_type")
     @Expose
     private List<String> resultType = new ArrayList<>();
-    @SerializedName("img_url")
-    @Expose
-    private List<String> imgUrl = new ArrayList<>();
-    @SerializedName("apex_stu_name")
-    @Expose
-    private List<String> apexStuName = new ArrayList<>();
-    @SerializedName("apex_stu_phone")
-    @Expose
-    private List<String> apexStuPhone = new ArrayList<>();
-    @SerializedName("apex_fac_name")
-    @Expose
-    private List<String> apexFacName = new ArrayList<>();
-    @SerializedName("apex_fac_phone")
-    @Expose
-    private List<String> apexFacPhone = new ArrayList<>();
-    @SerializedName("apex_fac_dept")
-    @Expose
-    private List<String> apexFacDept = new ArrayList<>();
 
-    public Boolean getError() {
-        return error;
+    public List<String> getImg() {
+        return img;
     }
 
-    public void setError(Boolean error) {
-        this.error = error;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
+    public void setImg(List<String> img) {
+        this.img = img;
     }
 
     public List<String> getEventName() {
@@ -92,6 +65,14 @@ public class EventDetailsPOJO {
 
     public void setEventName(List<String> eventName) {
         this.eventName = eventName;
+    }
+
+    public List<String> getEventId() {
+        return eventId;
+    }
+
+    public void setEventId(List<String> eventId) {
+        this.eventId = eventId;
     }
 
     public List<String> getShortName() {
@@ -172,54 +153,6 @@ public class EventDetailsPOJO {
 
     public void setResultType(List<String> resultType) {
         this.resultType = resultType;
-    }
-
-    public List<String> getImgUrl() {
-        return imgUrl;
-    }
-
-    public void setImgUrl(List<String> imgUrl) {
-        this.imgUrl = imgUrl;
-    }
-
-    public List<String> getApexStuName() {
-        return apexStuName;
-    }
-
-    public void setApexStuName(List<String> apexStuName) {
-        this.apexStuName = apexStuName;
-    }
-
-    public List<String> getApexStuPhone() {
-        return apexStuPhone;
-    }
-
-    public void setApexStuPhone(List<String> apexStuPhone) {
-        this.apexStuPhone = apexStuPhone;
-    }
-
-    public List<String> getApexFacName() {
-        return apexFacName;
-    }
-
-    public void setApexFacName(List<String> apexFacName) {
-        this.apexFacName = apexFacName;
-    }
-
-    public List<String> getApexFacPhone() {
-        return apexFacPhone;
-    }
-
-    public void setApexFacPhone(List<String> apexFacPhone) {
-        this.apexFacPhone = apexFacPhone;
-    }
-
-    public List<String> getApexFacDept() {
-        return apexFacDept;
-    }
-
-    public void setApexFacDept(List<String> apexFacDept) {
-        this.apexFacDept = apexFacDept;
     }
 
 }
