@@ -40,6 +40,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:text="Shrey"
+                    android:id="@+id/name"
                     android:textSize="30dp"
                     android:textStyle="bold|italic"
                     android:textColor="@color/white"

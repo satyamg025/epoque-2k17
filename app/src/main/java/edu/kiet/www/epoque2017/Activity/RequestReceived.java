@@ -99,7 +99,7 @@ public class RequestReceived extends AppCompatActivity {
                 public void onFailure(Call<RequestReceivedPOJO> call, Throwable t) {
                     progressDialog.dismiss();
                     new AlertDialog.Builder(RequestReceived.this)
-                            .setMessage("Connection Failed")
+                            .setMessage("No requests received")
                             .setNegativeButton("Ok", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
                                     startActivity(new Intent(RequestReceived.this,Home.class));

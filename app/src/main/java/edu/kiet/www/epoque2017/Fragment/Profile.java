@@ -12,6 +12,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
+
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +23,7 @@ import edu.kiet.www.epoque2017.Adapters.EventAdapter;
 import edu.kiet.www.epoque2017.Adapters.RegisteredEventsAdapter;
 import edu.kiet.www.epoque2017.CardObjects.EventCardData;
 import edu.kiet.www.epoque2017.CardObjects.RegisteredEventCard;
+import edu.kiet.www.epoque2017.Models.ProfileDataumPOJO;
 import edu.kiet.www.epoque2017.R;
 import edu.kiet.www.epoque2017.util.DbHandler;
 
@@ -29,13 +33,18 @@ public class Profile extends Fragment {
     private RegisteredEventsAdapter adapter;
     Button logout;
     public Profile(){}
+    TextView name;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         final View view5= inflater.inflate(R.layout.fragment_profile, container, false);
+        name=(TextView)view5.findViewById(R.id.name);
         recyclerView=(RecyclerView)view5.findViewById(R.id.registeredEventsRecyclerView);
-        adapter=new RegisteredEventsAdapter(getContext(),getData());
+        Gson gson=new Gson();
+        ProfileDataumPOJO data=gson.fromJson(DbHandler.getString(getContext(),"profile",""),ProfileDataumPOJO.class);
+        name.setText(data.getName());
+        adapter=new RegisteredEventsAdapter(getContext(),data);
         recyclerView.setAdapter(adapter);
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(view5.getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
