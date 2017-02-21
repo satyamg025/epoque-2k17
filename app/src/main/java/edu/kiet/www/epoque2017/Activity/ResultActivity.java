@@ -1,6 +1,11 @@
 package edu.kiet.www.epoque2017.Activity;
 
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -8,10 +13,26 @@ import android.support.v7.widget.Toolbar;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.view.MenuItem;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import edu.kiet.www.epoque2017.Adapters.RequestSentAdapter;
 import edu.kiet.www.epoque2017.Adapters.ResultAdapter;
+import edu.kiet.www.epoque2017.Models.RequestSentDataumPOJO;
+import edu.kiet.www.epoque2017.Models.RequestSentPOJO;
+import edu.kiet.www.epoque2017.Models.ResultDataumPOJO;
+import edu.kiet.www.epoque2017.Models.ResultPOJO;
 import edu.kiet.www.epoque2017.R;
+import edu.kiet.www.epoque2017.Requests.ResultRequest;
+import edu.kiet.www.epoque2017.networking.ServiceGenerator;
+import edu.kiet.www.epoque2017.ui.coloredSnackBar;
+import edu.kiet.www.epoque2017.util.DbHandler;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ResultActivity extends AppCompatActivity {
 
@@ -32,13 +53,70 @@ public class ResultActivity extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mrecyclerView = (RecyclerView)findViewById(R.id.recycler_result);
-        assert mrecyclerView != null;
-        mrecyclerView.setHasFixedSize(true);
-        mlinearLayoutManager = new LinearLayoutManager(this);
-        mrecyclerView.setLayoutManager(mlinearLayoutManager);
-        madapter = new ResultAdapter(this);
-        mrecyclerView.setAdapter(madapter);
+        if(!DbHandler.getString(getApplicationContext(),"bearer","").equals("")) {
+            final ProgressDialog progressDialog = new ProgressDialog(this);
+            progressDialog.setIndeterminate(true);
+            progressDialog.setCancelable(false);
+            progressDialog.setMessage("Loading...");
+            progressDialog.show();
+
+            ResultRequest resultRequest = ServiceGenerator.createService(ResultRequest.class,DbHandler.getString(getApplicationContext(),"bearer",""));
+            Call<ResultPOJO> call = resultRequest.response();
+            call.enqueue(new Callback<ResultPOJO>() {
+
+                @Override
+                public void onResponse(Call<ResultPOJO> call, Response<ResultPOJO> response) {
+                    ResultPOJO responseBody = response.body();
+                    Log.e("request_data", String.valueOf(responseBody));
+                    if (response.code() == 200) {
+                        if (!responseBody.getError()) {
+                            progressDialog.dismiss();
+
+                            ResultDataumPOJO data=responseBody.getData();
+                            mrecyclerView = (RecyclerView)findViewById(R.id.recycler_result);
+                            assert mrecyclerView != null;
+                            mrecyclerView.setHasFixedSize(true);
+                            mlinearLayoutManager = new LinearLayoutManager(ResultActivity.this);
+                            mrecyclerView.setLayoutManager(mlinearLayoutManager);
+                            madapter = new ResultAdapter(ResultActivity.this,data);
+                            mrecyclerView.setAdapter(madapter);
+
+
+                        } else {
+                            Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "Session Expired", Snackbar.LENGTH_INDEFINITE);
+                            coloredSnackBar.alert(snackbar).show();
+                            DbHandler.unsetSession(ResultActivity.this, "isForcedLoggedOut");
+                        }
+                    } else {
+                        progressDialog.dismiss();
+                        new AlertDialog.Builder(ResultActivity.this)
+                                .setTitle("Failed")
+                                .setMessage("Failed to connect")
+                                .setNegativeButton("Ok", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        startActivity(new Intent(ResultActivity.this,Home.class));
+                                    }
+                                })
+                                .show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResultPOJO> call, Throwable t) {
+                    progressDialog.dismiss();
+                    new AlertDialog.Builder(ResultActivity.this)
+                            .setMessage("Connection Failed")
+                            .setNegativeButton("Ok", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    startActivity(new Intent(ResultActivity.this,Home.class));
+                                }
+                            })
+                            .show();
+
+                }
+            });
+        }
+
 
     }
 

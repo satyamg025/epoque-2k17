@@ -16,6 +16,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
+import com.google.firebase.iid.FirebaseInstanceId;
+
 import edu.kiet.www.epoque2017.Activity.Home;
 import edu.kiet.www.epoque2017.Models.LoginPOJO;
 import edu.kiet.www.epoque2017.R;
@@ -120,7 +122,7 @@ public class LoginFragment extends Fragment {
                 progressDialog.show();
 
                 LoginRequest loginRequest = ServiceGenerator.createService(LoginRequest.class, username.getText().toString(), password.getText().toString());
-                Call<LoginPOJO> call = loginRequest.responseRequest();
+                Call<LoginPOJO> call = loginRequest.responseRequest(FirebaseInstanceId.getInstance().getToken());
                 call.enqueue(new Callback<LoginPOJO>() {
                     @Override
                     public void onResponse(Call<LoginPOJO> call, Response<LoginPOJO> response) {
