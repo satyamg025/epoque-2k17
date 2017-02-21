@@ -33,6 +33,9 @@ public class ProfileDataumPOJO {
     @SerializedName("service")
     @Expose
     private Boolean service;
+    @SerializedName("spon_img")
+    @Expose
+    private List<String> sponImg = null;
 
     public String getName() {
         return name;
@@ -97,6 +100,15 @@ public class ProfileDataumPOJO {
     public void setService(Boolean service) {
         this.service = service;
     }
+
+    public List<String> getSponImg() {
+        return sponImg;
+    }
+
+    public void setSponImg(List<String> sponImg) {
+        this.sponImg = sponImg;
+    }
+
 
 
 }

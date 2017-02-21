@@ -33,7 +33,7 @@ View sent,received;
             public void onClick(View view) {
                 if (!NetworkCheck.isNetworkAvailable(getActivity())) {
 
-                    Snackbar snackbar = Snackbar.make(getActivity().findViewById(android.R.id.content), "No network connection", Snackbar.LENGTH_INDEFINITE);
+                    Snackbar snackbar = Snackbar.make(getActivity().findViewById(android.R.id.content), "No network connection", Snackbar.LENGTH_LONG);
                     coloredSnackBar.alert(snackbar).show();
                     return;
                 }
@@ -50,7 +50,7 @@ View sent,received;
             public void onClick(View view) {
                 if (!NetworkCheck.isNetworkAvailable(getActivity())) {
 
-                    Snackbar snackbar = Snackbar.make(getActivity().findViewById(android.R.id.content), "No network connection", Snackbar.LENGTH_INDEFINITE);
+                    Snackbar snackbar = Snackbar.make(getActivity().findViewById(android.R.id.content), "No network connection", Snackbar.LENGTH_LONG);
                     coloredSnackBar.alert(snackbar).show();
                     return;
                 }

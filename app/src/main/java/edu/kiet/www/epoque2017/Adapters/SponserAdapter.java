@@ -2,18 +2,15 @@
 package edu.kiet.www.epoque2017.Adapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
-import java.util.Collections;
-import java.util.List;
-import edu.kiet.www.epoque2017.Activity.EventActivity;
-import edu.kiet.www.epoque2017.CardObjects.EventCardData;
-import edu.kiet.www.epoque2017.CardObjects.SponserCard;
+
+import com.squareup.picasso.Picasso;
+
+import edu.kiet.www.epoque2017.Models.ProfileDataumPOJO;
 import edu.kiet.www.epoque2017.R;
 
 /**
@@ -23,9 +20,9 @@ public class SponserAdapter extends RecyclerView.Adapter<SponserAdapter.MyViewHo
 
     private final LayoutInflater inflater;
     Context context;
-    List<SponserCard> data= Collections.emptyList();
+    ProfileDataumPOJO data;
 
-    public SponserAdapter(Context context, List<SponserCard> data){
+    public SponserAdapter(Context context,ProfileDataumPOJO data){
         inflater=LayoutInflater.from(context);
         this.data=data;
         this.context=context;
@@ -39,14 +36,19 @@ public class SponserAdapter extends RecyclerView.Adapter<SponserAdapter.MyViewHo
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        SponserCard current=data.get(position);
-        holder.EventPhoto.setImageResource(current.image);
+
+        if(!data.getSponImg().get(position).equals("")) {
+            Picasso
+                    .with(context)
+                    .load(data.getSponImg().get(position))
+                    .into(holder.EventPhoto);
+        }
 
     }
 
     @Override
     public int getItemCount() {
-        return data.size();
+        return data.getSponImg().size();
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder{

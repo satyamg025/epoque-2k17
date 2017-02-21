@@ -99,7 +99,7 @@ public class EventActivity extends AppCompatActivity {
                                 progressDialog.dismiss();
                                 if(response.body().getError())
                                 {
-                                    Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "Session Expired", Snackbar.LENGTH_INDEFINITE);
+                                    Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "Session Expired", Snackbar.LENGTH_LONG);
                                     coloredSnackBar.alert(snackbar).show();
                                     DbHandler.unsetSession(EventActivity.this, "isForcedLoggedOut");
                                     startActivity(new Intent(EventActivity.this,SplashActivity.class));
@@ -132,7 +132,7 @@ public class EventActivity extends AppCompatActivity {
                                 progressDialog.dismiss();
                                 if(response.body().getError())
                                 {
-                                    Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "Session Expired", Snackbar.LENGTH_INDEFINITE);
+                                    Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "Session Expired", Snackbar.LENGTH_LONG);
                                     coloredSnackBar.alert(snackbar).show();
                                     DbHandler.unsetSession(EventActivity.this, "isForcedLoggedOut");
                                     startActivity(new Intent(EventActivity.this,SplashActivity.class));
