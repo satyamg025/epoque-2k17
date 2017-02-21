@@ -2,107 +2,248 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="match_parent"
-    android:layout_width="match_parent"
-    android:background="#212121"
-    >
+    android:background="@drawable/profile"
+    android:layout_width="match_parent">
     <LinearLayout
-        android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_width="match_parent"
         android:orientation="vertical">
-        <android.support.v7.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardUseCompatPadding="true"
-            app:cardElevation="10dp"
-            >
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:layout_margin="1dp"
-                android:background="@drawable/background">
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/account_circle"
-                    android:layout_margin="15dp"
-                    />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="Welcome , "
-                    android:textStyle="bold|italic"
-                    android:textSize="30dp"
-                    android:textColor="@color/white"
-                    android:layout_gravity="center_horizontal"
-                    android:gravity="center"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="Shrey"
-                    android:id="@+id/name"
-                    android:textSize="30dp"
-                    android:textStyle="bold|italic"
-                    android:textColor="@color/white"
-                    android:layout_gravity="center_horizontal"
-                    android:gravity="center"/>
-            </LinearLayout>
-        </android.support.v7.widget.CardView>
-
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="20dp">
-            <android.support.v7.widget.RecyclerView
+            android:layout_height="wrap_content"
+            >
+            <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/registeredEventsRecyclerView">
-            </android.support.v7.widget.RecyclerView>
+                android:layout_height="wrap_content"
+                app:cardUseCompatPadding="true"
+                app:cardElevation="10dp"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_margin="1dp"
+                    android:background="@drawable/background">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/account_circle"
+                        android:layout_margin="15dp"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="Welcome , "
+                        android:textStyle="bold|italic"
+                        android:textSize="20dp"
+                        android:textColor="@color/white"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="User"
+                        android:id="@+id/name"
+                        android:textSize="20dp"
+                        android:textStyle="bold|italic"
+                        android:textColor="@color/white"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center"/>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:id="@+id/layout_buttons"
-            android:layout_gravity="bottom"
-            >
-            <View
-                android:id="@+id/divider"
-                android:layout_width="match_parent"
-                android:layout_margin="15dp"
-                android:layout_height="2dp"
-                android:layout_above="@+id/layout"
-                android:background="#FFFFFF"
-                />
-            <LinearLayout
+            android:layout_weight="1">
+            <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_weight="1">
-                <Button
-                    android:layout_height="wrap_content"
+                android:clickable="true"
+                android:id="@+id/registeredEvents"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="5dp"
+                android:layout_margin="5dp"
+                android:layout_weight="0.2"
+                app:cardBackgroundColor="@android:color/transparent">
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:background="#00000000"
-                    android:text="Sponsors"
-                    android:id="@+id/sponsors"
-                    android:textColor="#ffff"
-                    android:layout_gravity="center_horizontal"
-                    android:textSize="15sp"
-                    android:layout_weight="0.5"
-                    />
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        >
+                        <ImageView
+                            android:layout_width="50dp"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/description"
+                            android:layout_gravity="top|center"
+                            android:layout_margin="5dp"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="left|center"
+                            android:text="Registered Events"
+                            android:textColor="@color/white"
+                            android:textSize="25sp"
+                            />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="50dp"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginBottom="0dp">
+                        <android.support.v7.widget.RecyclerView
+                            android:layout_width="match_parent"
+                            android:layout_margin="10dp"
+                            android:layout_height="match_parent"
+                            android:id="@+id/registeredEventsRecyclerView">
+                        </android.support.v7.widget.RecyclerView>
 
-                <Button
-                    android:layout_height="wrap_content"
+                    </LinearLayout>
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="5dp"
+
+                android:layout_margin="5dp"
+                app:cardBackgroundColor="@android:color/transparent">
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:background="#00000000"
-                    android:text="LOGOUT"
-                    android:id="@+id/logout"
-                    android:textColor="#ffff"
-                    android:layout_weight="0.5"
-                    android:layout_gravity="center_horizontal"
-                    android:textSize="15sp"
-                    />
-            </LinearLayout>
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    >
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/alarm"
+                        android:layout_gravity="center"
+                        android:layout_margin="5dp"
+                        />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="left"
+                        android:text="Notifications"
+                        android:textColor="@color/white"
+                        android:textSize="25sp"
+                        />
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:id="@+id/contact"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="5dp"
+                android:layout_margin="5dp"
+                android:layout_weight="0.2"
+                app:cardBackgroundColor="@android:color/transparent">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    >
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/phone"
+                        android:layout_gravity="center"
+                        android:layout_margin="5dp"
+                        />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="left"
+                        android:text="Contact Us"
+                        android:textColor="@color/white"
+                        android:textSize="25sp"
+                        />
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_weight="0.2"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="5dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                app:cardBackgroundColor="@android:color/transparent">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    >
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/sponsors"
+                        android:layout_gravity="center"
+                        android:layout_margin="5dp"
+                        />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="left"
+                        android:text="Sponsors"
+                        android:textColor="@color/white"
+                        android:textSize="25sp"
+                        />
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="5dp"
+                android:layout_margin="5dp"
+                android:clickable="true"
+                android:id="@+id/logout"
+                app:cardBackgroundColor="@android:color/transparent">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    >
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:src="@drawable/logout"
+                        android:layout_margin="5dp"
+                        />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="left"
+                        android:text="Logout"
+                        android:textColor="@color/white"
+                        android:textSize="25sp"
+                        />
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
         </LinearLayout>
 
     </LinearLayout>

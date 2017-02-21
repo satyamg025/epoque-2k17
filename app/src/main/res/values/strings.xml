@@ -3,7 +3,7 @@
     <string name="text_events">Events</string>
     <string name="text_request">Requests</string>
     <string name="text_notifications">Notifications</string>
-    <string name="text_profile">Profile</string>
+    <string name="text_profile">Timeline</string>
     <string name="text_schedule">Schedule</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="action_settings">Settings</string>

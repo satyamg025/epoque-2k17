@@ -32,7 +32,7 @@ public class RegisteredEventsAdapter extends RecyclerView.Adapter<RegisteredEven
     }
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view=inflater.inflate(R.layout.registered_event_card,parent,false);
+        View view=inflater.inflate(R.layout.registered_events,parent,false);
         MyViewHolder myViewHolder=new MyViewHolder(view);
         return myViewHolder;
     }
@@ -41,7 +41,6 @@ public class RegisteredEventsAdapter extends RecyclerView.Adapter<RegisteredEven
     public void onBindViewHolder(MyViewHolder holder, int position) {
 
         holder.EventName.setText(data.getEventName().get(position));
-       // holder.EventPhoto.setImageResource(current.eventPhoto);
 
     }
 
@@ -52,14 +51,12 @@ public class RegisteredEventsAdapter extends RecyclerView.Adapter<RegisteredEven
 
     class MyViewHolder extends RecyclerView.ViewHolder{
         TextView EventName;
-        ImageView EventPhoto;
+
 
 
         public MyViewHolder(View itemView) {
             super(itemView);
             EventName=(TextView) itemView.findViewById(R.id.event_name);
-            EventPhoto=(ImageView)itemView.findViewById(R.id.event_photo);
-
         }
     }
 }

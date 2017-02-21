@@ -34,7 +34,7 @@
     <item
         android:id="@+id/action_notification"
         android:enabled="true"
-        android:icon="@drawable/ic_face_black_24dp"
+        android:icon="@drawable/notification"
         android:title="@string/text_notifications"
         app:showAsAction="ifRoom" />
 

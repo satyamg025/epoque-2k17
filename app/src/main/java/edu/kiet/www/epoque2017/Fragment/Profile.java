@@ -31,9 +31,10 @@ import edu.kiet.www.epoque2017.util.DbHandler;
 public class Profile extends Fragment {
     private RecyclerView recyclerView;
     private RegisteredEventsAdapter adapter;
-    Button logout;
+    CardView  logout_card,contactUs;
     public Profile(){}
     TextView name;
+    String name_displayed;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -43,14 +44,24 @@ public class Profile extends Fragment {
         recyclerView=(RecyclerView)view5.findViewById(R.id.registeredEventsRecyclerView);
         Gson gson=new Gson();
         ProfileDataumPOJO data=gson.fromJson(DbHandler.getString(getContext(),"profile",""),ProfileDataumPOJO.class);
-        name.setText(data.getName());
+        name_displayed=data.getName();
+        name_displayed=name_displayed.trim();
+        name_displayed=Character.toUpperCase(name_displayed.charAt(0))+name_displayed.substring(1).toLowerCase();
+        name.setText(name_displayed);
         adapter=new RegisteredEventsAdapter(getContext(),data);
         recyclerView.setAdapter(adapter);
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(view5.getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
-        logout=(Button)view5.findViewById(R.id.logout);
-        logout.setOnClickListener(new View.OnClickListener() {
+        logout_card=(CardView)view5.findViewById(R.id.logout);
+        contactUs=(CardView)view5.findViewById(R.id.contact) ;
+        /*contactUs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDialog();
+            }
+        });*/
+        logout_card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 new AlertDialog.Builder(getActivity())
@@ -72,17 +83,6 @@ public class Profile extends Fragment {
 
         return view5;
     }
-    public static List<RegisteredEventCard> getData(){
-        List<RegisteredEventCard> data= new ArrayList<>();
-        int eventImage=R.drawable.splash_background;
-        String eventName="Event Name";
-        for(int i=0;i<5;i++) {
-            RegisteredEventCard current=new RegisteredEventCard();
-            current.eventName=eventName;
-            current.eventPhoto=eventImage;
-            data.add(current);
-        }
-        return data;
-    }
+
 
 }
