@@ -27,6 +27,7 @@ import edu.kiet.www.epoque2017.Models.ProfileDataumPOJO;
 import edu.kiet.www.epoque2017.Models.ProfilePOJO;
 import edu.kiet.www.epoque2017.R;
 import edu.kiet.www.epoque2017.Requests.ProfileRequest;
+import edu.kiet.www.epoque2017.networking.NetworkCheck;
 import edu.kiet.www.epoque2017.networking.ServiceGenerator;
 import edu.kiet.www.epoque2017.ui.coloredSnackBar;
 import edu.kiet.www.epoque2017.util.DbHandler;
@@ -65,64 +66,72 @@ public class Home extends AppCompatActivity {
         progressDialog.setMessage("Loading...");
         progressDialog.show();
 
-        if(!DbHandler.getString(getApplicationContext(),"bearer","").equals("")) {
+        if (!NetworkCheck.isNetworkAvailable(Home.this)) {
 
-            ProfileRequest profileRequest = ServiceGenerator.createService(ProfileRequest.class,DbHandler.getString(getApplicationContext(),"bearer",""));
+            Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "No network connection", Snackbar.LENGTH_LONG);
+            coloredSnackBar.alert(snackbar).show();
+            coloredSnackBar.alert(snackbar).show();
+            return;
+        }
+        else {
+            if (!DbHandler.getString(getApplicationContext(), "bearer", "").equals("")) {
 
-            Call<ProfilePOJO> call = profileRequest.response();
-            call.enqueue(new Callback<ProfilePOJO>() {
+                ProfileRequest profileRequest = ServiceGenerator.createService(ProfileRequest.class, DbHandler.getString(getApplicationContext(), "bearer", ""));
 
-                @Override
-                public void onResponse(Call<ProfilePOJO> call, Response<ProfilePOJO> response) {
-                    ProfilePOJO responseBody = response.body();
-                    Log.e("request_data", String.valueOf(responseBody));
-                    if (response.code() == 200) {
-                        if (!responseBody.getError()) {
-                            progressDialog.dismiss();
-                            Gson gson=new Gson();
+                Call<ProfilePOJO> call = profileRequest.response();
+                call.enqueue(new Callback<ProfilePOJO>() {
 
-                            ProfileDataumPOJO data;
-                            data=responseBody.getData();
-                            if(data.getUpdate()){
+                    @Override
+                    public void onResponse(Call<ProfilePOJO> call, Response<ProfilePOJO> response) {
+                        ProfilePOJO responseBody = response.body();
+                        Log.e("request_data", String.valueOf(responseBody));
+                        if (response.code() == 200) {
+                            if (!responseBody.getError()) {
+                                progressDialog.dismiss();
+                                Gson gson = new Gson();
 
-                                Fragment_update fragment_update = new Fragment_update();
-                                fragment_update.show(getFragmentManager(),"Update App");
+                                ProfileDataumPOJO data;
+                                data = responseBody.getData();
+                                if (data.getUpdate()) {
+
+                                    Fragment_update fragment_update = new Fragment_update();
+                                    fragment_update.show(getFragmentManager(), "Update App");
+                                } else if (data.getService()) {
+                                    new AlertDialog.Builder(Home.this)
+                                            .setMessage("App under service")
+                                            .setNegativeButton("Ok", new DialogInterface.OnClickListener() {
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    doubleBackToExitPressedOnce = true;
+                                                    onBackPressed();
+                                                }
+                                            })
+                                            .show();
+                                }
+                                DbHandler.putString(Home.this, "profile", gson.toJson(data));
+
+
+                            } else {
+                                Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "Session Expired", Snackbar.LENGTH_LONG);
+                                coloredSnackBar.alert(snackbar).show();
+                                DbHandler.unsetSession(Home.this, "isForcedLoggedOut");
                             }
-                            else if(data.getService()){
-                                new AlertDialog.Builder(Home.this)
-                                        .setMessage("App under service")
-                                        .setNegativeButton("Ok", new DialogInterface.OnClickListener() {
-                                            public void onClick(DialogInterface dialog, int which) {
-                                                doubleBackToExitPressedOnce=true;
-                                                onBackPressed();
-                                            }
-                                        })
-                                        .show();
-                            }
-                           DbHandler.putString(Home.this,"profile",gson.toJson(data));
-
-
                         } else {
-                            Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "Session Expired", Snackbar.LENGTH_INDEFINITE);
+                            progressDialog.dismiss();
+                            Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "Error connecting to server", Snackbar.LENGTH_LONG);
                             coloredSnackBar.alert(snackbar).show();
-                            DbHandler.unsetSession(Home.this, "isForcedLoggedOut");
+
                         }
-                    } else {
+                    }
+
+                    @Override
+                    public void onFailure(Call<ProfilePOJO> call, Throwable t) {
                         progressDialog.dismiss();
-                        Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "Error connecting to server", Snackbar.LENGTH_INDEFINITE);
+                        Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "Error connecting to server", Snackbar.LENGTH_LONG);
                         coloredSnackBar.alert(snackbar).show();
 
                     }
-                }
-
-                @Override
-                public void onFailure(Call<ProfilePOJO> call, Throwable t) {
-                    progressDialog.dismiss();
-                    Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "Error connecting to server", Snackbar.LENGTH_INDEFINITE);
-                    coloredSnackBar.alert(snackbar).show();
-
-                }
-            });
+                });
+            }
         }
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView)
@@ -175,7 +184,7 @@ public class Home extends AppCompatActivity {
             this.doubleBackToExitPressedOnce = true;
 
             Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content),"Press again to exit", Snackbar.LENGTH_SHORT);
-            snackbar.show();
+            coloredSnackBar.warning(snackbar).show();
             new Handler().postDelayed(new Runnable() {
 
                 @Override

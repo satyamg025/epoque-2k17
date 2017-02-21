@@ -114,7 +114,7 @@ public class LoginFragment extends Fragment {
 
             if (!NetworkCheck.isNetworkAvailable(getActivity())) {
 
-                Snackbar snackbar = Snackbar.make(getActivity().findViewById(android.R.id.content), "No network connection", Snackbar.LENGTH_INDEFINITE)
+                Snackbar snackbar = Snackbar.make(getActivity().findViewById(android.R.id.content), "No network connection", Snackbar.LENGTH_LONG)
                         .setAction("Retry", mSnackBarClickListener);
                 coloredSnackBar.alert(snackbar).show();
                 return;

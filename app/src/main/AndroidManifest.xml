@@ -5,7 +5,6 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -33,26 +32,28 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".Activity.ResultActivity"
-            android:theme="@style/AppTheme.Base"/>
+        <activity
+            android:name=".Activity.ResultActivity"
+            android:theme="@style/AppTheme.Base" />
         <activity
             android:name=".Activity.TabbedSchedule"
             android:label="@string/title_activity_tabbed_schedule"
-            android:theme="@style/AppTheme.Base">
-        </activity>
+            android:theme="@style/AppTheme.Base"></activity>
         <activity
             android:name=".Activity.RequestSent"
             android:label="@string/title_request_sent"
             android:noHistory="true"
-            android:theme="@style/AppTheme.Base"
-            />
-        <activity android:name=".Activity.RequestReceived"
-            android:noHistory="true"
+            android:theme="@style/AppTheme.Base" />
+        <activity
+            android:name=".Activity.RequestReceived"
             android:label="@string/title_request_received"
-            android:theme="@style/AppTheme.Base"/>
-        <activity android:name=".Activity.EventActivity"
-            android:theme="@style/AppTheme.Base"/>
+            android:noHistory="true"
+            android:theme="@style/AppTheme.Base" />
+        <activity
+            android:name=".Activity.EventActivity"
+            android:theme="@style/AppTheme.Base" />
+        <activity android:name=".Activity.NotificationActivity"
+            android:theme="@style/AppTheme.Base"></activity>
     </application>
 
 </manifest>

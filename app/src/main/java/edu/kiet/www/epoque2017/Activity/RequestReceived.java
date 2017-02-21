@@ -77,7 +77,7 @@ public class RequestReceived extends AppCompatActivity {
 
 
                         } else {
-                            Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "Session Expired", Snackbar.LENGTH_INDEFINITE);
+                            Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "Session Expired", Snackbar.LENGTH_LONG);
                             coloredSnackBar.alert(snackbar).show();
                             DbHandler.unsetSession(RequestReceived.this, "isForcedLoggedOut");
                         }

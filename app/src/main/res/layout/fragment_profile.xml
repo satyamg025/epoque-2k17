@@ -127,6 +127,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:id="@+id/noti_ll"
                     android:orientation="horizontal"
                     >
                     <ImageView

@@ -94,10 +94,24 @@ public class TabbedSchedule extends AppCompatActivity {
                             for (int i = 0; i < schedulelist.size(); i++) {
                                 titleList.add("Day " + String.valueOf(i + 1));
                             }
-                            tabLayout.setupWithViewPager(mViewPager);
-                            setupViewPager(mViewPager);
+                            if(schedulelist.size()>0) {
+                                tabLayout.setupWithViewPager(mViewPager);
+                                setupViewPager(mViewPager);
+                            }else{
+                                new AlertDialog.Builder(TabbedSchedule.this)
+                                        .setTitle("Coming Soon")
+                                        .setMessage("Schedule coming soon")
+                                        .setNegativeButton("Ok", new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                Intent intent = new Intent(getApplicationContext(), Home.class);
+                                                startActivity(intent);
+                                            }
+                                        })
+                                        .show();
+                            }
+
                         } else {
-                            Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "Session Expired", Snackbar.LENGTH_INDEFINITE);
+                            Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "Session Expired", Snackbar.LENGTH_LONG);
                             coloredSnackBar.alert(snackbar).show();
                             DbHandler.unsetSession(TabbedSchedule.this, "isForcedLoggedOut");
                         }
@@ -149,10 +163,23 @@ public class TabbedSchedule extends AppCompatActivity {
                             for (int i = 0; i < schedulelist.size(); i++) {
                                 titleList.add("Day " + String.valueOf(i + 1));
                             }
-                            tabLayout.setupWithViewPager(mViewPager);
-                            setupViewPager(mViewPager);
+                            if(schedulelist.size()>0) {
+                                tabLayout.setupWithViewPager(mViewPager);
+                                setupViewPager(mViewPager);
+                            }else{
+                                new AlertDialog.Builder(TabbedSchedule.this)
+                                        .setTitle("Coming Soon")
+                                        .setMessage("Schedule coming soon")
+                                        .setNegativeButton("Ok", new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                Intent intent = new Intent(getApplicationContext(), Home.class);
+                                                startActivity(intent);
+                                            }
+                                        })
+                                        .show();
+                            }
                         } else {
-                            Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "Session Expired", Snackbar.LENGTH_INDEFINITE);
+                            Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "Session Expired", Snackbar.LENGTH_LONG);
                             coloredSnackBar.alert(snackbar).show();
                             DbHandler.unsetSession(TabbedSchedule.this, "isForcedLoggedOut");
                         }
@@ -254,8 +281,24 @@ public class TabbedSchedule extends AppCompatActivity {
             mrecyclerView.setHasFixedSize(true);
             mlinearLayoutManager = new LinearLayoutManager(getActivity());
             mrecyclerView.setLayoutManager(mlinearLayoutManager);
-            madapter = new ScheduleAdapter(event_name,start_time,end_time,place,type,date,getActivity());
-            mrecyclerView.setAdapter(madapter);
+            if(event_name!=null) {
+                madapter = new ScheduleAdapter(event_name, start_time, end_time, place, type, date, getActivity());
+                mrecyclerView.setAdapter(madapter);
+            }
+            else{
+                new AlertDialog.Builder(getActivity())
+                        .setTitle("Coming Soon")
+                        .setMessage("Schedule coming soon")
+                        .setNegativeButton("Ok", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent intent = new Intent(getActivity(), Home.class);
+                                startActivity(intent);
+                            }
+                        })
+                        .show();
+
+            }
+
 
             return view;
         }

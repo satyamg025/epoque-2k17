@@ -2,6 +2,7 @@ package edu.kiet.www.epoque2017.Fragment;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,7 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -19,6 +21,7 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.kiet.www.epoque2017.Activity.NotificationActivity;
 import edu.kiet.www.epoque2017.Adapters.RegisteredEventsAdapter;
 import edu.kiet.www.epoque2017.Adapters.SponserAdapter;
 import edu.kiet.www.epoque2017.CardObjects.SponserCard;
@@ -32,6 +35,7 @@ public class Profile extends Fragment {
     private RegisteredEventsAdapter Radapter;
     private SponserAdapter Sadapter;
     private BottomSheetBehavior mBottomSheetBehavior1;
+    LinearLayout noti_ll;
     CardView  logout_card,sponsor_card;
     public Profile(){}
     TextView name;
@@ -43,6 +47,7 @@ public class Profile extends Fragment {
                              Bundle savedInstanceState) {
         final View view5= inflater.inflate(R.layout.fragment_profile, container, false);
         name=(TextView)view5.findViewById(R.id.name);
+        noti_ll=(LinearLayout)view5.findViewById(R.id.noti_ll);
         RrecyclerView=(RecyclerView)view5.findViewById(R.id.registeredEventsRecyclerView);
         Gson gson=new Gson();
         ProfileDataumPOJO data=gson.fromJson(DbHandler.getString(getContext(),"profile",""),ProfileDataumPOJO.class);
@@ -57,7 +62,7 @@ public class Profile extends Fragment {
         RrecyclerView.setLayoutManager(linearLayoutManager);
 
         SrecyclerView=(RecyclerView)view5.findViewById(R.id.sponsors_recycler_view);
-        Sadapter=new SponserAdapter(getContext(),getData());
+        Sadapter=new SponserAdapter(getContext(),data);
         SrecyclerView.setAdapter(Sadapter);
         SrecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL));
 
@@ -95,6 +100,14 @@ public class Profile extends Fragment {
                         })
                         .show();
 
+            }
+        });
+
+        noti_ll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getContext(), NotificationActivity.class);
+                startActivity(intent);
             }
         });
 
