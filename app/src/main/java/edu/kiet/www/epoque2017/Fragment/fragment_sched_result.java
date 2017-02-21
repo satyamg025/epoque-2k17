@@ -8,6 +8,7 @@ import android.support.v7.widget.AppCompatButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import edu.kiet.www.epoque2017.Activity.ResultActivity;
 import edu.kiet.www.epoque2017.Activity.TabbedSchedule;
@@ -21,14 +22,14 @@ import edu.kiet.www.epoque2017.ui.coloredSnackBar;
  */
 public class fragment_sched_result extends Fragment {
     View view;
-    AppCompatButton btn_sched,btn_result;
+    TextView btn_sched,btn_result;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_schedule_result, container, false);
 
-        btn_sched=(AppCompatButton)view.findViewById(R.id.btn_schedule);
-        btn_result=(AppCompatButton)view.findViewById(R.id.btn_result);
+        btn_sched=(TextView) view.findViewById(R.id.btn_schedule);
+        btn_result=(TextView) view.findViewById(R.id.btn_result);
 
         btn_sched.setOnClickListener(new View.OnClickListener() {
             @Override

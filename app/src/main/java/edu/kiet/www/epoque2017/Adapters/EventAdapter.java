@@ -47,7 +47,6 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
         Picasso
                 .with(context)
                 .load(current.image_url)
-                .placeholder(R.drawable.logo2)
                 .error(R.drawable.logo2)
                 .into(holder.EventPhoto);
         Log.e("Image url",current.image_url);

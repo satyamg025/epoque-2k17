@@ -30,6 +30,7 @@
         android:background="@android:color/transparent"
         android:textColor="#00E5EE"
         android:textSize="16sp"
+        android:id="@+id/cancel"
         android:text="Cancel"
         android:layout_weight="0.2"/>
 

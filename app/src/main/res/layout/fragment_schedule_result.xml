@@ -1,24 +1,51 @@
-<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:gravity="center"
+android:orientation="vertical"
+android:background="@drawable/schedule_background"
+android:weightSum="100">
 <LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <android.support.v7.widget.AppCompatButton
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="100dp"
+    android:layout_height="match_parent"
+    android:id="@+id/sent"
+    android:clickable="true"
+    android:background="#8F000000"
+    android:layout_weight="50"
+    android:layout_margin="5dp"
+    android:gravity="center"
+    >
+    <TextView
+        android:textStyle="bold|italic"
+        android:textSize="25sp"
+        android:textColor="@color/white"
+        android:layout_width="fill_parent"
+        android:gravity="center"
+        android:background="@drawable/chipbackground"
+        android:layout_height="fill_parent"
         android:text="Schedule"
         android:id="@+id/btn_schedule"/>
-
-    <android.support.v7.widget.AppCompatButton
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="40dp"
+</LinearLayout>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/received"
+    android:gravity="center"
+    android:clickable="true"
+    android:layout_margin="5dp"
+    android:background="#8F000000"
+    android:layout_weight="50">
+    <TextView
+        android:textStyle="bold|italic"
+        android:textSize="25sp"
+        android:textColor="@color/white"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/chipbackground"
         android:text="Result"
         android:id="@+id/btn_result"/>
-
+</LinearLayout>
 </LinearLayout>

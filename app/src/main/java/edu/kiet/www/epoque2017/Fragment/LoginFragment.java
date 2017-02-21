@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
@@ -15,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 
@@ -36,6 +38,7 @@ public class LoginFragment extends Fragment {
     private View parentView;
     TextInputLayout user_layout,pass_layout;
     EditText username,password;
+    TextView logintxt;
     LinearLayout ll;
     Button login;
     private View.OnClickListener mSnackBarClickListener = new View.OnClickListener() {
@@ -50,6 +53,7 @@ public class LoginFragment extends Fragment {
                              Bundle savedInstanceState) {
         parentView=inflater.inflate(R.layout.fragment_login, container, false);
         login=(Button)parentView.findViewById(R.id.login);
+        //logintxt=(TextView)parentView.findViewById(R.id.login_text);
 
         username=(EditText)parentView.findViewById(R.id.input_roll);
         password=(EditText)parentView.findViewById(R.id.input_password);

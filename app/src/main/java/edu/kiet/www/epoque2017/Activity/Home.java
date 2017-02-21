@@ -3,7 +3,6 @@ package edu.kiet.www.epoque2017.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,27 +12,21 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
 import com.google.gson.Gson;
 
-import edu.kiet.www.epoque2017.Adapters.RequestReceivedAdapter;
 import edu.kiet.www.epoque2017.Fragment.Events;
-import edu.kiet.www.epoque2017.Fragment.Notifications;
+import edu.kiet.www.epoque2017.Fragment.Fragment_update;
 import edu.kiet.www.epoque2017.Fragment.Profile;
 import edu.kiet.www.epoque2017.Fragment.Requests;
 import edu.kiet.www.epoque2017.Fragment.fragment_sched_result;
 import edu.kiet.www.epoque2017.Models.ProfileDataumPOJO;
 import edu.kiet.www.epoque2017.Models.ProfilePOJO;
-import edu.kiet.www.epoque2017.Models.RequestReceivedDataumPOJO;
-import edu.kiet.www.epoque2017.Models.RequestReceivedPOJO;
 import edu.kiet.www.epoque2017.R;
 import edu.kiet.www.epoque2017.Requests.ProfileRequest;
-import edu.kiet.www.epoque2017.Requests.RequestReceivedRequest;
 import edu.kiet.www.epoque2017.networking.ServiceGenerator;
 import edu.kiet.www.epoque2017.ui.coloredSnackBar;
 import edu.kiet.www.epoque2017.util.DbHandler;
@@ -90,6 +83,22 @@ public class Home extends AppCompatActivity {
 
                             ProfileDataumPOJO data;
                             data=responseBody.getData();
+                            if(data.getUpdate()){
+
+                                Fragment_update fragment_update = new Fragment_update();
+                                fragment_update.show(getFragmentManager(),"Update App");
+                            }
+                            else if(data.getService()){
+                                new AlertDialog.Builder(Home.this)
+                                        .setMessage("App under service")
+                                        .setNegativeButton("Ok", new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                doubleBackToExitPressedOnce=true;
+                                                onBackPressed();
+                                            }
+                                        })
+                                        .show();
+                            }
                            DbHandler.putString(Home.this,"profile",gson.toJson(data));
 
 
@@ -125,10 +134,6 @@ public class Home extends AppCompatActivity {
                     public boolean onNavigationItemSelected(MenuItem item) {
 
                         switch (item.getItemId()) {
-                            case R.id.action_notification:
-                                flag=1;
-                                fragment = new Notifications();
-                                break;
                             case R.id.action_requests:
                                 flag=1;
                                 fragment = new Requests();

@@ -66,7 +66,10 @@ public class EventActivity extends AppCompatActivity {
         progressDialog=new ProgressDialog(this);
         progressDialog.setMessage("Loading...");
         progressDialog.setCancelable(false);
+        if(!(bundle.getString("tagline")==null))
         tagline.setText(bundle.getString("tagline"));
+        else
+        tagline.setVisibility(View.GONE);
         if(bundle.getString("category").equalsIgnoreCase("S"))
             category.setText("Solo");
         if(bundle.getString("category").equalsIgnoreCase("G"))

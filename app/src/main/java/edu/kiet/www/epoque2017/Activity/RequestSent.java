@@ -63,15 +63,28 @@ public class RequestSent extends AppCompatActivity {
                         if (!responseBody.getError()) {
                             progressDialog.dismiss();
 
-                            List<RequestSentDataumPOJO> data=new ArrayList<RequestSentDataumPOJO>();
-                            data=responseBody.getData();
-                            recyclerView=(RecyclerView)findViewById(R.id.requestSentRecyclerView);
-                            LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getApplicationContext());
+                            List<RequestSentDataumPOJO> data = new ArrayList<RequestSentDataumPOJO>();
+                            data = responseBody.getData();
+                            if (!data.isEmpty())
+                            {
+                                recyclerView = (RecyclerView) findViewById(R.id.requestSentRecyclerView);
+                            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
                             linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
                             recyclerView.setLayoutManager(linearLayoutManager);
-                            adapter=new RequestSentAdapter(getApplicationContext(),data,getSupportFragmentManager());
+                            adapter = new RequestSentAdapter(getApplicationContext(), data, getSupportFragmentManager());
                             recyclerView.setAdapter(adapter);
 
+                        }
+                            else {
+                                new AlertDialog.Builder(RequestSent.this,R.style.MyAlertDialogStyle)
+                                        .setMessage("No requests sent")
+                                        .setNegativeButton("Ok", new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                startActivity(new Intent(RequestSent.this,Home.class));
+                                            }
+                                        })
+                                        .show();
+                            }
 
                         } else {
                             Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "Session Expired", Snackbar.LENGTH_INDEFINITE);

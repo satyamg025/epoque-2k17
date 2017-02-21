@@ -21,6 +21,18 @@ public class ProfileDataumPOJO {
     @SerializedName("event_name")
     @Expose
     private List<String> eventName = null;
+    @SerializedName("event_id")
+    @Expose
+    private List<String> eventId = null;
+    @SerializedName("team_leader_bool")
+    @Expose
+    private List<Boolean> teamLeaderBool = null;
+    @SerializedName("update")
+    @Expose
+    private Boolean update;
+    @SerializedName("service")
+    @Expose
+    private Boolean service;
 
     public String getName() {
         return name;
@@ -53,5 +65,38 @@ public class ProfileDataumPOJO {
     public void setEventName(List<String> eventName) {
         this.eventName = eventName;
     }
+
+    public List<String> getEventId() {
+        return eventId;
+    }
+
+    public void setEventId(List<String> eventId) {
+        this.eventId = eventId;
+    }
+
+    public List<Boolean> getTeamLeaderBool() {
+        return teamLeaderBool;
+    }
+
+    public void setTeamLeaderBool(List<Boolean> teamLeaderBool) {
+        this.teamLeaderBool = teamLeaderBool;
+    }
+
+    public Boolean getUpdate() {
+        return update;
+    }
+
+    public void setUpdate(Boolean update) {
+        this.update = update;
+    }
+
+    public Boolean getService() {
+        return service;
+    }
+
+    public void setService(Boolean service) {
+        this.service = service;
+    }
+
 
 }

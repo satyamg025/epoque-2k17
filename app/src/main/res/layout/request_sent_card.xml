@@ -27,6 +27,7 @@
             android:text="Event Name : Kawali(Institute Level)"
             android:textSize="20dp"
             android:textStyle="bold"
+            android:textColor="@color/black"
             android:id="@+id/sent_event_name"
             android:layout_marginBottom="9dp"
             />

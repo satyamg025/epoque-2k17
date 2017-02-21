@@ -47,7 +47,7 @@ public class RequestReceived extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        final ProgressDialog progressDialog=new ProgressDialog(this);
+        final ProgressDialog progressDialog=new ProgressDialog(this,R.style.MyAlertDialogStyle);
 
         progressDialog.setIndeterminate(true);
         progressDialog.setCancelable(false);
@@ -83,7 +83,7 @@ public class RequestReceived extends AppCompatActivity {
                         }
                     } else {
                         progressDialog.dismiss();
-                        new AlertDialog.Builder(RequestReceived.this)
+                        new AlertDialog.Builder(RequestReceived.this,R.style.MyAlertDialogStyle)
                                 .setTitle("Failed")
                                 .setMessage("Failed to connect")
                                 .setNegativeButton("Ok", new DialogInterface.OnClickListener() {
@@ -98,7 +98,7 @@ public class RequestReceived extends AppCompatActivity {
                 @Override
                 public void onFailure(Call<RequestReceivedPOJO> call, Throwable t) {
                     progressDialog.dismiss();
-                    new AlertDialog.Builder(RequestReceived.this)
+                    new AlertDialog.Builder(RequestReceived.this,R.style.MyAlertDialogStyle)
                             .setMessage("No requests received")
                             .setNegativeButton("Ok", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {

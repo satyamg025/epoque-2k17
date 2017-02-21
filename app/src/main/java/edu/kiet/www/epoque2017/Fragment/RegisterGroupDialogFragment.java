@@ -54,6 +54,7 @@ public class RegisterGroupDialogFragment extends DialogFragment {
     Button add; Boolean wantToClose;
     String type;
     int counter;
+    String ids;
     ProgressDialog progressDialog;
     String steamName="",members="";
     LinearLayout linearLayout;
@@ -62,67 +63,39 @@ public class RegisterGroupDialogFragment extends DialogFragment {
     {
         view=getActivity().getLayoutInflater().inflate(R.layout.register_group_dialog_fragment,null);
         teamName=(EditText)view.findViewById(R.id.edittext1);
-         add=(Button)view.findViewById(R.id.add);
+        add=(Button)view.findViewById(R.id.add);
         linearLayout=(LinearLayout)view.findViewById(R.id.linear);
         type=getArguments().getString("type").toLowerCase().trim();
         progressDialog=new ProgressDialog(getContext());
         progressDialog.setMessage("Loading...");
         progressDialog.setCancelable(false);
+
         min=Integer.parseInt(getArguments().getString("min"));
         max=Integer.parseInt(getArguments().getString("max"));
         counter=max-1;
         Log.e("MAx",Integer.toString(max));
-        for(int i=1;i<min;i++)
-        {
-            dynamic = new EditText(getContext());
-            dynamic.setLayoutParams(new LinearLayoutCompat.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-            dynamic.setHint("Library Id");
-            dynamic.setTextColor(getResources().getColor(R.color.black));
-            dynamic.setId(counter);
-            linearLayout.addView(dynamic);
-            counter--;
-        }
+
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (counter > 0){
-                    if (counter != max - 1) {
-                        if (!((TextView) linearLayout.findViewById(counter + 1)).getText().toString().trim().equals("")) {
-
-                            dynamic = new EditText(getContext());
-                            dynamic.setLayoutParams(new LinearLayoutCompat.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-                            dynamic.setHint("Library Id");
-                            dynamic.setTextColor(getResources().getColor(R.color.black));
-                            dynamic.setId(counter);
-                            linearLayout.addView(dynamic);
-                            counter--;
-                            Log.e("counter", Integer.toString(counter));
-                        } else {
-                            Toast.makeText(getContext(), "Please input Previous entries first", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                        else {
-                        dynamic = new EditText(getContext());
-                        dynamic.setLayoutParams(new LinearLayoutCompat.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-                        dynamic.setHint("Library Id");
-                        dynamic.setTextColor(getResources().getColor(R.color.black));
-                        dynamic.setId(counter);
-                        linearLayout.addView(dynamic);
-                        counter--;
-                        Log.e("counter", Integer.toString(counter));
-                        }
-                    }
-
+                if(counter>0)
+                {dynamic=new EditText(getContext());
+                    dynamic.setLayoutParams(new LinearLayoutCompat.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT));
+                    dynamic.setHint("Library Id");
+                    dynamic.setId(counter);
+                    linearLayout.addView(dynamic);
+                    counter--;
+                    Log.e("counter",Integer.toString(counter));
+                }
                 else
                 {
                     add.setEnabled(false);
-                    Toast.makeText(getContext(), "Maximum Limit Reached", Toast.LENGTH_SHORT).show();
                 }
             }
         });
         AlertDialog.Builder builder=new AlertDialog.Builder(getContext());
         builder.setView(view);
-        builder.setTitle("Max Participations:"+Integer.toString(max)+" \n Min Participations:"+Integer.toString(min))
+        builder.setTitle("Max Participations:"+Integer.toString(max)+"  Min Participations:"+Integer.toString(min))
                 .setPositiveButton("Register", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -156,37 +129,37 @@ public class RegisterGroupDialogFragment extends DialogFragment {
         steamName=teamName.getText().toString().trim();
         if(steamName.isEmpty()){
             teamName.setError("Team name cannot be blank");
+            Log.e("members", members);
             return;
         }
-        Log.e("j",Integer.toString(max-1-counter));
-        for(int j=max-1;j>counter;j--)
+        for(int j=min-1-counter;j>1;j++)
         {
-            Log.e("wert",j+""+counter);
-            if(!((TextView) linearLayout.findViewById(j)).getText().toString().trim().equals("")) {
-                if (j == max-1)
-                    members = members + ((TextView) view.findViewById(j)).getText().toString().trim();
+            if(!((TextView) view.findViewById(j)).getText().toString().trim().equals("")) {
+                if (j == min-1-counter)
+                    members = members + ((TextView) view.findViewById(j)).getText().toString().trim() + ",";
                 else
                     members = members + "," + ((TextView) view.findViewById(j)).getText().toString().trim();
-                Log.e("hello",((TextView) view.findViewById(j)).getText().toString().trim());
+
             }
             Log.e("members", members);
         }
-        Log.e("memb",members);
+        Log.e("  \n\nmembers   ",members);
         String bearer= DbHandler.getString(getContext(),"bearer","");
         if(type.equals("i"))
         {
             if(!members.trim().isEmpty()) {
                 progressDialog.show();
                 RegisterGroupInstRequest request = ServiceGenerator.createService(RegisterGroupInstRequest.class, bearer);
-                Call<RegisterCancelPOJO> call = request.request(steamName, getArguments().getString("event_id"), members);
+                Call<RegisterCancelPOJO> call = request.request(steamName, getArguments().getString("event_id"), ids);
                 call.enqueue(new Callback<RegisterCancelPOJO>() {
                     @Override
                     public void onResponse(Call<RegisterCancelPOJO> call, Response<RegisterCancelPOJO> response) {
                         progressDialog.dismiss();
                         if (response.body().getError()) {
+                            Snackbar snackbar = Snackbar.make(view.findViewById(android.R.id.content), "Session Expired", Snackbar.LENGTH_SHORT);
+                            coloredSnackBar.alert(snackbar).show();
                             DbHandler.unsetSession(getContext(), "isForcedLoggedOut");
                             startActivity(new Intent(getContext(), SplashActivity.class));
-                            Toast.makeText(getContext(), "Session Expired", Toast.LENGTH_LONG).show();
                             getActivity().finishAffinity();
 
                         } else {
@@ -199,44 +172,42 @@ public class RegisterGroupDialogFragment extends DialogFragment {
 
                     @Override
                     public void onFailure(Call<RegisterCancelPOJO> call, Throwable t) {
-                        progressDialog.dismiss();
-                        Toast.makeText(getContext(), "Check Your Internet Connection", Toast.LENGTH_SHORT).show();
+
                     }
                 });
             }
         }
-        else if(type.equals("d"))
+        if(type.equals("d"))
         {
-            if(!members.trim().isEmpty()) {
-                progressDialog.show();
-                RegisterGroupDeptRequest request = ServiceGenerator.createService(RegisterGroupDeptRequest.class, bearer);
-                Call<RegisterCancelPOJO> call = request.request(steamName, getArguments().getString("event_id"), members);
-                call.enqueue(new Callback<RegisterCancelPOJO>() {
-                    @Override
-                    public void onResponse(Call<RegisterCancelPOJO> call, Response<RegisterCancelPOJO> response) {
-                        progressDialog.dismiss();
+            RegisterGroupDeptRequest request= ServiceGenerator.createService(RegisterGroupDeptRequest.class,bearer);
+            Call<RegisterCancelPOJO> call=request.request(steamName,getArguments().getString("event_id"),ids);
+            call.enqueue(new Callback<RegisterCancelPOJO>() {
+                @Override
+                public void onResponse(Call<RegisterCancelPOJO> call, Response<RegisterCancelPOJO> response) {
+                    if(response.body().getError())
+                    {
+                        Snackbar snackbar = Snackbar.make(view.findViewById(android.R.id.content), "Session Expired", Snackbar.LENGTH_SHORT);
+                        coloredSnackBar.alert(snackbar).show();
+                        DbHandler.unsetSession(getContext(), "isForcedLoggedOut");
+                        startActivity(new Intent(getContext(),SplashActivity.class));
+                        getActivity().finishAffinity();
 
-                        if (response.body().getError()) {
-                            startActivity(new Intent(getContext(), SplashActivity.class));
-                            Toast.makeText(getContext(), "Session Expired", Toast.LENGTH_LONG).show();
-                            DbHandler.unsetSession(getContext(), "isForcedLoggedOut");
-                            getActivity().finishAffinity();
-
-                        } else {
-                            Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_LONG).show();
-                            if (response.body().getStatus().trim().equalsIgnoreCase("success")) {
-                                getActivity().finish();
-                            }
+                    }
+                    else{
+                        Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_LONG).show();
+                        if(response.body().getStatus().trim().equalsIgnoreCase("success"))
+                        {
+                            getActivity().finish();
                         }
                     }
+                }
 
-                    @Override
-                    public void onFailure(Call<RegisterCancelPOJO> call, Throwable t) {
-                        progressDialog.dismiss();
-                        Toast.makeText(getContext(), "Check Your Internet Connection", Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
+                @Override
+                public void onFailure(Call<RegisterCancelPOJO> call, Throwable t) {
+                    progressDialog.dismiss();
+                    Toast.makeText(getContext(), "Check Your Internet Connection", Toast.LENGTH_SHORT).show();
+                }
+            });
         }
     }
    }

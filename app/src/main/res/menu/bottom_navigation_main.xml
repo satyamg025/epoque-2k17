@@ -31,11 +31,5 @@
         android:title="@string/text_profile"
         app:showAsAction="ifRoom" />
 
-    <item
-        android:id="@+id/action_notification"
-        android:enabled="true"
-        android:icon="@drawable/notification"
-        android:title="@string/text_notifications"
-        app:showAsAction="ifRoom" />
 
 </menu>
