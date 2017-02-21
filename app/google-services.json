@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "338664871997",
+    "firebase_url": "https://epoque2k17-5691a.firebaseio.com",
+    "project_id": "epoque2k17-5691a",
+    "storage_bucket": "epoque2k17-5691a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:338664871997:android:76e9e72cbf2ce717",
+        "android_client_info": {
+          "package_name": "edu.kiet.www.epoque2017"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "338664871997-5r8dsn7gj3tk4cr4d3aslpmojbi9mbep.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCKm9Lz2NvrtqjMpmnyD7YfYhbPwCNu-WA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

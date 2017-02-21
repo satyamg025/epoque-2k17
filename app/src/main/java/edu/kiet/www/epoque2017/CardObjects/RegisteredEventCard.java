@@ -6,5 +6,4 @@ package edu.kiet.www.epoque2017.CardObjects;
 
 public class RegisteredEventCard {
     public String eventName;
-    public int eventPhoto;
 }

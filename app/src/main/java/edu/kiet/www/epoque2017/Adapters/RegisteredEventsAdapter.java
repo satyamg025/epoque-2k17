@@ -12,6 +12,7 @@ import java.util.Collections;
 import java.util.List;
 
 import edu.kiet.www.epoque2017.CardObjects.RegisteredEventCard;
+import edu.kiet.www.epoque2017.Models.ProfileDataumPOJO;
 import edu.kiet.www.epoque2017.R;
 
 /**
@@ -22,43 +23,40 @@ public class RegisteredEventsAdapter extends RecyclerView.Adapter<RegisteredEven
 
     private final LayoutInflater inflater;
     Context context;
-    List<RegisteredEventCard> data= Collections.emptyList();
+   ProfileDataumPOJO data;
 
-    public RegisteredEventsAdapter(Context context, List<RegisteredEventCard> data){
+    public RegisteredEventsAdapter(Context context, ProfileDataumPOJO data){
         inflater=LayoutInflater.from(context);
         this.data=data;
         this.context=context;
     }
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view=inflater.inflate(R.layout.registered_event_card,parent,false);
+        View view=inflater.inflate(R.layout.registered_events,parent,false);
         MyViewHolder myViewHolder=new MyViewHolder(view);
         return myViewHolder;
     }
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        RegisteredEventCard current=data.get(position);
-        holder.EventName.setText(current.eventName);
-        holder.EventPhoto.setImageResource(current.eventPhoto);
+
+        holder.EventName.setText(data.getEventName().get(position));
 
     }
 
     @Override
     public int getItemCount() {
-        return data.size();
+        return data.getEventName().size();
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder{
         TextView EventName;
-        ImageView EventPhoto;
+
 
 
         public MyViewHolder(View itemView) {
             super(itemView);
             EventName=(TextView) itemView.findViewById(R.id.event_name);
-            EventPhoto=(ImageView)itemView.findViewById(R.id.event_photo);
-
         }
     }
 }

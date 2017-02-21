@@ -1,5 +1,9 @@
 package edu.kiet.www.epoque2017.Activity;
 
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -9,15 +13,33 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
+import com.google.gson.Gson;
+
+import edu.kiet.www.epoque2017.Adapters.RequestReceivedAdapter;
 import edu.kiet.www.epoque2017.Fragment.Events;
 import edu.kiet.www.epoque2017.Fragment.Notifications;
 import edu.kiet.www.epoque2017.Fragment.Profile;
 import edu.kiet.www.epoque2017.Fragment.Requests;
 import edu.kiet.www.epoque2017.Fragment.fragment_sched_result;
+import edu.kiet.www.epoque2017.Models.ProfileDataumPOJO;
+import edu.kiet.www.epoque2017.Models.ProfilePOJO;
+import edu.kiet.www.epoque2017.Models.RequestReceivedDataumPOJO;
+import edu.kiet.www.epoque2017.Models.RequestReceivedPOJO;
 import edu.kiet.www.epoque2017.R;
+import edu.kiet.www.epoque2017.Requests.ProfileRequest;
+import edu.kiet.www.epoque2017.Requests.RequestReceivedRequest;
+import edu.kiet.www.epoque2017.networking.ServiceGenerator;
+import edu.kiet.www.epoque2017.ui.coloredSnackBar;
+import edu.kiet.www.epoque2017.util.DbHandler;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class Home extends AppCompatActivity {
 
@@ -43,6 +65,56 @@ public class Home extends AppCompatActivity {
         /*Timer timer = new Timer();
         MyTimer mytimer = new MyTimer();
         timer.schedule(mytimer, 1000, 1000);*/
+        final ProgressDialog progressDialog=new ProgressDialog(this);
+
+        progressDialog.setIndeterminate(true);
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("Loading...");
+        progressDialog.show();
+
+        if(!DbHandler.getString(getApplicationContext(),"bearer","").equals("")) {
+
+            ProfileRequest profileRequest = ServiceGenerator.createService(ProfileRequest.class,DbHandler.getString(getApplicationContext(),"bearer",""));
+
+            Call<ProfilePOJO> call = profileRequest.response();
+            call.enqueue(new Callback<ProfilePOJO>() {
+
+                @Override
+                public void onResponse(Call<ProfilePOJO> call, Response<ProfilePOJO> response) {
+                    ProfilePOJO responseBody = response.body();
+                    Log.e("request_data", String.valueOf(responseBody));
+                    if (response.code() == 200) {
+                        if (!responseBody.getError()) {
+                            progressDialog.dismiss();
+                            Gson gson=new Gson();
+
+                            ProfileDataumPOJO data;
+                            data=responseBody.getData();
+                           DbHandler.putString(Home.this,"profile",gson.toJson(data));
+
+
+                        } else {
+                            Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "Session Expired", Snackbar.LENGTH_INDEFINITE);
+                            coloredSnackBar.alert(snackbar).show();
+                            DbHandler.unsetSession(Home.this, "isForcedLoggedOut");
+                        }
+                    } else {
+                        progressDialog.dismiss();
+                        Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "Error connecting to server", Snackbar.LENGTH_INDEFINITE);
+                        coloredSnackBar.alert(snackbar).show();
+
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ProfilePOJO> call, Throwable t) {
+                    progressDialog.dismiss();
+                    Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "Error connecting to server", Snackbar.LENGTH_INDEFINITE);
+                    coloredSnackBar.alert(snackbar).show();
+
+                }
+            });
+        }
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView)
                 findViewById(R.id.bottom_navigation);
