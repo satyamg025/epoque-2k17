@@ -1,12 +1,9 @@
 package edu.kiet.www.epoque2017.Adapters;
 
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.design.widget.Snackbar;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,23 +15,16 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import com.squareup.picasso.Picasso;
 
 import edu.kiet.www.epoque2017.Activity.Home;
 import edu.kiet.www.epoque2017.Activity.RequestReceived;
-import edu.kiet.www.epoque2017.CardObjects.RequestCardData;
 import edu.kiet.www.epoque2017.Models.AcceptRejectPOJO;
 import edu.kiet.www.epoque2017.Models.RequestReceivedDataumPOJO;
-import edu.kiet.www.epoque2017.Models.RequestSentDataumPOJO;
-import edu.kiet.www.epoque2017.Models.RequestSentPOJO;
 import edu.kiet.www.epoque2017.R;
 import edu.kiet.www.epoque2017.Requests.AcceptRejectRequest;
-import edu.kiet.www.epoque2017.Requests.RequestSentRequest;
 import edu.kiet.www.epoque2017.networking.NetworkCheck;
 import edu.kiet.www.epoque2017.networking.ServiceGenerator;
-import edu.kiet.www.epoque2017.ui.coloredSnackBar;
 import edu.kiet.www.epoque2017.util.DbHandler;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -62,6 +52,12 @@ public class RequestReceivedAdapter extends RecyclerView.Adapter<RequestReceived
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
+        if(!data.getEventImg().get(position).equals("")) {
+           Picasso
+                    .with(context)
+                    .load(data.getEventImg().get(position))
+                    .into(holder.EventPhoto);
+        }
         holder.EventName.setText(data.getEventName().get(position));
         holder.InvitedBy.setText("Invited By-"+data.getInvitedBy().get(position));
         if(!data.getStatus().get(position).equals("PENDING")){
@@ -110,8 +106,8 @@ public class RequestReceivedAdapter extends RecyclerView.Adapter<RequestReceived
                                             Log.e("request_data", String.valueOf(responseBody));
                                             if (response.code() == 200) {
                                                 if (!responseBody.getError()) {
-                                                   // progressDialog.dismiss();
-                                                    Toast.makeText(context,responseBody.getMsg(),Toast.LENGTH_SHORT);
+                                                    // progressDialog.dismiss();
+                                                    Toast.makeText(context,responseBody.getMsg(),Toast.LENGTH_SHORT).show();
                                                     Intent intent=new Intent(context, RequestReceived.class);
                                                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                                     context.startActivity(intent);
@@ -167,13 +163,13 @@ public class RequestReceivedAdapter extends RecyclerView.Adapter<RequestReceived
                                 @Override
                                 public void onResponse(Call<AcceptRejectPOJO> call, Response<AcceptRejectPOJO> response) {
                                     AcceptRejectPOJO responseBody = response.body();
-                                    Log.e("request_data", String.valueOf(responseBody));
+                                    Log.e("request_data", String.valueOf(responseBody.getMsg()));
                                     if (response.code() == 200) {
                                         if (!responseBody.getError()) {
                                             //progressDialog.dismiss();
-                                            Toast.makeText(context,responseBody.getMsg(),Toast.LENGTH_SHORT);
                                             Intent intent=new Intent(context, RequestReceived.class);
                                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                            Toast.makeText(context,responseBody.getMsg(),Toast.LENGTH_SHORT).show();
                                             context.startActivity(intent);
 
                                         } else {

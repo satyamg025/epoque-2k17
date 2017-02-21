@@ -13,6 +13,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -64,8 +66,14 @@ public class RequestSentAdapter extends RecyclerView.Adapter<RequestSentAdapter.
 
     @Override
     public void onBindViewHolder(view_holder holder, final int position) {
-       // final RequestSentCardData current = data.get(position);
+        // final RequestSentCardData current = data.get(position);
         holder.setIsRecyclable(false);
+        if(!data.get(position).getImg().equals("")) {
+            Picasso
+                    .with(context)
+                    .load(data.get(position).getImg())
+                    .into(holder.eventImage);
+        }
         holder.eventName.setText(data.get(position).getEventName());
         //holder.eventImage.setImageResource(current.image);
         for (int i = 0; i < data.get(position).getInvitationTo().size(); i++)
@@ -78,7 +86,7 @@ public class RequestSentAdapter extends RecyclerView.Adapter<RequestSentAdapter.
             textView2=new TextView(context);
             int id=position*100+i;
             linearLayout.setId(id);
-           // Log.e("id",Integer.toString(linearLayout.getId()));
+            // Log.e("id",Integer.toString(linearLayout.getId()));
             status.setLayoutParams(new LinearLayoutCompat.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT));
             textView.setLayoutParams(new LinearLayoutCompat.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
             textView2.setLayoutParams(new LinearLayoutCompat.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));

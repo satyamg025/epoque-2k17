@@ -4,12 +4,15 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Created by satyam on 2/20/17.
+ * Created by satyam on 2/21/17.
  */
-public class AcceptRejectPOJO {
+public class CancelEventPOJO {
     @SerializedName("error")
     @Expose
     private Boolean error;
+    @SerializedName("status")
+    @Expose
+    private String status;
     @SerializedName("msg")
     @Expose
     private String msg;
@@ -20,6 +23,14 @@ public class AcceptRejectPOJO {
 
     public void setError(Boolean error) {
         this.error = error;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getMsg() {

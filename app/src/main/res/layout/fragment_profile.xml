@@ -1,3 +1,7 @@
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -183,6 +187,7 @@
                 android:layout_weight="0.2"
                 app:cardCornerRadius="5dp"
                 app:cardElevation="5dp"
+                android:id="@+id/sponsers"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 app:cardBackgroundColor="@android:color/transparent">
@@ -244,7 +249,24 @@
                 </LinearLayout>
 
             </android.support.v7.widget.CardView>
+
         </LinearLayout>
 
     </LinearLayout>
 </ScrollView>
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/bottom_sheet1"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:clipToPadding="true"
+        android:background="#5F0099cc"
+        app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/sponsors_recycler_view"
+            android:padding="10dp"/>
+
+    </android.support.v4.widget.NestedScrollView>
+
+</android.support.design.widget.CoordinatorLayout>

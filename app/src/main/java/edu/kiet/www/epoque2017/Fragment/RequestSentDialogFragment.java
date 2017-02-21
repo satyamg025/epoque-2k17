@@ -35,16 +35,16 @@ import retrofit2.Response;
 public class RequestSentDialogFragment extends DialogFragment {
     Context context;
     TextView cancel,change;
- public static RequestSentDialogFragment newInstance(Context context, String change_from, String event_id)
- {
-     RequestSentDialogFragment ob=new RequestSentDialogFragment();
-     Bundle bundle=new Bundle();
-     bundle.putString("change_from",change_from);
-     bundle.putString("event_id",event_id);
-     Log.e("text",change_from);
-     ob.setArguments(bundle);
-     return ob;
- }
+    public static RequestSentDialogFragment newInstance(Context context, String change_from, String event_id)
+    {
+        RequestSentDialogFragment ob=new RequestSentDialogFragment();
+        Bundle bundle=new Bundle();
+        bundle.putString("change_from",change_from);
+        bundle.putString("event_id",event_id);
+        Log.e("text",change_from);
+        ob.setArguments(bundle);
+        return ob;
+    }
     public Dialog onCreateDialog( Bundle savedInstanceState) {
         final View view=getActivity().getLayoutInflater().inflate(R.layout.request_sent_dialog_fragment,null);
         final EditText user=(EditText) view.findViewById(R.id.user);
@@ -52,73 +52,57 @@ public class RequestSentDialogFragment extends DialogFragment {
         change=(TextView) view.findViewById(R.id.change);
         user.setText(getArguments().getString("change_from"));
         final AlertDialog.Builder builder= new AlertDialog.Builder(getContext());
-                builder.setView(view);
+        builder.setView(view);
         final Dialog dialog=builder.create();
-                   change.setOnClickListener(new View.OnClickListener() {
-                       @Override
-                       public void onClick(final View view) {
+        change.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View view) {
 
-                        if (!NetworkCheck.isNetworkAvailable(getActivity())) {
+                if (!NetworkCheck.isNetworkAvailable(getActivity())) {
 
-                            Snackbar snackbar = Snackbar.make(getActivity().findViewById(android.R.id.content), "No network connection", Snackbar.LENGTH_INDEFINITE);
-                            coloredSnackBar.alert(snackbar).show();
-                            return;
-                        }
-                        else{
+                    Snackbar snackbar = Snackbar.make(getActivity().findViewById(android.R.id.content), "No network connection", Snackbar.LENGTH_LONG);
+                    coloredSnackBar.alert(snackbar).show();
+                    return;
+                }
+                else{
 
-                            final ProgressDialog progressDialog=new ProgressDialog(getActivity());
+                    final ProgressDialog progressDialog=new ProgressDialog(getActivity());
 
-                            progressDialog.setIndeterminate(true);
-                            progressDialog.setCancelable(false);
-                            progressDialog.setMessage("Loading...");
-                            progressDialog.show();
+                    progressDialog.setIndeterminate(true);
+                    progressDialog.setCancelable(false);
+                    progressDialog.setMessage("Loading...");
+                    progressDialog.show();
 
 
-                            ChangeRequest changeRequest = ServiceGenerator.createService(ChangeRequest.class,DbHandler.getString(getActivity(),"bearer",""));
+                    ChangeRequest changeRequest = ServiceGenerator.createService(ChangeRequest.class,DbHandler.getString(getActivity(),"bearer",""));
 
-                            Call<ChangeRequestPOJO> call = changeRequest.requestResponse(getArguments().getString("change_from",""),user.getText().toString(),getArguments().getString("event_id",""));
-                            call.enqueue(new Callback<ChangeRequestPOJO>() {
+                    Call<ChangeRequestPOJO> call = changeRequest.requestResponse(getArguments().getString("change_from",""),user.getText().toString(),getArguments().getString("event_id",""));
+                    call.enqueue(new Callback<ChangeRequestPOJO>() {
 
-                                @Override
-                                public void onResponse(Call<ChangeRequestPOJO> call, Response<ChangeRequestPOJO> response) {
-                                    progressDialog.dismiss();;
-                                    ChangeRequestPOJO responseBody=response.body();
-                                    Log.e("rose",String.valueOf(response.code()));
-                                    if(response.code()==200) {
+                        @Override
+                        public void onResponse(Call<ChangeRequestPOJO> call, Response<ChangeRequestPOJO> response) {
+                            progressDialog.dismiss();;
+                            ChangeRequestPOJO responseBody=response.body();
+                            Log.e("rose",String.valueOf(response.code()));
+                            if(response.code()==200) {
 
-                                        if (responseBody.getError().equals("200")) {
-                                           Toast.makeText(view.getContext(), "Teammate changed successfully!!!", Toast.LENGTH_SHORT).show();
-                                            getContext().startActivity(new Intent(getContext(), RequestSent.class));
-                                        }
-                                        else if(responseBody.getError().equals("404")) {
-                                            DbHandler.unsetSession(getActivity(), "isForcedLoggedOut");
-                                        }
-                                        else {
-                                            Toast.makeText(view.getContext(), responseBody.getMessage(), Toast.LENGTH_SHORT).show();
+                                if (responseBody.getError().equals("200")) {
+                                    Toast.makeText(view.getContext(), "Teammate changed successfully!!!", Toast.LENGTH_SHORT).show();
+                                    getContext().startActivity(new Intent(getContext(), RequestSent.class));
+                                }
+                                else if(responseBody.getError().equals("404")) {
+                                    DbHandler.unsetSession(getActivity(), "isForcedLoggedOut");
+                                }
+                                else {
+                                    Toast.makeText(view.getContext(), responseBody.getMessage(), Toast.LENGTH_SHORT).show();
 
-                                        }
-                                    }
-                                    else {
-                                        progressDialog.dismiss();
-                                        new AlertDialog.Builder(getContext())
-                                                .setTitle("Failed")
-                                                .setMessage("Failed to connect")
-                                                .setNegativeButton("Ok", new DialogInterface.OnClickListener() {
-                                                    public void onClick(DialogInterface dialog, int which) {
-                                                        Intent intent = new Intent(getContext(), Home.class);
-                                                        startActivity(intent);
-                                                    }
-                                                })
-                                                .show();
-                                    }
-
+                                }
                             }
-
-                            @Override
-                            public void onFailure(Call<ChangeRequestPOJO> call, Throwable t) {
+                            else {
                                 progressDialog.dismiss();
-                                new AlertDialog.Builder(getActivity())
-                                        .setMessage("Connection Failed")
+                                new AlertDialog.Builder(getContext())
+                                        .setTitle("Failed")
+                                        .setMessage("Failed to connect")
                                         .setNegativeButton("Ok", new DialogInterface.OnClickListener() {
                                             public void onClick(DialogInterface dialog, int which) {
                                                 Intent intent = new Intent(getContext(), Home.class);
@@ -126,20 +110,36 @@ public class RequestSentDialogFragment extends DialogFragment {
                                             }
                                         })
                                         .show();
-
                             }
-                            });
+
                         }
 
-                    }
-                });
-                cancel.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                      dialog.dismiss();
+                        @Override
+                        public void onFailure(Call<ChangeRequestPOJO> call, Throwable t) {
+                            progressDialog.dismiss();
+                            new AlertDialog.Builder(getActivity())
+                                    .setMessage("Connection Failed")
+                                    .setNegativeButton("Ok", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            Intent intent = new Intent(getContext(), Home.class);
+                                            startActivity(intent);
+                                        }
+                                    })
+                                    .show();
 
-                    }
-                });
+                        }
+                    });
+                }
+
+            }
+        });
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+
+            }
+        });
 
         return dialog;
     }
