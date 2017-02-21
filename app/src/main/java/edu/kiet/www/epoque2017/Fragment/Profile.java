@@ -57,7 +57,7 @@ public class Profile extends Fragment {
         logout_card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new AlertDialog.Builder(getActivity())
+                new AlertDialog.Builder(getActivity(),R.style.MyAlertDialogStyle)
                         .setTitle("Logout")
                         .setMessage("Are you sure you want to Logout?")
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
