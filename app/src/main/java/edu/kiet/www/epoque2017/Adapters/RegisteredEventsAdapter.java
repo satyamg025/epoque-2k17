@@ -57,6 +57,7 @@ public class RegisteredEventsAdapter extends RecyclerView.Adapter<RegisteredEven
                     if(data.getEventCategory().get(id).equals("S")){
 
                         if(!DbHandler.getString(context,"bearer","").equals("")) {
+                            Toast.makeText(context,"Cancelling...",Toast.LENGTH_LONG).show();
 
                             CancelRequest cancelRequest = ServiceGenerator.createService(CancelRequest.class,DbHandler.getString(context,"bearer",""));
                             Call<CancelEventPOJO> call = cancelRequest.response(data.getEventId().get(position));

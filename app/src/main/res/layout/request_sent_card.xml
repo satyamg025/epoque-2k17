@@ -7,7 +7,7 @@
     android:id="@+id/sent_card"
     android:layout_margin="3dp"
     app:cardElevation="10dp"
-    app:cardBackgroundColor="@color/white"
+    app:cardBackgroundColor="#8F000000"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,28 +15,28 @@
         android:id="@+id/sent_layout"
         android:orientation="vertical">
 
-    <ImageView
+        <ImageView
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:layout_marginBottom="1dp"
             android:src="@drawable/logo2"
-        android:id="@+id/sent_image"/>
+            android:id="@+id/sent_image"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Event Name : Kawali(Institute Level)"
             android:textSize="20dp"
             android:textStyle="bold"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:id="@+id/sent_event_name"
             android:layout_marginBottom="9dp"
             />
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:background="#000000"
+            android:background="@color/white"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             />
-</LinearLayout>
-    </android.support.v7.widget.CardView>
+    </LinearLayout>
+</android.support.v7.widget.CardView>

@@ -95,6 +95,7 @@ public class RequestReceivedAdapter extends RecyclerView.Adapter<RequestReceived
                                 progressDialog.setMessage("Loading...");
                                 progressDialog.show();*/
                                 if(!DbHandler.getString(context,"bearer","").equals("")) {
+                                    Toast.makeText(context,"Registering ...",Toast.LENGTH_LONG);
 
                                     AcceptRejectRequest acceptRejectRequest = ServiceGenerator.createService(AcceptRejectRequest.class,DbHandler.getString(context,"bearer",""));
                                     Call<AcceptRejectPOJO> call = acceptRejectRequest.responseRequest(data.getInviteId().get(position),"1");
@@ -155,6 +156,7 @@ public class RequestReceivedAdapter extends RecyclerView.Adapter<RequestReceived
                                 progressDialog.setMessage("Loading...");
                                 progressDialog.show();*/
                         if(!DbHandler.getString(context,"bearer","").equals("")) {
+                            Toast.makeText(context,"Rejecting ...",Toast.LENGTH_LONG);
 
                             AcceptRejectRequest acceptRejectRequest = ServiceGenerator.createService(AcceptRejectRequest.class,DbHandler.getString(context,"bearer",""));
                             Call<AcceptRejectPOJO> call = acceptRejectRequest.responseRequest(data.getInviteId().get(position),"0");

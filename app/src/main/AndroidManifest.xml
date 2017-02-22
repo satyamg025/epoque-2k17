@@ -53,7 +53,7 @@
             android:name=".Activity.EventActivity"
             android:theme="@style/AppTheme.Base" />
         <activity android:name=".Activity.NotificationActivity"
-            android:theme="@style/AppTheme.Base"></activity>
+            android:theme="@style/AppTheme.Base"/>
     </application>
 
 </manifest>

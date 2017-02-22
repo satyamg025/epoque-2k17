@@ -8,22 +8,26 @@
     android:layout_height="match_parent"
     tools:context="edu.kiet.www.epoque2017.Activity.RequestSent">
 
-        <android.support.v7.widget.Toolbar
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:id="@+id/toolbar"
-            android:background="@color/colorPrimaryDark"
-            app:layout_scrollFlags="scroll|enterAlways"
-            app:titleTextColor="@color/white"
-            app:layout_collapseMode="pin"
-            app:popupTheme="@style/AppTheme.PopupOverlay"
-            />
-
-    <android.support.v7.widget.RecyclerView
+    <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/requestSentRecyclerView">
-    </android.support.v7.widget.RecyclerView>
-
+        android:layout_height="?attr/actionBarSize"
+        android:id="@+id/toolbar"
+        android:background="@color/colorPrimaryDark"
+        app:layout_scrollFlags="scroll|enterAlways"
+        app:titleTextColor="@color/white"
+        app:layout_collapseMode="pin"
+        app:popupTheme="@style/AppTheme.PopupOverlay"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/reqq">
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:id="@+id/requestSentRecyclerView">
+        </android.support.v7.widget.RecyclerView>
+    </LinearLayout>
 </LinearLayout>
 

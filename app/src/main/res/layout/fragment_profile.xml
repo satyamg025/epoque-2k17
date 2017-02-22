@@ -1,7 +1,3 @@
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -68,9 +64,10 @@
                 android:clickable="true"
                 android:id="@+id/registeredEvents"
                 app:cardCornerRadius="5dp"
-                app:cardElevation="5dp"
+                app:cardElevation="3dp"
                 android:layout_margin="5dp"
-                android:layout_weight="0.2"
+                android:minHeight="100dp"
+                android:layout_weight="0.25"
                 app:cardBackgroundColor="@android:color/transparent">
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -118,16 +115,17 @@
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.2"
+                android:layout_weight="0.25"
                 app:cardCornerRadius="5dp"
-                app:cardElevation="5dp"
-
+                app:cardElevation="3dp"
+                android:id="@+id/notification"
                 android:layout_margin="5dp"
+                android:minHeight="50dp"
                 app:cardBackgroundColor="@android:color/transparent">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:id="@+id/noti_ll"
+                    android:layout_gravity="center"
                     android:orientation="horizontal"
                     >
                     <ImageView
@@ -155,14 +153,16 @@
                 android:clickable="true"
                 android:id="@+id/contact"
                 app:cardCornerRadius="5dp"
-                app:cardElevation="5dp"
+                app:cardElevation="3dp"
                 android:layout_margin="5dp"
-                android:layout_weight="0.2"
+                android:layout_weight="0.25"
+                android:minHeight="50dp"
                 app:cardBackgroundColor="@android:color/transparent">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="horizontal"
+                    android:layout_gravity="center"
                     >
                     <ImageView
                         android:layout_width="50dp"
@@ -183,52 +183,22 @@
                 </LinearLayout>
 
             </android.support.v7.widget.CardView>
-            <android.support.v7.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_weight="0.2"
-                app:cardCornerRadius="5dp"
-                app:cardElevation="5dp"
-                android:id="@+id/sponsers"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                app:cardBackgroundColor="@android:color/transparent">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    >
-                    <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/currency_small"
-                        android:layout_gravity="center"
-                        android:layout_margin="5dp"
-                        />
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:gravity="left"
-                        android:text="Sponsors"
-                        android:textColor="@color/white"
-                        android:textSize="20sp"
-                        />
-                </LinearLayout>
 
-            </android.support.v7.widget.CardView>
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.2"
+                android:layout_weight="0.25"
                 app:cardCornerRadius="5dp"
-                app:cardElevation="5dp"
+                app:cardElevation="3dp"
                 android:layout_margin="5dp"
                 android:clickable="true"
                 android:id="@+id/logout"
+                android:minHeight="50dp"
                 app:cardBackgroundColor="@android:color/transparent">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_gravity="center"
                     android:orientation="horizontal"
                     >
                     <ImageView
@@ -255,19 +225,3 @@
 
     </LinearLayout>
 </ScrollView>
-    <android.support.v4.widget.NestedScrollView
-        android:id="@+id/bottom_sheet1"
-        android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:clipToPadding="true"
-        android:background="#5F0099cc"
-        app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
-        <android.support.v7.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/sponsors_recycler_view"
-            android:padding="10dp"/>
-
-    </android.support.v4.widget.NestedScrollView>
-
-</android.support.design.widget.CoordinatorLayout>
