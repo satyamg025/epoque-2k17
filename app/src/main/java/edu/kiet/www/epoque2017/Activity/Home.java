@@ -41,6 +41,7 @@ public class Home extends AppCompatActivity {
     private FragmentManager fragmentManager;
     private String name1, email1;
     private String name, email, uid, fragmentid, position;
+    int ids=0;
     int count = 0,flag=0;
     Boolean doubleBackToExitPressedOnce=false;
     FrameLayout frameLayout;
@@ -145,15 +146,15 @@ public class Home extends AppCompatActivity {
 
                         switch (item.getItemId()) {
                             case R.id.action_requests:
-                                flag=1;
+                                flag=1;ids=item.getItemId();
                                 fragment = new Requests();
                                 break;
                             case R.id.action_schedule_result:
-                                flag=1;
+                                flag=1;ids=item.getItemId();
                                 fragment = new fragment_sched_result();
                                 break;
                             case R.id.action_profile:
-                                flag=1;
+                                flag=1;ids=item.getItemId();
                                 fragment = new Profile();
                                 break;
                             case R.id.action_events:

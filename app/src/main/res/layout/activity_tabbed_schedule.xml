@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_content"
     android:layout_width="match_parent"
+    android:background="@drawable/imag"
     android:layout_height="match_parent"
     tools:context="edu.kiet.www.epoque2017.Activity.TabbedSchedule">
 
