@@ -16,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
@@ -287,8 +288,8 @@ public class TabbedSchedule extends AppCompatActivity {
             }
             else{
                 new AlertDialog.Builder(getActivity())
-                        .setTitle("Coming Soon")
-                        .setMessage("Schedule coming soon")
+                        .setTitle("\"<font color='#000000'>Coming Soon</font>\"")
+                        .setMessage(Html.fromHtml("<font color='#000000'>Schedule coming soon</font>"))
                         .setNegativeButton("Ok", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 Intent intent = new Intent(getActivity(), Home.class);

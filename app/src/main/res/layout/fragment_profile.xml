@@ -157,6 +157,7 @@
                 android:layout_margin="5dp"
                 android:layout_weight="0.25"
                 android:minHeight="50dp"
+
                 app:cardBackgroundColor="@android:color/transparent">
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -176,7 +177,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:gravity="left"
-                        android:text="Contact Us : erp@kiet.edu"
+                        android:text="Contact Us : epoque@kiet.edu"
                         android:textColor="@color/white"
                         android:textSize="20sp"
                         />
