@@ -1,6 +1,7 @@
 package edu.kiet.www.epoque2017.Adapters;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -39,6 +40,7 @@ public class RequestReceivedAdapter extends RecyclerView.Adapter<RequestReceived
     //private final LayoutInflater inflater;
     Context context;
     RequestReceivedDataumPOJO data;
+    ProgressDialog progressDialog;
 
     public RequestReceivedAdapter(Context context, RequestReceivedDataumPOJO data){
         this.context=context;
@@ -88,12 +90,12 @@ public class RequestReceivedAdapter extends RecyclerView.Adapter<RequestReceived
                                 return;
                             }
                             else {
-                                /*final ProgressDialog progressDialog=new ProgressDialog(context);
+                                 progressDialog=new ProgressDialog(context);
 
                                 progressDialog.setIndeterminate(true);
                                 progressDialog.setCancelable(false);
                                 progressDialog.setMessage("Loading...");
-                                progressDialog.show();*/
+                                progressDialog.show();
                                 if(!DbHandler.getString(context,"bearer","").equals("")) {
                                     Toast.makeText(context,"Registering ...",Toast.LENGTH_LONG);
 
@@ -103,11 +105,12 @@ public class RequestReceivedAdapter extends RecyclerView.Adapter<RequestReceived
 
                                         @Override
                                         public void onResponse(Call<AcceptRejectPOJO> call, Response<AcceptRejectPOJO> response) {
+                                            progressDialog.dismiss();
                                             AcceptRejectPOJO responseBody = response.body();
                                             Log.e("request_data", String.valueOf(responseBody));
                                             if (response.code() == 200) {
                                                 if (!responseBody.getError()) {
-                                                    // progressDialog.dismiss();
+
                                                     Toast.makeText(context,responseBody.getMsg(),Toast.LENGTH_SHORT).show();
                                                     Intent intent=new Intent(context, RequestReceived.class);
                                                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

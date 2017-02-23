@@ -1,5 +1,6 @@
 package edu.kiet.www.epoque2017.Adapters;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
@@ -32,6 +33,7 @@ public class RegisteredEventsAdapter extends RecyclerView.Adapter<RegisteredEven
     private final LayoutInflater inflater;
     Context context;
     ProfileDataumPOJO data;
+    ProgressDialog progressDialog;
 
     public RegisteredEventsAdapter(Context context, ProfileDataumPOJO data){
         inflater=LayoutInflater.from(context);
@@ -52,19 +54,26 @@ public class RegisteredEventsAdapter extends RecyclerView.Adapter<RegisteredEven
         holder.cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                progressDialog=new ProgressDialog(context);
+                progressDialog.setMessage("Cancelling...");
+                progressDialog.setCancelable(false);
+                progressDialog.setIndeterminate(true);
+
                 int id=holder.getAdapterPosition();
                 if(data.getTeamLeaderBool().get(id)){
                     if(data.getEventCategory().get(id).equals("S")){
 
                         if(!DbHandler.getString(context,"bearer","").equals("")) {
-                            Toast.makeText(context,"Cancelling...",Toast.LENGTH_LONG).show();
+                           // Toast.makeText(context,"Cancelling...",Toast.LENGTH_LONG).show();
 
+                            progressDialog.show();
                             CancelRequest cancelRequest = ServiceGenerator.createService(CancelRequest.class,DbHandler.getString(context,"bearer",""));
                             Call<CancelEventPOJO> call = cancelRequest.response(data.getEventId().get(position));
                             call.enqueue(new Callback<CancelEventPOJO>() {
 
                                 @Override
                                 public void onResponse(Call<CancelEventPOJO> call, Response<CancelEventPOJO> response) {
+                                    progressDialog.dismiss();
                                     CancelEventPOJO responseBody = response.body();
                                     Log.e("request_data", String.valueOf(responseBody));
                                     if (response.code() == 200) {
@@ -84,6 +93,7 @@ public class RegisteredEventsAdapter extends RecyclerView.Adapter<RegisteredEven
 
                                 @Override
                                 public void onFailure(Call<CancelEventPOJO> call, Throwable t) {
+                                    progressDialog.dismiss();
                                     Toast.makeText(context,"Connection failed",Toast.LENGTH_LONG).show();
                                 }
                             });
@@ -94,13 +104,14 @@ public class RegisteredEventsAdapter extends RecyclerView.Adapter<RegisteredEven
                     else{
 
                         if(!DbHandler.getString(context,"bearer","").equals("")) {
-
+                            progressDialog.show();
                             CancelRequest2 cancelRequest2 = ServiceGenerator.createService(CancelRequest2.class,DbHandler.getString(context,"bearer",""));
                             Call<CancelEventPOJO> call = cancelRequest2.response(data.getEventId().get(position));;
                             call.enqueue(new Callback<CancelEventPOJO>() {
 
                                 @Override
                                 public void onResponse(Call<CancelEventPOJO> call, Response<CancelEventPOJO> response) {
+                                    progressDialog.show();
                                     CancelEventPOJO responseBody = response.body();
                                     Log.e("request_data", String.valueOf(responseBody));
                                     if (response.code() == 200) {
@@ -120,6 +131,7 @@ public class RegisteredEventsAdapter extends RecyclerView.Adapter<RegisteredEven
 
                                 @Override
                                 public void onFailure(Call<CancelEventPOJO> call, Throwable t) {
+                                    progressDialog.dismiss();
                                     Toast.makeText(context,"Connection failed",Toast.LENGTH_LONG).show();
                                 }
                             });

@@ -57,11 +57,12 @@ public class RequestSent extends AppCompatActivity {
 
                 @Override
                 public void onResponse(Call<RequestSentPOJO> call, Response<RequestSentPOJO> response) {
+                    progressDialog.dismiss();
                     RequestSentPOJO responseBody = response.body();
                     Log.e("request_data", String.valueOf(responseBody));
                     if (response.code() == 200) {
                         if (!responseBody.getError()) {
-                            progressDialog.dismiss();
+
 
                             List<RequestSentDataumPOJO> data = new ArrayList<RequestSentDataumPOJO>();
                             data = responseBody.getData();
@@ -92,7 +93,7 @@ public class RequestSent extends AppCompatActivity {
                             DbHandler.unsetSession(RequestSent.this, "isForcedLoggedOut");
                         }
                     } else {
-                        progressDialog.dismiss();
+
                         new AlertDialog.Builder(RequestSent.this)
                                 .setTitle("Failed")
                                 .setMessage("Failed to connect")

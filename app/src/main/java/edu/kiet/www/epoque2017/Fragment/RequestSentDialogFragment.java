@@ -14,7 +14,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import edu.kiet.www.epoque2017.Activity.Home;
 import edu.kiet.www.epoque2017.Activity.RequestSent;
 import edu.kiet.www.epoque2017.Models.ChangeRequestPOJO;
@@ -27,7 +26,6 @@ import edu.kiet.www.epoque2017.util.DbHandler;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
 /**
  * Created by sooraj on 15-02-2017.
  */
@@ -81,7 +79,7 @@ public class RequestSentDialogFragment extends DialogFragment {
 
                         @Override
                         public void onResponse(Call<ChangeRequestPOJO> call, Response<ChangeRequestPOJO> response) {
-                            progressDialog.dismiss();;
+                            progressDialog.dismiss();
                             ChangeRequestPOJO responseBody=response.body();
                             Log.e("rose",String.valueOf(response.code()));
                             if(response.code()==200) {
@@ -99,7 +97,6 @@ public class RequestSentDialogFragment extends DialogFragment {
                                 }
                             }
                             else {
-                                progressDialog.dismiss();
                                 new AlertDialog.Builder(getContext())
                                         .setTitle("Failed")
                                         .setMessage("Failed to connect")

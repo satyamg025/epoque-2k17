@@ -69,9 +69,8 @@ public class Home extends AppCompatActivity {
         progressDialog.show();
 
         if (!NetworkCheck.isNetworkAvailable(Home.this)) {
-
-            Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "No network connection", Snackbar.LENGTH_LONG);
-            coloredSnackBar.alert(snackbar).show();
+            progressDialog.dismiss();
+            Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "No network connection", Snackbar.LENGTH_SHORT);
             coloredSnackBar.alert(snackbar).show();
             return;
         }
@@ -85,11 +84,11 @@ public class Home extends AppCompatActivity {
 
                     @Override
                     public void onResponse(Call<ProfilePOJO> call, Response<ProfilePOJO> response) {
+                        progressDialog.dismiss();
                         ProfilePOJO responseBody = response.body();
                         Log.e("request_data", String.valueOf(responseBody));
                         if (response.code() == 200) {
                             if (!responseBody.getError()) {
-                                progressDialog.dismiss();
                                 Gson gson = new Gson();
 
                                 ProfileDataumPOJO data;
@@ -101,6 +100,7 @@ public class Home extends AppCompatActivity {
                                 } else if (data.getService()) {
                                     new AlertDialog.Builder(Home.this)
                                             .setMessage("App under service")
+                                            .setCancelable(false)
                                             .setNegativeButton("Ok", new DialogInterface.OnClickListener() {
                                                 public void onClick(DialogInterface dialog, int which) {
                                                     doubleBackToExitPressedOnce = true;
@@ -113,13 +113,13 @@ public class Home extends AppCompatActivity {
 
 
                             } else {
-                                Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "Session Expired", Snackbar.LENGTH_LONG);
+                                Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "Session Expired", Snackbar.LENGTH_SHORT);
                                 coloredSnackBar.alert(snackbar).show();
                                 DbHandler.unsetSession(Home.this, "isForcedLoggedOut");
                             }
                         } else {
-                            progressDialog.dismiss();
-                            Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "Error connecting to server", Snackbar.LENGTH_LONG);
+
+                            Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "Error connecting to server", Snackbar.LENGTH_SHORT);
                             coloredSnackBar.alert(snackbar).show();
 
                         }
@@ -128,7 +128,7 @@ public class Home extends AppCompatActivity {
                     @Override
                     public void onFailure(Call<ProfilePOJO> call, Throwable t) {
                         progressDialog.dismiss();
-                        Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "Error connecting to server", Snackbar.LENGTH_LONG);
+                        Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "Error connecting to server", Snackbar.LENGTH_SHORT);
                         coloredSnackBar.alert(snackbar).show();
 
                     }

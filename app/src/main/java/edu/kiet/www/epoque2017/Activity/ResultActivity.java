@@ -59,10 +59,11 @@ public class ResultActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<ResultPOJO> call, Response<ResultPOJO> response) {
                     ResultPOJO responseBody = response.body();
+                    progressDialog.dismiss();
                     Log.e("request_data", String.valueOf(responseBody));
                     if (response.code() == 200) {
                         if (!responseBody.getError()) {
-                            progressDialog.dismiss();
+
 
                             ResultDataumPOJO data=responseBody.getData();
                             mrecyclerView = (RecyclerView)findViewById(R.id.recycler_result);
@@ -78,6 +79,7 @@ public class ResultActivity extends AppCompatActivity {
                             new AlertDialog.Builder(ResultActivity.this)
                                     .setTitle("No Result")
                                     .setMessage("Results not out yet.")
+                                    .setCancelable(false)
                                     .setNegativeButton("Ok", new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int which) {
                                             startActivity(new Intent(ResultActivity.this,Home.class));
@@ -86,10 +88,11 @@ public class ResultActivity extends AppCompatActivity {
                                     .show();
                         }
                     } else {
-                        progressDialog.dismiss();
+
                         new AlertDialog.Builder(ResultActivity.this)
                                 .setTitle("Failed")
                                 .setMessage("Failed to connect")
+                                .setCancelable(false)
                                 .setNegativeButton("Ok", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
                                         startActivity(new Intent(ResultActivity.this,Home.class));
@@ -104,6 +107,7 @@ public class ResultActivity extends AppCompatActivity {
                     progressDialog.dismiss();
                     new AlertDialog.Builder(ResultActivity.this)
                             .setMessage("Connection Failed")
+                            .setCancelable(false)
                             .setNegativeButton("Ok", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
                                     startActivity(new Intent(ResultActivity.this,Home.class));

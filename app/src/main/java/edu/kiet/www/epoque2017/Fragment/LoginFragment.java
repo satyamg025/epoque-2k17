@@ -131,10 +131,11 @@ public class LoginFragment extends Fragment {
                     @Override
                     public void onResponse(Call<LoginPOJO> call, Response<LoginPOJO> response) {
                         LoginPOJO responseBody = response.body();
+                        progressDialog.dismiss();
                         Log.e("Login_data", String.valueOf(responseBody) + " " + String.valueOf(response.code()));
                         if (response.code() == 200) {
                             if (!responseBody.getError()) {
-                                progressDialog.dismiss();
+
                                 DbHandler.setSession(getActivity(), responseBody.getKey(), responseBody.getPerson());
                                 startActivity(new Intent(getActivity(), Home.class));
                             } else {

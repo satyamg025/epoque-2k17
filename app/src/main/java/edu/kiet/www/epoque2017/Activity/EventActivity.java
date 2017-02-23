@@ -63,6 +63,11 @@ public class EventActivity extends AppCompatActivity {
         facultyApexName=(TextView)findViewById(R.id.faculty_apex_name);
         facultyApexPhone=(TextView)findViewById(R.id.facuty_apex_phone);
         facultyApexDept=(TextView)findViewById(R.id.facuty_apex_dept);
+        studentApexName.setVisibility(View.GONE);
+        studentApexPhone.setVisibility(View.GONE);
+        facultyApexDept.setVisibility(View.GONE);
+        facultyApexName.setVisibility(View.GONE);
+        facultyApexPhone.setVisibility(View.GONE);
         progressDialog=new ProgressDialog(this);
         progressDialog.setMessage("Loading...");
         progressDialog.setCancelable(false);
@@ -109,7 +114,8 @@ public class EventActivity extends AppCompatActivity {
                                     Toast.makeText(EventActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                                     if(response.body().getStatus().trim().equalsIgnoreCase("success"))
                                     {
-                                        finish();
+                                        startActivity(new Intent(EventActivity.this,Home.class));
+                                        finishAffinity();
                                     }
                                 }
                             }
@@ -132,17 +138,20 @@ public class EventActivity extends AppCompatActivity {
                                 progressDialog.dismiss();
                                 if(response.body().getError())
                                 {
-                                    Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "Session Expired", Snackbar.LENGTH_LONG);
-                                    coloredSnackBar.alert(snackbar).show();
+
                                     DbHandler.unsetSession(EventActivity.this, "isForcedLoggedOut");
                                     startActivity(new Intent(EventActivity.this,SplashActivity.class));
+                                    Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "Session Expired", Snackbar.LENGTH_LONG);
+                                    coloredSnackBar.alert(snackbar).show();
                                     finishAffinity();
+
                                 }
                                 else{
                                     Toast.makeText(EventActivity.this, response.body().getMessage(), Toast.LENGTH_LONG).show();
                                     if(response.body().getStatus().trim().equalsIgnoreCase("success"))
                                     {
-                                        finish();
+                                       startActivity(new Intent(EventActivity.this,Home.class));
+                                        finishAffinity();
                                     }
                                 }
                             }

@@ -23,7 +23,7 @@ public class Fragment_update extends DialogFragment {
         final LayoutInflater inflater = getActivity().getLayoutInflater();
         view = inflater.inflate(R.layout.dialog_update, null);
         builder.setView(view);
-
+        builder.setCancelable(false);
         btn=(Button)view.findViewById(R.id.playstore);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override

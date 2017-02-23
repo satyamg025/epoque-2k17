@@ -38,7 +38,6 @@ public class Events extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_events, container, false);
         progressDialog=new ProgressDialog(getContext());
-        progressDialog.setIndeterminate(true);
         progressDialog.setCancelable(false);
         progressDialog.setMessage("Loading...");
         progressDialog.show();
