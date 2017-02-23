@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
@@ -76,8 +77,8 @@ public class ResultActivity extends AppCompatActivity {
 
                         } else {
                             new AlertDialog.Builder(ResultActivity.this)
-                                    .setTitle("No Result")
-                                    .setMessage("Results not out yet.")
+                                    .setTitle("\"<font color='#000000'>No Results</font>\"")
+                                    .setMessage(Html.fromHtml("<font color='#000000'>Results not out yet.</font>"))
                                     .setNegativeButton("Ok", new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int which) {
                                             startActivity(new Intent(ResultActivity.this,Home.class));

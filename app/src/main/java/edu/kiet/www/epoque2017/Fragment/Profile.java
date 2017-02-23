@@ -1,8 +1,10 @@
 package edu.kiet.www.epoque2017.Fragment;
 
 import android.app.AlertDialog;
+import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.app.Fragment;
@@ -14,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -27,7 +30,7 @@ import edu.kiet.www.epoque2017.util.DbHandler;
 public class Profile extends Fragment {
     private RecyclerView RrecyclerView,SrecyclerView;
     private RegisteredEventsAdapter Radapter;
-    CardView  logout_card,sponsor_card,notification_card;
+    CardView  logout_card,sponsor_card,notification_card,contactUs;
     public Profile(){}
     TextView name;
     String name_displayed;
@@ -40,6 +43,13 @@ public class Profile extends Fragment {
         name=(TextView)view5.findViewById(R.id.name);
         notification_card=(CardView)view5.findViewById(R.id.notification);
         RrecyclerView=(RecyclerView)view5.findViewById(R.id.registeredEventsRecyclerView);
+        contactUs=(CardView)view5.findViewById(R.id.contact);
+        contactUs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendEmail();
+            }
+        });
         Gson gson=new Gson();
         ProfileDataumPOJO data=gson.fromJson(DbHandler.getString(getContext(),"profile",""),ProfileDataumPOJO.class);
         name_displayed=data.getName();
@@ -83,6 +93,17 @@ public class Profile extends Fragment {
         });
 
         return view5;
+    }
+    private void sendEmail() {
+        String mailto = "mailto:epoque@kiet.edu?subject=" + Uri.encode("Epoque App Feedback/Bugs");
+        Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
+        emailIntent.setData(Uri.parse(mailto));
+
+        try {
+            startActivity(emailIntent);
+        } catch (ActivityNotFoundException e) {
+            Toast.makeText(getActivity(), "Please install an E-Mail App", Toast.LENGTH_SHORT).show();
+        }
     }
 
     }
