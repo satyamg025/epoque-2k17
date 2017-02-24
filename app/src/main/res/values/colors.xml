@@ -12,6 +12,10 @@
     <color name="global_color_green_control_activated">#ffc107</color>
     <color name="black">#000000</color>
     <color name="brown">#F47718</color>
+    <color name="deep_orange">#FF5722</color>
+    <color name="red">#d50000</color>
+    <color name="yellow">#ffeb3b</color>
+    <color name="blue">#00Aff0</color>
 
     <color name="accepted">#2e7d32</color>
     <color name="rejected">#d50000</color>
