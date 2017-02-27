@@ -147,17 +147,21 @@ public class Home extends AppCompatActivity {
                         switch (item.getItemId()) {
                             case R.id.action_requests:
                                 flag=1;ids=item.getItemId();
+                                //bottomNavigationView.setItemBackgroundResource(R.color.deep_orange);
                                 fragment = new Requests();
                                 break;
                             case R.id.action_schedule_result:
+                                //bottomNavigationView.setItemBackgroundResource(R.color.yellow);
                                 flag=1;ids=item.getItemId();
                                 fragment = new fragment_sched_result();
                                 break;
                             case R.id.action_profile:
                                 flag=1;ids=item.getItemId();
+                                //bottomNavigationView.setItemBackgroundResource(R.color.blue);
                                 fragment = new Profile();
                                 break;
                             case R.id.action_events:
+                               // bottomNavigationView.setItemBackgroundResource(R.color.global_color_green_primary);
                                 flag=0;
                                 fragment = new Events();
                         }
@@ -177,6 +181,11 @@ public class Home extends AppCompatActivity {
             fragment=new Events();
             FragmentTransaction transaction = fragmentManager.beginTransaction();
             transaction.replace(R.id.main_container, fragment).commit();
+            Log.e("key","crashed");
+            //bottomNavigationView.getMenu().getItem(ids).setChecked(false);
+            //getMenuInflater(R.menu.bottom_navigation_main);
+
+
         }
         else if(flag==0){
             if (doubleBackToExitPressedOnce) {
