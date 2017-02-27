@@ -279,7 +279,6 @@ public class TabbedSchedule extends AppCompatActivity {
 
             mrecyclerView = (RecyclerView) view.findViewById(R.id.recycler_sched);
             assert mrecyclerView != null;
-            mrecyclerView.setHasFixedSize(true);
             mlinearLayoutManager = new LinearLayoutManager(getActivity());
             mrecyclerView.setLayoutManager(mlinearLayoutManager);
             if(event_name!=null) {
