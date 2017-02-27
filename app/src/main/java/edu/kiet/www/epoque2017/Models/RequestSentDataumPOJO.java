@@ -42,6 +42,9 @@ public class RequestSentDataumPOJO {
     @SerializedName("team_leader_bool")
     @Expose
     private Boolean teamLeaderBool;
+    @SerializedName("reg_closed")
+    @Expose
+    private Boolean reg_closed;
 
     public String getTeamLeader() {
         return teamLeader;
@@ -130,4 +133,13 @@ public class RequestSentDataumPOJO {
     public void setTeamLeaderBool(Boolean teamLeaderBool) {
         this.teamLeaderBool = teamLeaderBool;
     }
+
+    public Boolean getReg_closed() {
+        return reg_closed;
+    }
+
+    public void setReg_closed(Boolean reg_closed) {
+        this.reg_closed = reg_closed;
+    }
+
 }

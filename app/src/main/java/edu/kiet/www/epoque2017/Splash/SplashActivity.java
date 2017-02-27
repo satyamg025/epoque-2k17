@@ -12,7 +12,6 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 import edu.kiet.www.epoque2017.Activity.Home;
-import edu.kiet.www.epoque2017.Fragment.Events;
 import edu.kiet.www.epoque2017.Fragment.LoginFragment;
 import edu.kiet.www.epoque2017.Fragment.SplashFragment;
 import edu.kiet.www.epoque2017.R;
@@ -42,7 +41,8 @@ public class SplashActivity extends AppCompatActivity {
         //layout=(LinearLayout)findViewById(R.id.layout_buttons);
         //login=(Button)findViewById(R.id.login);
         //layout.setVisibility(View.GONE);
-        if(DbHandler.getBoolean(this,"Session Expired",false)){
+        if(DbHandler.getBoolean(SplashActivity.this, "isForcedLoggedOut", false)){
+            DbHandler.putBoolean(SplashActivity.this,"isForcedLoggedOut",false);
             Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "Session Expired", Snackbar.LENGTH_LONG);
             coloredSnackBar.alert(snackbar).show();
         }

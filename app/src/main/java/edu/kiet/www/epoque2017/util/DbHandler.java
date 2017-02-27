@@ -57,6 +57,12 @@ public class DbHandler {
         prefs = context.getSharedPreferences(Config.DB_NAME, Context.MODE_PRIVATE);
         return prefs.getBoolean(Key, Alternate);
     }
+    public static Boolean contains(Context context,String Key)
+    {
+        SharedPreferences prefs;
+        prefs = context.getSharedPreferences(Config.DB_NAME, Context.MODE_PRIVATE);
+        return prefs.contains(Key);
+    }
     public static void clearDb(Context context)
     {
         SharedPreferences preferences = context.getSharedPreferences(Config.DB_NAME, 0);
@@ -77,6 +83,21 @@ public class DbHandler {
        // FirebaseMessaging.getInstance().unsubscribeFromTopic(Config.TOPIC_GLOBAL);
         DbHandler.clearDb(context);
         DbHandler.putBoolean(context, "isLoggedIn", false);
+        DbHandler.putBoolean(context,"isForcedLoggedOut",true);
+        Bundle b = new Bundle();
+        b.putBoolean(type, true);
+        Intent i = new Intent(context, SplashActivity.class);
+        i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        i.putExtras(b);
+        context.startActivity(i);
+        ((Activity) context).finishAffinity();
+    }
+    public static void unsetSession2(Context context,String type)
+    {
+        // FirebaseMessaging.getInstance().unsubscribeFromTopic(Config.TOPIC_GLOBAL);
+        DbHandler.clearDb(context);
+        DbHandler.putBoolean(context, "isLoggedIn", false);
+        DbHandler.putBoolean(context,"isForcedLoggedOut",false);
         Bundle b = new Bundle();
         b.putBoolean(type, true);
         Intent i = new Intent(context, SplashActivity.class);

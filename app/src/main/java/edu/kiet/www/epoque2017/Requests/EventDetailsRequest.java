@@ -9,6 +9,6 @@ import retrofit2.http.GET;
  */
 
 public interface EventDetailsRequest {
-    @GET("App_controller/event_details_institute")
+    @GET("App_controller/event_details")
     Call<EventDetailsPOJO> request();
 }

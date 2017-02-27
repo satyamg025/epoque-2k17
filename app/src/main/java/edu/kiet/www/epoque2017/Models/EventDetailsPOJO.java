@@ -50,6 +50,17 @@ public class EventDetailsPOJO {
     @SerializedName("result_type")
     @Expose
     private List<String> resultType = new ArrayList<>();
+    @SerializedName("error")
+    @Expose
+    private Boolean error;
+
+    @SerializedName("reg_closed")
+    @Expose
+    private Boolean reg_closed;
+
+    @SerializedName("message")
+    @Expose
+    private String message;
 
     public List<String> getImg() {
         return img;
@@ -153,6 +164,30 @@ public class EventDetailsPOJO {
 
     public void setResultType(List<String> resultType) {
         this.resultType = resultType;
+    }
+
+    public Boolean getReg_closed() {
+        return reg_closed;
+    }
+
+    public void setReg_closed(Boolean reg_closed) {
+        this.reg_closed = reg_closed;
+    }
+
+    public Boolean getError() {
+        return error;
+    }
+
+    public void setError(Boolean error) {
+        this.error = error;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 
 }

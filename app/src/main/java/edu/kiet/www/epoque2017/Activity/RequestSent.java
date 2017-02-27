@@ -72,7 +72,7 @@ public class RequestSent extends AppCompatActivity {
                             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
                             linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
                             recyclerView.setLayoutManager(linearLayoutManager);
-                            adapter = new RequestSentAdapter(getApplicationContext(), data, getSupportFragmentManager());
+                            adapter = new RequestSentAdapter(RequestSent.this, data, getSupportFragmentManager());
                             recyclerView.setAdapter(adapter);
 
                         }

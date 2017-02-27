@@ -71,7 +71,7 @@ public class RequestReceived extends AppCompatActivity {
                             RequestReceivedDataumPOJO data;
                             data=responseBody.getData();
                             recyclerView=(RecyclerView)findViewById(R.id.requestRecyclerView);
-                            adapter=new RequestReceivedAdapter(getApplicationContext(),data);
+                            adapter=new RequestReceivedAdapter(RequestReceived.this,data);
                             recyclerView.setAdapter(adapter);
                             recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 

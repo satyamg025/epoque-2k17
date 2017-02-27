@@ -11,7 +11,9 @@ import android.content.Intent;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.Build;
 import android.support.v4.app.NotificationCompat;
+import android.widget.Toast;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
@@ -43,11 +45,16 @@ public class NotificationUtils extends FirebaseMessagingService {
             Ringtone r = RingtoneManager.getRingtone(getApplicationContext(), notify);
             r.play();
             // notification.setVibrate(new long[] { 700,700 });
-            notification.setSmallIcon(R.drawable.splash_background);
+            notification.setSmallIcon(R.drawable.ic_noti);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                notification.setColor(getResources().getColor(R.color.black));
+            }
             notification.setAutoCancel(false);
             notification.setContentIntent(pendingIntent);
             NotificationManager notificationManager=(NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
             notificationManager.notify(0,notification.build());
+
+
 
         }
         else {
@@ -58,15 +65,32 @@ public class NotificationUtils extends FirebaseMessagingService {
             NotificationCompat.Builder notification = new NotificationCompat.Builder(this);
             notification.setContentTitle(title);
             notification.setContentText(message);
+            Toast.makeText(this,title+message,Toast.LENGTH_SHORT).show();
             Uri notify = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
             Ringtone r = RingtoneManager.getRingtone(getApplicationContext(), notify);
             r.play();
             // notification.setVibrate(new long[] { 700,700 });
             notification.setSmallIcon(R.drawable.splash_background);
             notification.setAutoCancel(false);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                notification.setColor(getResources().getColor(R.color.black));
+            }
             notification.setContentIntent(pendingIntent);
             NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
             notificationManager.notify(0, notification.build());
+
+            if(DbHandler.contains(this,"title_list")){
+                String get_title=DbHandler.getString(this,"title_list","");
+                String get_message=DbHandler.getString(this,"message_list","");
+                get_title=get_title+"@#$"+title;
+                get_message=get_message+"@#$"+message;
+                DbHandler.putString(this,"title_list",get_title);
+                DbHandler.putString(this,"message_list",get_message);
+            }
+            else{
+                DbHandler.putString(this,"title_list",title);
+                DbHandler.putString(this,"message_list",message);
+            }
         }
 
     }

@@ -1,11 +1,20 @@
 package edu.kiet.www.epoque2017.Activity;
 
+import android.app.AlarmManager;
 import android.app.AlertDialog;
+import android.app.Notification;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.SystemClock;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -15,8 +24,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import edu.kiet.www.epoque2017.Fragment.Events;
 import edu.kiet.www.epoque2017.Fragment.Fragment_update;
@@ -28,6 +42,7 @@ import edu.kiet.www.epoque2017.Models.ProfilePOJO;
 import edu.kiet.www.epoque2017.R;
 import edu.kiet.www.epoque2017.Requests.ProfileRequest;
 import edu.kiet.www.epoque2017.networking.NetworkCheck;
+import edu.kiet.www.epoque2017.networking.NotificationPublisher;
 import edu.kiet.www.epoque2017.networking.ServiceGenerator;
 import edu.kiet.www.epoque2017.ui.coloredSnackBar;
 import edu.kiet.www.epoque2017.util.DbHandler;
@@ -93,11 +108,13 @@ public class Home extends AppCompatActivity {
 
                                 ProfileDataumPOJO data;
                                 data = responseBody.getData();
+
                                 if (data.getUpdate()) {
 
                                     Fragment_update fragment_update = new Fragment_update();
                                     fragment_update.show(getFragmentManager(), "Update App");
-                                } else if (data.getService()) {
+                                }
+                                if (data.getService()) {
                                     new AlertDialog.Builder(Home.this)
                                             .setMessage("App under service")
                                             .setCancelable(false)
@@ -109,6 +126,20 @@ public class Home extends AppCompatActivity {
                                             })
                                             .show();
                                 }
+                                if(data.getEpk_2k18()){
+                                    new AlertDialog.Builder(Home.this)
+                                            .setMessage("See you on EPOQUE 2K18")
+                                            .setCancelable(false)
+                                            .setNegativeButton("Ok", new DialogInterface.OnClickListener() {
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    doubleBackToExitPressedOnce = true;
+                                                    onBackPressed();
+                                                }
+                                            })
+                                            .show();
+
+                                }
+
                                 DbHandler.putString(Home.this, "profile", gson.toJson(data));
 
 
@@ -135,6 +166,7 @@ public class Home extends AppCompatActivity {
                 });
             }
         }
+
 
        bottomNavigationView = (BottomNavigationView)
                 findViewById(R.id.bottom_navigation);
@@ -207,6 +239,9 @@ public class Home extends AppCompatActivity {
         }
        // super.onBackPressed();
     }
+
+
+
 
 
 }

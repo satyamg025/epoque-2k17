@@ -8,6 +8,6 @@ import retrofit2.http.GET;
  * Created by satyam on 2/21/17.
  */
 public interface ProfileRequest {
-    @GET("App_controller/reg_events")
+    @GET("App_controller/reg_events_v2")
     Call<ProfilePOJO> response();
 }

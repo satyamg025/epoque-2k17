@@ -82,62 +82,63 @@ public class RequestReceivedAdapter extends RecyclerView.Adapter<RequestReceived
             holder.Accept.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    holder.Accept.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            if (!NetworkCheck.isNetworkAvailable(context)) {
-                                Toast.makeText(context,"No Network Connection",Toast.LENGTH_SHORT).show();
-                                return;
-                            }
-                            else {
-                                 progressDialog=new ProgressDialog(context);
 
-                                progressDialog.setIndeterminate(true);
-                                progressDialog.setCancelable(false);
-                                progressDialog.setMessage("Loading...");
-                                progressDialog.show();
-                                if(!DbHandler.getString(context,"bearer","").equals("")) {
-                                    Toast.makeText(context,"Registering ...",Toast.LENGTH_LONG);
+                            if(!data.getReg_closed()) {
+                                if (!NetworkCheck.isNetworkAvailable(context)) {
+                                    Toast.makeText(context, "No Network Connection", Toast.LENGTH_SHORT).show();
+                                    return;
+                                } else {
+                                    progressDialog = new ProgressDialog(context);
 
-                                    AcceptRejectRequest acceptRejectRequest = ServiceGenerator.createService(AcceptRejectRequest.class,DbHandler.getString(context,"bearer",""));
-                                    Call<AcceptRejectPOJO> call = acceptRejectRequest.responseRequest(data.getInviteId().get(position),"1");
-                                    call.enqueue(new Callback<AcceptRejectPOJO>() {
+                                    progressDialog.setIndeterminate(true);
+                                    progressDialog.setCancelable(false);
+                                    progressDialog.setMessage("Loading...");
+                                    progressDialog.show();
+                                    if (!DbHandler.getString(context, "bearer", "").equals("")) {
+                                        Toast.makeText(context, "Registering ...", Toast.LENGTH_LONG);
 
-                                        @Override
-                                        public void onResponse(Call<AcceptRejectPOJO> call, Response<AcceptRejectPOJO> response) {
-                                            progressDialog.dismiss();
-                                            AcceptRejectPOJO responseBody = response.body();
-                                            Log.e("request_data", String.valueOf(responseBody));
-                                            if (response.code() == 200) {
-                                                if (!responseBody.getError()) {
+                                        AcceptRejectRequest acceptRejectRequest = ServiceGenerator.createService(AcceptRejectRequest.class, DbHandler.getString(context, "bearer", ""));
+                                        Call<AcceptRejectPOJO> call = acceptRejectRequest.responseRequest(data.getInviteId().get(position), "1");
+                                        call.enqueue(new Callback<AcceptRejectPOJO>() {
 
-                                                    Toast.makeText(context,responseBody.getMsg(),Toast.LENGTH_SHORT).show();
-                                                    Intent intent=new Intent(context, RequestReceived.class);
-                                                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                                    context.startActivity(intent);
+                                            @Override
+                                            public void onResponse(Call<AcceptRejectPOJO> call, Response<AcceptRejectPOJO> response) {
+                                                progressDialog.dismiss();
+                                                AcceptRejectPOJO responseBody = response.body();
+                                                Log.e("request_data", String.valueOf(responseBody));
+                                                if (response.code() == 200) {
+                                                    if (!responseBody.getError()) {
 
+                                                        Toast.makeText(context, responseBody.getMsg(), Toast.LENGTH_SHORT).show();
+                                                        Intent intent = new Intent(context, Home.class);
+                                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                        context.startActivity(intent);
+
+                                                    } else {
+                                                        DbHandler.unsetSession(context, "isForcedLoggedOut");
+                                                    }
                                                 } else {
-                                                    DbHandler.unsetSession(context, "isForcedLoggedOut");
+                                                    //progressDialog.dismiss();
+                                                    Toast.makeText(context, "Failed to connect", Toast.LENGTH_SHORT).show();
                                                 }
                                             }
-                                            else {
+
+                                            @Override
+                                            public void onFailure(Call<AcceptRejectPOJO> call, Throwable t) {
                                                 //progressDialog.dismiss();
-                                                Toast.makeText(context,"Failed to connect",Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(context, "Connection failed", Toast.LENGTH_SHORT).show();
+
                                             }
-                                        }
+                                        });
+                                    }
 
-                                        @Override
-                                        public void onFailure(Call<AcceptRejectPOJO> call, Throwable t) {
-                                            //progressDialog.dismiss();
-                                            Toast.makeText(context,"Connection failed",Toast.LENGTH_SHORT).show();
-
-                                        }
-                                    });
                                 }
-
                             }
-                        }
-                    });
+                            else{
+                                Toast.makeText(context,"Registrations are closed now",Toast.LENGTH_LONG).show();
+                            }
+
+
 
 
                 }
@@ -146,75 +147,80 @@ public class RequestReceivedAdapter extends RecyclerView.Adapter<RequestReceived
             holder.Reject.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    if(!data.getReg_closed()) {
 
-                    if (!NetworkCheck.isNetworkAvailable(context)) {
-                        Toast.makeText(context,"No Network Connection",Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-                    else {
+                        if (!NetworkCheck.isNetworkAvailable(context)) {
+                            Toast.makeText(context, "No Network Connection", Toast.LENGTH_SHORT).show();
+                            return;
+                        } else {
                                 /*final ProgressDialog progressDialog=new ProgressDialog(context);
 
                                 progressDialog.setIndeterminate(true);
                                 progressDialog.setCancelable(false);
                                 progressDialog.setMessage("Loading...");
                                 progressDialog.show();*/
-                        if(!DbHandler.getString(context,"bearer","").equals("")) {
-                            Toast.makeText(context,"Rejecting ...",Toast.LENGTH_LONG);
+                            if (!DbHandler.getString(context, "bearer", "").equals("")) {
+                                Toast.makeText(context, "Rejecting ...", Toast.LENGTH_LONG);
 
-                            AcceptRejectRequest acceptRejectRequest = ServiceGenerator.createService(AcceptRejectRequest.class,DbHandler.getString(context,"bearer",""));
-                            Call<AcceptRejectPOJO> call = acceptRejectRequest.responseRequest(data.getInviteId().get(position),"0");
-                            call.enqueue(new Callback<AcceptRejectPOJO>() {
+                                AcceptRejectRequest acceptRejectRequest = ServiceGenerator.createService(AcceptRejectRequest.class, DbHandler.getString(context, "bearer", ""));
+                                Call<AcceptRejectPOJO> call = acceptRejectRequest.responseRequest(data.getInviteId().get(position), "0");
+                                call.enqueue(new Callback<AcceptRejectPOJO>() {
 
-                                @Override
-                                public void onResponse(Call<AcceptRejectPOJO> call, Response<AcceptRejectPOJO> response) {
-                                    AcceptRejectPOJO responseBody = response.body();
-                                    Log.e("request_data", String.valueOf(responseBody.getMsg()));
-                                    if (response.code() == 200) {
-                                        if (!responseBody.getError()) {
-                                            //progressDialog.dismiss();
-                                            Intent intent=new Intent(context, RequestReceived.class);
-                                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                            Toast.makeText(context,responseBody.getMsg(),Toast.LENGTH_SHORT).show();
-                                            context.startActivity(intent);
+                                    @Override
+                                    public void onResponse(Call<AcceptRejectPOJO> call, Response<AcceptRejectPOJO> response) {
+                                        AcceptRejectPOJO responseBody = response.body();
+                                        Log.e("request_data", String.valueOf(responseBody.getMsg()));
+                                        if (response.code() == 200) {
+                                            if (!responseBody.getError()) {
+                                                //progressDialog.dismiss();
+                                                Intent intent = new Intent(context, Home.class);
+                                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                Toast.makeText(context, responseBody.getMsg(), Toast.LENGTH_SHORT).show();
+                                                context.startActivity(intent);
 
+                                            } else {
+                                                DbHandler.unsetSession(context, "isForcedLoggedOut");
+                                            }
                                         } else {
-                                            DbHandler.unsetSession(context, "isForcedLoggedOut");
+                                            // progressDialog.dismiss();
+                                            new AlertDialog.Builder(context)
+                                                    .setTitle("Failed")
+                                                    .setMessage("Failed to connect")
+                                                    .setNegativeButton("Ok", new DialogInterface.OnClickListener() {
+                                                        public void onClick(DialogInterface dialog, int which) {
+                                                            context.startActivity(new Intent(context, Home.class));
+                                                        }
+                                                    })
+                                                    .show();
                                         }
-                                    } else {
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<AcceptRejectPOJO> call, Throwable t) {
                                         // progressDialog.dismiss();
                                         new AlertDialog.Builder(context)
-                                                .setTitle("Failed")
-                                                .setMessage("Failed to connect")
+                                                .setMessage("Connection Failed")
                                                 .setNegativeButton("Ok", new DialogInterface.OnClickListener() {
                                                     public void onClick(DialogInterface dialog, int which) {
-                                                        context.startActivity(new Intent(context,Home.class));
+                                                        context.startActivity(new Intent(context, Home.class));
                                                     }
                                                 })
                                                 .show();
+
                                     }
-                                }
+                                });
+                            }
 
-                                @Override
-                                public void onFailure(Call<AcceptRejectPOJO> call, Throwable t) {
-                                    // progressDialog.dismiss();
-                                    new AlertDialog.Builder(context)
-                                            .setMessage("Connection Failed")
-                                            .setNegativeButton("Ok", new DialogInterface.OnClickListener() {
-                                                public void onClick(DialogInterface dialog, int which) {
-                                                    context.startActivity(new Intent(context,Home.class));
-                                                }
-                                            })
-                                            .show();
-
-                                }
-                            });
                         }
-
+                    }
+                    else{
+                        Toast.makeText(context,"Registrations are closed now",Toast.LENGTH_LONG).show();
                     }
 
                 }
             });
         }
+
         //holder.EventPhoto.setImageResource(current.eventPhoto);
         //holder.Accept.setText(current.accept);
         //holder.Reject.setText(current.reject);

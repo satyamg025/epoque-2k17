@@ -54,95 +54,102 @@ public class RegisteredEventsAdapter extends RecyclerView.Adapter<RegisteredEven
         holder.cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                progressDialog=new ProgressDialog(context);
-                progressDialog.setMessage("Cancelling...");
-                progressDialog.setCancelable(false);
-                progressDialog.setIndeterminate(true);
 
-                int id=holder.getAdapterPosition();
-                if(data.getTeamLeaderBool().get(id)){
-                    if(data.getEventCategory().get(id).equals("S")){
+                if(!data.getReg_closed()) {
+                    int id = holder.getAdapterPosition();
+                    if (data.getTeamLeaderBool().get(id)) {
+                        progressDialog = new ProgressDialog(context);
+                        progressDialog.setMessage("Cancelling...");
+                        progressDialog.setCancelable(false);
+                        progressDialog.setIndeterminate(true);
 
-                        if(!DbHandler.getString(context,"bearer","").equals("")) {
-                           // Toast.makeText(context,"Cancelling...",Toast.LENGTH_LONG).show();
+                        if (data.getEventCategory().get(id).equals("S")) {
 
-                            progressDialog.show();
-                            CancelRequest cancelRequest = ServiceGenerator.createService(CancelRequest.class,DbHandler.getString(context,"bearer",""));
-                            Call<CancelEventPOJO> call = cancelRequest.response(data.getEventId().get(position));
-                            call.enqueue(new Callback<CancelEventPOJO>() {
+                            if (!DbHandler.getString(context, "bearer", "").equals("")) {
+                                // Toast.makeText(context,"Cancelling...",Toast.LENGTH_LONG).show();
 
-                                @Override
-                                public void onResponse(Call<CancelEventPOJO> call, Response<CancelEventPOJO> response) {
-                                    progressDialog.dismiss();
-                                    CancelEventPOJO responseBody = response.body();
-                                    Log.e("request_data", String.valueOf(responseBody));
-                                    if (response.code() == 200) {
-                                        if (!responseBody.getError()) {
-                                            Toast.makeText(context,"Event cancelled successfully",Toast.LENGTH_LONG).show();
-                                            Intent intent=new Intent(context,Home.class);
-                                            context.startActivity(intent);
+                                progressDialog.show();
+                                CancelRequest cancelRequest = ServiceGenerator.createService(CancelRequest.class, DbHandler.getString(context, "bearer", ""));
+                                Call<CancelEventPOJO> call = cancelRequest.response(data.getEventId().get(position));
+                                call.enqueue(new Callback<CancelEventPOJO>() {
+
+                                    @Override
+                                    public void onResponse(Call<CancelEventPOJO> call, Response<CancelEventPOJO> response) {
+                                        progressDialog.dismiss();
+                                        CancelEventPOJO responseBody = response.body();
+                                        Log.e("request_data", String.valueOf(responseBody));
+                                        if (response.code() == 200) {
+                                            if (!responseBody.getError()) {
+                                                Toast.makeText(context, "Event cancelled successfully", Toast.LENGTH_LONG).show();
+                                                Intent intent = new Intent(context, Home.class);
+                                                context.startActivity(intent);
 
 
+                                            } else {
+                                                Toast.makeText(context, "Some error occured try again later", Toast.LENGTH_LONG).show();
+                                            }
                                         } else {
-                                            Toast.makeText(context,"Some error occured try again later",Toast.LENGTH_LONG).show();
+                                            Toast.makeText(context, "Failed to connect", Toast.LENGTH_SHORT).show();
                                         }
-                                    } else {
-                                        Toast.makeText(context,"Failed to connect",Toast.LENGTH_SHORT).show();
                                     }
-                                }
 
-                                @Override
-                                public void onFailure(Call<CancelEventPOJO> call, Throwable t) {
-                                    progressDialog.dismiss();
-                                    Toast.makeText(context,"Connection failed",Toast.LENGTH_LONG).show();
-                                }
-                            });
+                                    @Override
+                                    public void onFailure(Call<CancelEventPOJO> call, Throwable t) {
+                                        progressDialog.dismiss();
+                                        Toast.makeText(context, "Connection failed", Toast.LENGTH_LONG).show();
+                                    }
+                                });
+                            }
+
+
+                        } else {
+
+                            if (!DbHandler.getString(context, "bearer", "").equals("")) {
+                                progressDialog.show();
+                                CancelRequest2 cancelRequest2 = ServiceGenerator.createService(CancelRequest2.class, DbHandler.getString(context, "bearer", ""));
+                                Call<CancelEventPOJO> call = cancelRequest2.response(data.getEventId().get(position));
+                                ;
+                                call.enqueue(new Callback<CancelEventPOJO>() {
+
+                                    @Override
+                                    public void onResponse(Call<CancelEventPOJO> call, Response<CancelEventPOJO> response) {
+                                        progressDialog.show();
+                                        CancelEventPOJO responseBody = response.body();
+                                        Log.e("request_data", String.valueOf(responseBody));
+                                        if (response.code() == 200) {
+                                            if (!responseBody.getError()) {
+                                                Toast.makeText(context, "Event cancelled successfully", Toast.LENGTH_LONG).show();
+                                                Intent intent = new Intent(context, Home.class);
+                                                context.startActivity(intent);
+
+
+                                            } else {
+                                                Toast.makeText(context, "Some error occured try again later", Toast.LENGTH_LONG).show();
+                                            }
+                                        } else {
+                                            Toast.makeText(context, "Failed to connect", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<CancelEventPOJO> call, Throwable t) {
+                                        progressDialog.dismiss();
+                                        Toast.makeText(context, "Connection failed", Toast.LENGTH_LONG).show();
+                                    }
+                                });
+                            }
                         }
 
 
+                    } else {
+                        Toast.makeText(context, "Only team leader can cancel this registered event.", Toast.LENGTH_LONG).show();
                     }
-                    else{
-
-                        if(!DbHandler.getString(context,"bearer","").equals("")) {
-                            progressDialog.show();
-                            CancelRequest2 cancelRequest2 = ServiceGenerator.createService(CancelRequest2.class,DbHandler.getString(context,"bearer",""));
-                            Call<CancelEventPOJO> call = cancelRequest2.response(data.getEventId().get(position));;
-                            call.enqueue(new Callback<CancelEventPOJO>() {
-
-                                @Override
-                                public void onResponse(Call<CancelEventPOJO> call, Response<CancelEventPOJO> response) {
-                                    progressDialog.show();
-                                    CancelEventPOJO responseBody = response.body();
-                                    Log.e("request_data", String.valueOf(responseBody));
-                                    if (response.code() == 200) {
-                                        if (!responseBody.getError()) {
-                                            Toast.makeText(context,"Event cancelled successfully",Toast.LENGTH_LONG).show();
-                                            Intent intent=new Intent(context,Home.class);
-                                            context.startActivity(intent);
-
-
-                                        } else {
-                                            Toast.makeText(context,"Some error occured try again later",Toast.LENGTH_LONG).show();
-                                        }
-                                    } else {
-                                        Toast.makeText(context,"Failed to connect",Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-
-                                @Override
-                                public void onFailure(Call<CancelEventPOJO> call, Throwable t) {
-                                    progressDialog.dismiss();
-                                    Toast.makeText(context,"Connection failed",Toast.LENGTH_LONG).show();
-                                }
-                            });
-                        }
-                    }
-
-
                 }
-                else{
-                    Toast.makeText(context,"Only team leader can cancel this registered event.",Toast.LENGTH_LONG).show();
+                else {
+                    Toast.makeText(context, "Registrations are closed now", Toast.LENGTH_LONG).show();
                 }
+
+
 
             }
 

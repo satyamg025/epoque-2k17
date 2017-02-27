@@ -24,6 +24,9 @@ public class RequestReceivedDataumPOJO {
     @SerializedName("invite_id")
     @Expose
     private List<String> inviteId = null;
+    @SerializedName("reg_closed")
+    @Expose
+    private Boolean reg_closed;
 
     public List<String> getInvitedBy() {
         return invitedBy;
@@ -64,5 +67,16 @@ public class RequestReceivedDataumPOJO {
     public void setInviteId(List<String> inviteId) {
         this.inviteId = inviteId;
     }
+
+    public Boolean getReg_closed() {
+        return reg_closed;
+    }
+
+    public void setReg_closed(Boolean reg_closed) {
+        this.reg_closed = reg_closed;
+    }
+
+
+
 
 }

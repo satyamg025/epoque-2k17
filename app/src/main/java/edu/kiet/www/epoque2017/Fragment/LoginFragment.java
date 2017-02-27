@@ -124,6 +124,7 @@ public class LoginFragment extends Fragment {
                 progressDialog.setCancelable(false);
                 progressDialog.setMessage("Authenticating...");
                 progressDialog.show();
+                Log.e("fcm_id",FirebaseInstanceId.getInstance().getToken());
 
                 LoginRequest loginRequest = ServiceGenerator.createService(LoginRequest.class, username.getText().toString(), password.getText().toString());
                 Call<LoginPOJO> call = loginRequest.responseRequest(FirebaseInstanceId.getInstance().getToken());
@@ -137,6 +138,7 @@ public class LoginFragment extends Fragment {
                             if (!responseBody.getError()) {
 
                                 DbHandler.setSession(getActivity(), responseBody.getKey(), responseBody.getPerson());
+                                DbHandler.putBoolean(getContext(),"isForcedLoggedOut",false);
                                 startActivity(new Intent(getActivity(), Home.class));
                             } else {
                                 new AlertDialog.Builder(getActivity())

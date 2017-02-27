@@ -5,28 +5,24 @@ package edu.kiet.www.epoque2017.Adapters;
  */
 
 import android.content.Context;
-import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.squareup.picasso.Picasso;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import edu.kiet.www.epoque2017.R;
 
 public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapter.ViewHolder> {
-    public List<String> title=new ArrayList<String>();
-    public List<String> body=new ArrayList<String>();
 
-    public NotificationAdapter(List<String> title,List<String> body){
-        this.title=title;
-        this.body=body;
+    String title[]=null;
+    String messge[]=null;
+    Context context;
+
+    public NotificationAdapter(Context applicationContext, String[] ti, String[] msg) {
+        this.context=context;
+        this.title=ti;
+        this.messge=msg;
     }
 
     @Override
@@ -38,21 +34,25 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
 
-        // holder.img.setImageURI(Uri.parse("www.hotel-r.net/im/hotel/be/welcome-2.png"));
+
+        holder.titl.setText(title[position]);
+        holder.msg.setText(messge[position]);
     }
 
 
     @Override
     public int getItemCount() {
-        return title.size();
+        return title.length;
     }
 
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
-        public ImageView img;
+        public TextView titl,msg;
         public ViewHolder(View itemView) {
             super(itemView);
+            titl=(TextView)itemView.findViewById(R.id.title);
+            msg=(TextView)itemView.findViewById(R.id.body);
 
         }
     }

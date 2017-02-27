@@ -33,6 +33,12 @@ public class ProfileDataumPOJO {
     @SerializedName("service")
     @Expose
     private Boolean service;
+    @SerializedName("epk_2k18")
+    @Expose
+    private Boolean epk_2k18;
+    @SerializedName("reg_closed")
+    @Expose
+    private Boolean reg_closed;
     @SerializedName("spon_img")
     @Expose
     private List<String> sponImg = null;
@@ -85,6 +91,14 @@ public class ProfileDataumPOJO {
         this.teamLeaderBool = teamLeaderBool;
     }
 
+    public Boolean getEpk_2k18() {
+        return epk_2k18;
+    }
+
+    public void setEpk_2k18(Boolean epk_2k18) {
+        this.epk_2k18 = epk_2k18;
+    }
+
     public Boolean getUpdate() {
         return update;
     }
@@ -107,6 +121,14 @@ public class ProfileDataumPOJO {
 
     public void setSponImg(List<String> sponImg) {
         this.sponImg = sponImg;
+    }
+
+    public Boolean getReg_closed() {
+        return reg_closed;
+    }
+
+    public void setReg_closed(Boolean reg_closed) {
+        this.reg_closed = reg_closed;
     }
 
 

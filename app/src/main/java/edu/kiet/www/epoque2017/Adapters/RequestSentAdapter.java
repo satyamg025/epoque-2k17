@@ -1,6 +1,8 @@
 package edu.kiet.www.epoque2017.Adapters;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutCompat;
@@ -12,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -44,6 +47,8 @@ public class RequestSentAdapter extends RecyclerView.Adapter<RequestSentAdapter.
         this.context=context;
         this.fragmentManager=fragmentManager;
     }
+
+
 
     public class view_holder extends RecyclerView.ViewHolder {
         TextView eventName;ImageView eventImage;
@@ -129,10 +134,15 @@ public class RequestSentAdapter extends RecyclerView.Adapter<RequestSentAdapter.
                 linearLayout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        int id = view.getId() % 100;
-                        RequestSentDialogFragment dialog = RequestSentDialogFragment.newInstance(context,data.get(position).getInvitationTo().get(id).trim(),data.get(position).getEventId());
-                        dialog.show(fragmentManager, "fm");
-                        Log.e(data.get(position).getInvitationTo().get(id).trim(), Integer.toString(id));
+                        if(!data.get(position).getReg_closed()) {
+                            int id = view.getId() % 100;
+                            RequestSentDialogFragment dialog = RequestSentDialogFragment.newInstance(context, data.get(position).getInvitationTo().get(id).trim(), data.get(position).getEventId());
+                            dialog.show(fragmentManager, "fm");
+                            Log.e(data.get(position).getInvitationTo().get(id).trim(), Integer.toString(id));
+                        }
+                        else{
+                            Toast.makeText(context,"Registrations are closed now",Toast.LENGTH_LONG).show();
+                        }
                     }
                 });
             }
