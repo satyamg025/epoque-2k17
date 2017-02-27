@@ -1,8 +1,6 @@
 package edu.kiet.www.epoque2017.Activity;
 
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -39,7 +37,7 @@ public class EventActivity extends AppCompatActivity {
     AppCompatButton register;
     ProgressDialog progressDialog;
     Bundle bundle;
-    TextView  eventName,tagline,category,type,minParticipants,maxParticipants,description,time;
+    TextView  eventName,tagline,category,type,minParticipants,maxParticipants,description,time,studentApexName,studentApexPhone,facultyApexName,facultyApexPhone,facultyApexDept;
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
@@ -60,18 +58,8 @@ public class EventActivity extends AppCompatActivity {
         maxParticipants=(TextView)findViewById(R.id.max_participants);
         description=(TextView)findViewById(R.id.event_description);
         time=(TextView)findViewById(R.id.time);
-        /*studentApexName=(TextView)findViewById(R.id.student_apex_name);
-        studentApexPhone=(TextView)findViewById(R.id.student_apex_phone);
-        facultyApexName=(TextView)findViewById(R.id.faculty_apex_name);
-        facultyApexPhone=(TextView)findViewById(R.id.facuty_apex_phone);
-        facultyApexDept=(TextView)findViewById(R.id.facuty_apex_dept);*/
-       /* studentApexName.setVisibility(View.GONE);
-        studentApexPhone.setVisibility(View.GONE);
-        facultyApexDept.setVisibility(View.GONE);
-        facultyApexName.setVisibility(View.GONE);
-        facultyApexPhone.setVisibility(View.GONE);*/
         progressDialog=new ProgressDialog(this);
-        progressDialog.setMessage("Loading...");
+        progressDialog.setMessage("Registering...");
         progressDialog.setCancelable(false);
         if(!(bundle.getString("tagline")==null))
         tagline.setText(bundle.getString("tagline"));
@@ -95,113 +83,92 @@ public class EventActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     progressDialog.show();
-                    if (!bundle.getBoolean("reg_closed")) {
-                        if (bundle.getString("type").equalsIgnoreCase("D")) {
-                            String bearer = DbHandler.getString(getApplicationContext(), "bearer", "");
-                            RegisterSoloDeptRequest request = ServiceGenerator.createService(RegisterSoloDeptRequest.class, bearer);
-                            Call<RegisterCancelPOJO> call = request.request(bundle.getString("eventId"));
-                            call.enqueue(new Callback<RegisterCancelPOJO>() {
-                                @Override
-                                public void onResponse(Call<RegisterCancelPOJO> call, Response<RegisterCancelPOJO> response) {
-                                    progressDialog.dismiss();
-                                    if (response.body().getError()) {
-                                        Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "Session Expired", Snackbar.LENGTH_LONG);
-                                        coloredSnackBar.alert(snackbar).show();
-                                        DbHandler.unsetSession(EventActivity.this, "isForcedLoggedOut");
-                                        startActivity(new Intent(EventActivity.this, SplashActivity.class));
+                    if(bundle.getString("type").equalsIgnoreCase("D"))
+                    {
+                        String bearer= DbHandler.getString(getApplicationContext(),"bearer","");
+                        RegisterSoloDeptRequest request= ServiceGenerator.createService(RegisterSoloDeptRequest.class,bearer);
+                        Call<RegisterCancelPOJO> call=request.request(bundle.getString("eventId"));
+                        call.enqueue(new Callback<RegisterCancelPOJO>() {
+                            @Override
+                            public void onResponse(Call<RegisterCancelPOJO> call, Response<RegisterCancelPOJO> response) {
+                                progressDialog.dismiss();
+                                if(response.body().getError())
+                                {
+                                    Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "Session Expired", Snackbar.LENGTH_LONG);
+                                    coloredSnackBar.alert(snackbar).show();
+                                    DbHandler.unsetSession(EventActivity.this, "isForcedLoggedOut");
+                                    startActivity(new Intent(EventActivity.this,SplashActivity.class));
+                                    finishAffinity();
+                                }
+                                else{
+                                    Toast.makeText(EventActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                                    if(response.body().getStatus().trim().equalsIgnoreCase("success"))
+                                    {
+                                        startActivity(new Intent(EventActivity.this,Home.class));
                                         finishAffinity();
-                                    } else {
-                                        Toast.makeText(EventActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                                        if (response.body().getStatus().trim().equalsIgnoreCase("success")) {
-                                            startActivity(new Intent(EventActivity.this, Home.class));
-                                            finishAffinity();
-                                        }
                                     }
                                 }
+                            }
 
-                                @Override
-                                public void onFailure(Call<RegisterCancelPOJO> call, Throwable t) {
+                            @Override
+                            public void onFailure(Call<RegisterCancelPOJO> call, Throwable t) {
 
-                                }
-                            });
-
-                        }
-
-                        if (bundle.getString("type").equalsIgnoreCase("I")) {
-                            String bearer = DbHandler.getString(getApplicationContext(), "bearer", "");
-                            RegisterSoloInstRequest request = ServiceGenerator.createService(RegisterSoloInstRequest.class, bearer);
-                            Call<RegisterCancelPOJO> call = request.request(bundle.getString("eventId"));
-                            call.enqueue(new Callback<RegisterCancelPOJO>() {
-                                @Override
-                                public void onResponse(Call<RegisterCancelPOJO> call, Response<RegisterCancelPOJO> response) {
-                                    progressDialog.dismiss();
-                                    if (response.body().getError()) {
-
-                                        DbHandler.unsetSession(EventActivity.this, "isForcedLoggedOut");
-                                        startActivity(new Intent(EventActivity.this, SplashActivity.class));
-                                        Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "Session Expired", Snackbar.LENGTH_LONG);
-                                        coloredSnackBar.alert(snackbar).show();
-                                        finishAffinity();
-
-                                    } else {
-                                        Toast.makeText(EventActivity.this, response.body().getMessage(), Toast.LENGTH_LONG).show();
-                                        if (response.body().getStatus().trim().equalsIgnoreCase("success")) {
-                                            startActivity(new Intent(EventActivity.this, Home.class));
-                                            finishAffinity();
-                                        }
-                                    }
-                                }
-
-                                @Override
-                                public void onFailure(Call<RegisterCancelPOJO> call, Throwable t) {
-                                    Toast.makeText(EventActivity.this, "Please check your internet connection", Toast.LENGTH_SHORT).show();
-                                }
-                            });
-
-                        }
+                            }
+                        });
 
                     }
-                    else{
-                        new AlertDialog.Builder(EventActivity.this)
-                                .setMessage("Registrations are closed now")
-                                .setCancelable(false)
-                                .setNegativeButton("Ok", new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        onBackPressed();
+                    if(bundle.getString("type").equalsIgnoreCase("I"))
+                    {
+                        String bearer= DbHandler.getString(getApplicationContext(),"bearer","");
+                        RegisterSoloInstRequest request=ServiceGenerator.createService(RegisterSoloInstRequest.class,bearer);
+                        Call<RegisterCancelPOJO> call=request.request(bundle.getString("eventId"));
+                        call.enqueue(new Callback<RegisterCancelPOJO>() {
+                            @Override
+                            public void onResponse(Call<RegisterCancelPOJO> call, Response<RegisterCancelPOJO> response) {
+                                progressDialog.dismiss();
+                                if(response.body().getError())
+                                {
+
+                                    DbHandler.unsetSession(EventActivity.this, "isForcedLoggedOut");
+                                    startActivity(new Intent(EventActivity.this,SplashActivity.class));
+                                    Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "Session Expired", Snackbar.LENGTH_LONG);
+                                    coloredSnackBar.alert(snackbar).show();
+                                    finishAffinity();
+
+                                }
+                                else{
+                                    Toast.makeText(EventActivity.this, response.body().getMessage(), Toast.LENGTH_LONG).show();
+                                    if(response.body().getStatus().trim().equalsIgnoreCase("success"))
+                                    {
+                                       startActivity(new Intent(EventActivity.this,Home.class));
+                                        finishAffinity();
                                     }
-                                })
-                                .show();
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<RegisterCancelPOJO> call, Throwable t) {
+                                Toast.makeText(EventActivity.this, "Please check your internet connection", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
                     }
+
                 }
 
 
             });
 
-
             }
-
         else
         {
             register.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (!bundle.getBoolean("reg_closed")) {
-                        RegisterGroupDialogFragment dialogFragment = RegisterGroupDialogFragment.newinstance(EventActivity.this,
-                                bundle.getString("type"),
-                                bundle.getString("minPart"), bundle.getString("maxPart"), bundle.getString("eventId"));
-                        dialogFragment.show(getSupportFragmentManager(), "fm");
-                    }
-                    else{
-                        new AlertDialog.Builder(EventActivity.this)
-                                .setMessage("Registrations are closed now")
-                                .setCancelable(false)
-                                .setNegativeButton("Ok", new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        onBackPressed();
-                                    }
-                                })
-                                .show();
-                    }
+                    RegisterGroupDialogFragment dialogFragment=RegisterGroupDialogFragment.newinstance(EventActivity.this,
+                            bundle.getString("type"),
+                            bundle.getString("minPart"),bundle.getString("maxPart"),bundle.getString("eventId") );
+                    dialogFragment.show(getSupportFragmentManager(),"fm");
                 }
             });
 
