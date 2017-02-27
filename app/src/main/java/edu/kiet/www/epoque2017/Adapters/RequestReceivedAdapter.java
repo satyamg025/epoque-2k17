@@ -90,7 +90,7 @@ public class RequestReceivedAdapter extends RecyclerView.Adapter<RequestReceived
                                 return;
                             }
                             else {
-                                 progressDialog=new ProgressDialog(context);
+                                 progressDialog=new ProgressDialog(view.getContext());
 
                                 progressDialog.setIndeterminate(true);
                                 progressDialog.setCancelable(false);

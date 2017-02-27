@@ -58,18 +58,8 @@ public class EventActivity extends AppCompatActivity {
         maxParticipants=(TextView)findViewById(R.id.max_participants);
         description=(TextView)findViewById(R.id.event_description);
         time=(TextView)findViewById(R.id.time);
-        studentApexName=(TextView)findViewById(R.id.student_apex_name);
-        studentApexPhone=(TextView)findViewById(R.id.student_apex_phone);
-        facultyApexName=(TextView)findViewById(R.id.faculty_apex_name);
-        facultyApexPhone=(TextView)findViewById(R.id.facuty_apex_phone);
-        facultyApexDept=(TextView)findViewById(R.id.facuty_apex_dept);
-        studentApexName.setVisibility(View.GONE);
-        studentApexPhone.setVisibility(View.GONE);
-        facultyApexDept.setVisibility(View.GONE);
-        facultyApexName.setVisibility(View.GONE);
-        facultyApexPhone.setVisibility(View.GONE);
         progressDialog=new ProgressDialog(this);
-        progressDialog.setMessage("Loading...");
+        progressDialog.setMessage("Registering...");
         progressDialog.setCancelable(false);
         if(!(bundle.getString("tagline")==null))
         tagline.setText(bundle.getString("tagline"));

@@ -62,6 +62,8 @@ public class RequestSentDialogFragment extends DialogFragment {
                     coloredSnackBar.alert(snackbar).show();
                     return;
                 }
+                else if(user.getText().toString().trim().isEmpty())
+                user.setError("Please enter a valid Library Id");
                 else{
 
                     final ProgressDialog progressDialog=new ProgressDialog(getActivity());
